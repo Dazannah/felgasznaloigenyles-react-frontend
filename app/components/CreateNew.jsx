@@ -24,7 +24,7 @@ function CreateNew() {
             <input className="content roundCorner" type="text" id="id" name="id" />
             <p />
 
-            <input type="radio" id="newUser" name="process" value="Új felhasználó" required readOnly />
+            <input type="radio" id="newUser" name="process" value="Új felhasználó" required checked readOnly />
             <label htmlFor="newUser">Új felhasználó</label>
             <br />
           </div>

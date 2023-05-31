@@ -1,45 +1,66 @@
-import React, { useEffect, useContext } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import React, { useEffect, useContext, useState } from "react"
+import { Link, redirect, Navigate } from "react-router-dom"
 import DispatchContext from "../DispatchContext.jsx"
+import StateContext from "../StateContext.jsx"
 
 function Menu() {
   const appDispatch = useContext(DispatchContext)
+  const appState = useState(StateContext)
+  const [redirect, setRedirectTo] = useState(null)
 
-  function logout(e){
+  function logout(e) {
     e.preventDefault()
-    localStorage.removeItem("jwt")
-    appDispatch({type: "logout"})
+    appDispatch({ type: "logout" })
   }
 
   return (
-    <div id="menuWrapper">
-      <div id="menu">
-        <form>
-          <button onClick={useNavigate("/")}>Új felvétel</button>
-        </form>
-        <form>
-          <button onClick={useNavigate("/list-users")}>Felhasználók listázása</button>
-        </form>
-        <form>
-          <button onClick={useNavigate()} >Kérelmek listázása</button>
-        </form>
-        <form>
-          <button onClick={useNavigate()} >Engedélyezett kérelmek listázása</button>
-        </form>
-        <form>
-          <button onClick={useNavigate()} >Elkészült ticketek</button>
-        </form>
-        <form>
-          <button onClick={useNavigate()} >Terjesztési lista ígénylés</button>
-        </form>
+    <>
+      <div id="title">
+        <p>{`${appState.location}`}</p>
       </div>
+      <div id="menuWrapper">
+        <div id="menu">
+          <form>
+            <Link className="btn" to="/">
+              Új felvétel
+            </Link>
+          </form>
+          <form>
+            <Link className="btn" to="/list-users">
+              Felhasználók listázása
+            </Link>
+          </form>
+          <form>
+            <Link className="btn" to="">
+              Kérelmek listázása
+            </Link>
+          </form>
+          <form>
+            <Link className="btn" to="">
+              Engedélyezett kérelmek listázása
+            </Link>
+          </form>
+          <form>
+            <Link className="btn" to="">
+              Elkészült ticketek
+            </Link>
+          </form>
+          <form>
+            <Link className="btn" to="">
+              Terjesztési lista ígénylés
+            </Link>
+          </form>
+        </div>
 
-      <div id="logOut">
-
-          <button onClick={e => logout(e)} >Kijelentkezés</button>
-
+        <div id="logOut">
+          <form>
+            <Link className="btn" onClick={e => logout(e)} to="/">
+              Kijelentkezés
+            </Link>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

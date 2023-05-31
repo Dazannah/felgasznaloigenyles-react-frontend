@@ -11,6 +11,9 @@ import Login from "./components/Login.jsx"
 import Menu from "./components/Menu.jsx"
 import CreateNew from "./components/CreateNew.jsx"
 import ListUsers from "./components/ListUsers.jsx"
+import FlashMessages from "./components/FlashMessages.jsx"
+
+import NoFound from "./components/NoFound.jsx"
 
 //contexts
 import StateContext from "./StateContext.jsx"
@@ -21,8 +24,9 @@ function Main() {
     loggedIn: Boolean(localStorage.getItem("jwt")),
     flashMessages: [],
     user: {
-      token: localStorage.getItem("complexappToken")
-    }
+      token: localStorage.getItem("jwt")
+    },
+    location: "Jogosultság igénylés"
   }
 
   function ourReducer(draft, action) {
@@ -33,10 +37,20 @@ function Main() {
       case "logout":
         draft.loggedIn = false
         return
+      case "flashMessage":
+        draft.flashMessages.push(action.value)
+        return
     }
   }
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
-  const appDispatch = useContext(DispatchContext)
+
+  useEffect(() => {
+    if (state.loggedIn) {
+      localStorage.setItem("jwt", state.user.token)
+    } else {
+      localStorage.removeItem("jwt")
+    }
+  }, [state.loggedIn])
 
   if (state.loggedIn) {
     return (
@@ -47,6 +61,8 @@ function Main() {
             <Routes>
               <Route path="/" element={<CreateNew />} />
               <Route path="/list-users" element={<ListUsers />}></Route>
+
+              <Route path="/*" element={<NoFound />} />
             </Routes>
           </BrowserRouter>
         </DispatchContext.Provider>
@@ -57,8 +73,9 @@ function Main() {
       <StateContext.Provider value={state}>
         <DispatchContext.Provider value={dispatch}>
           <BrowserRouter>
+            <FlashMessages />
             <Routes>
-              <Route path="/" element={<Login />} />
+              <Route path="/*" element={<Login />} />
             </Routes>
           </BrowserRouter>
         </DispatchContext.Provider>

@@ -18,8 +18,11 @@ import DispatchContext from "./DispatchContext.jsx"
 
 function Main() {
   const initialState = {
-    loggedIn: false,
+    loggedIn: Boolean(localStorage.getItem("jwt")),
     flashMessages: [],
+    user: {
+      token: localStorage.getItem("complexappToken")
+    }
   }
 
   function ourReducer(draft, action) {
@@ -34,13 +37,6 @@ function Main() {
   }
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
   const appDispatch = useContext(DispatchContext)
-
-  console.log(Boolean(window.localStorage.getItem("jwt")))
-  if(Boolean(window.localStorage.getItem("jwt"))){ //valami ilyet kellene reactosan megcsinálni
-    () => appDispatch({ type: "login"})
-  }else{
-    () => appDispatch({ type: "logout"})
-  }
 
   if (state.loggedIn) {
     return (

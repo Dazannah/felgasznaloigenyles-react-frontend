@@ -1,35 +1,43 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import DispatchContext from "../DispatchContext.jsx"
 
 function Menu() {
+  const appDispatch = useContext(DispatchContext)
+
+  function logout(e){
+    e.preventDefault()
+    localStorage.removeItem("jwt")
+    appDispatch({type: "logout"})
+  }
+
   return (
     <div id="menuWrapper">
       <div id="menu">
         <form>
-          <button onClick={() => useNavigate("/")}>Új felvétel</button>
+          <button onClick={useNavigate("/")}>Új felvétel</button>
         </form>
         <form>
-          <button onClick={() => useNavigate("/listUsers")}>Felhasználók listázása</button>
+          <button onClick={useNavigate("/list-users")}>Felhasználók listázása</button>
         </form>
-        <form onSubmit="/requestsList">
-          <input type="submit" value="Kérelmek listázása" />
+        <form>
+          <button onClick={useNavigate()} >Kérelmek listázása</button>
         </form>
-        <form onSubmit="/requestsHandle">
-          <input type="submit" value="Engedélyezett kérelmek listázása" />
+        <form>
+          <button onClick={useNavigate()} >Engedélyezett kérelmek listázása</button>
         </form>
-        <form onSubmit="/requestClosed">
-          <input type="submit" value="Elkészült ticketek" />
+        <form>
+          <button onClick={useNavigate()} >Elkészült ticketek</button>
         </form>
-        <form onSubmit="/distributionList">
-          <input type="submit" value="Terjesztési lista ígénylés" />
+        <form>
+          <button onClick={useNavigate()} >Terjesztési lista ígénylés</button>
         </form>
       </div>
 
       <div id="logOut">
-        <form onSubmit="/logOut" method="post">
-          <input type="hidden" name="csrf-token" value="" />
-          <input type="submit" value="Kijelentkezés" />
-        </form>
+
+          <button onClick={e => logout(e)} >Kijelentkezés</button>
+
       </div>
     </div>
   )

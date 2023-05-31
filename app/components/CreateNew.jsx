@@ -14,7 +14,6 @@ function CreateNew() {
             <input className="content roundCorner" type="text" id="name" name="name" required />
             <br />
             <p />
-            includes/classNameDropdown
           </div>
 
           <div id="rightUp">
@@ -25,7 +24,7 @@ function CreateNew() {
             <input className="content roundCorner" type="text" id="id" name="id" />
             <p />
 
-            <input type="radio" id="newUser" name="process" value="Új felhasználó" required checked />
+            <input type="radio" id="newUser" name="process" value="Új felhasználó" required readOnly />
             <label htmlFor="newUser">Új felhasználó</label>
             <br />
           </div>

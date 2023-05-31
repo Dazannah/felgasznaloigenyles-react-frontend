@@ -175,7 +175,7 @@ body {
   margin: auto;
 }
 
-.alert-danger {
+.alert-error {
   background-color: red;
 }
 
@@ -228,100 +228,6 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 3px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-.shorterTextField {
-  display: block;
-  width: 30%;
-  line-break: normal;
-}
-
-#createDistributionListButton {
-  margin-top: 30px;
-}
-
-#userEdit {
-  background-color: orange;
-}
-
-#userEdit:hover {
-  background-color: rgb(255, 209, 122);
-}
-
-#userDelete {
-  background-color: red;
-}
-
-#userDelete:hover {
-  background-color: rgb(255, 116, 116);
-}
-
-/* The search field */
-#myInput {
-  box-sizing: border-box;
-
-  height: 5%;
-  min-width: 450px;
-  text-align: left;
-}
-
-/* The search field when it gets focus/clicked on */
-#myInput:focus {
-  outline: 3px solid #ddd;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f6f6f6;
-  border: 1px solid #ddd;
-  z-index: 1;
-  overflow: auto;
-  width: 460px;
-  max-height: 450px;
-}
-
-.dropdown-content button {
-  padding: 12px 16px;
-  text-align: left;
-  text-decoration: none;
-  display: block;
-  width: 99%;
-}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {
-  display: block;
-}
-
-.green {
-  color: green;
-}
-
-.red {
-  color: red;
-}
-
-.orange {
-  color: orange;
-}
-
-#requestEdit {
-  background-color: white;
-  margin: 20px 0;
-  padding: 5px;
 }
 
 .dots-loading {
@@ -390,5 +296,78 @@ body {
 
   60% {
     opacity: 1;
+  }
+}
+
+/* flash message*/
+
+.floating-alert {
+  display: none;
+  position: absolute;
+  z-index: 999;
+  top: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  -moz-animation: floatingAlert ease-in 5s forwards;
+  -webkit-animation: floatingAlert ease-in 5s forwards;
+  -o-animation: floatingAlert ease-in 5s forwards;
+  animation: floatingAlert ease-in 5s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.floating-alerts .floating-alert:last-of-type {
+  display: block;
+}
+
+@keyframes floatingAlert {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) scale(1.2);
+  }
+
+  9% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+  }
+
+  91% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) scale(1.2);
+  }
+}
+
+@-webkit-keyframes floatingAlert {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) scale(1.2);
+  }
+
+  9% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+  }
+
+  91% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) scale(1.2);
   }
 }

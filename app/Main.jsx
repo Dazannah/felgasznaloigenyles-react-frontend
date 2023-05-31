@@ -11,7 +11,9 @@ import Login from "./components/Login.jsx"
 import Menu from "./components/Menu.jsx"
 import CreateNew from "./components/CreateNew.jsx"
 import ListUsers from "./components/ListUsers.jsx"
-import FlashMessages from "./components/FlashMessages.jsx"
+import FlashMessagesSuccess from "./components/FlashMessagesSuccess.jsx"
+import FlashMessagesWarning from "./components/FlashMessagesWarrning.jsx"
+import FlashMessagesError from "./components/FlashMessagesError.jsx"
 
 import NoFound from "./components/NoFound.jsx"
 
@@ -22,7 +24,9 @@ import DispatchContext from "./DispatchContext.jsx"
 function Main() {
   const initialState = {
     loggedIn: Boolean(localStorage.getItem("jwt")),
-    flashMessages: [],
+    flashMessagesSuccess: [],
+    flashMessageError: [],
+    flashMessageWarrning: [],
     user: {
       token: localStorage.getItem("jwt")
     },
@@ -37,9 +41,17 @@ function Main() {
       case "logout":
         draft.loggedIn = false
         return
-      case "flashMessage":
-        draft.flashMessages.push(action.value)
+      case "flashMessagesSuccess":
+        draft.flashMessagesSuccess.push(action.value)
         return
+      case "flashMessageError":
+        draft.flashMessageError.push(action.value)
+        return
+      case "flashMessageWarrning":
+        draft.flashMessageWarrning.push(action.value)
+        return
+      case "emptyflashMessageWarrning":
+        draft.flashMessageWarrning = []
     }
   }
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
@@ -57,6 +69,9 @@ function Main() {
       <StateContext.Provider value={state}>
         <DispatchContext.Provider value={dispatch}>
           <BrowserRouter>
+            <FlashMessagesSuccess flashMessages={state.flashMessagesSuccess} />
+            <FlashMessagesError flashMessages={state.flashMessageError} />
+            <FlashMessagesWarning flashMessages={state.flashMessageWarrning} />
             <Menu />
             <Routes>
               <Route path="/" element={<CreateNew />} />
@@ -73,7 +88,9 @@ function Main() {
       <StateContext.Provider value={state}>
         <DispatchContext.Provider value={dispatch}>
           <BrowserRouter>
-            <FlashMessages />
+            <FlashMessagesSuccess flashMessages={state.flashMessagesSuccess} />
+            <FlashMessagesError flashMessages={state.flashMessageError} />
+            <FlashMessagesWarning flashMessages={state.flashMessageWarrning} />
             <Routes>
               <Route path="/*" element={<Login />} />
             </Routes>

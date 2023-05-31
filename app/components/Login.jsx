@@ -2,10 +2,12 @@ import React, { useEffect, useState, useContext } from "react"
 import Axios from "axios"
 import Page from "./Page.jsx"
 import DispatchContext from "../DispatchContext.jsx"
+import StateContext from "../StateContext.jsx"
 import Loading from "./Loading.jsx"
 
 function Login(props) {
   const appDispatch = useContext(DispatchContext)
+  const appState = useContext(StateContext)
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
   const [isLoading, setIsLoading] = useState(false)
@@ -13,23 +15,38 @@ function Login(props) {
   async function login(e) {
     e.preventDefault()
     setIsLoading(true)
-    try {
-      const response = await Axios.post("/login", {
-        username,
-        password
-      })
 
-      if (response.data.token) {
-        appDispatch({ type: "login" })
-        setIsLoading(false)
-      } else {
-        console.log(response.data)
+    if (username == null || username == "") {
+      appDispatch({ type: "flashMessageWarrning", value: "Felhasználónév megadása kötelező." })
+    }
+    if (password == null || password == "") {
+      appDispatch({ type: "flashMessageWarrning", value: "Jelszó megadása kötelező." })
+    }
+    console.log(appState.flashMessageWarrning)
+    if (appState.flashMessageWarrning.length == 0) {
+      try {
+        const response = await Axios.post("/login", {
+          username,
+          password
+        })
+
+        if (response.data.token) {
+          appDispatch({ type: "login" })
+          setIsLoading(false)
+        } else {
+          appDispatch({ type: "flashMessageWarrning", value: response.data })
+          setIsLoading(false)
+        }
+      } catch (err) {
+        console.log(err)
+        appDispatch({ type: "flashMessageError", value: err.message })
         setIsLoading(false)
       }
-    } catch (err) {
-      console.log(err.message)
+    } else {
       setIsLoading(false)
     }
+
+    appDispatch({ type: "emptyflashMessageWarrning" }) //ennek keresni egy jó megoldást
   }
 
   return (

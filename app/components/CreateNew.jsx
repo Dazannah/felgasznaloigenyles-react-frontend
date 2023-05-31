@@ -4,7 +4,7 @@ import Page from "./Page.jsx"
 function CreateNew() {
   return (
     <Page title="Új létrehozás">
-      <form id="createForm" action="/requestNew" method="post">
+      <form>
         <div id="row">
           <div id="leftUp">
             <label className="content roundCorner" htmlFor="name">

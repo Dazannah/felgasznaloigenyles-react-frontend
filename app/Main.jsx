@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import ReactDOM from "react-dom/client"
 import { useImmerReducer } from "use-immer"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
@@ -19,22 +19,28 @@ import DispatchContext from "./DispatchContext.jsx"
 function Main() {
   const initialState = {
     loggedIn: false,
-    flashMessages: []
+    flashMessages: [],
   }
 
   function ourReducer(draft, action) {
     switch (action.type) {
       case "login":
         draft.loggedIn = true
-        draft.user = action.data
         return
       case "logout":
         draft.loggedIn = false
         return
     }
   }
-
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
+  const appDispatch = useContext(DispatchContext)
+
+  console.log(Boolean(window.localStorage.getItem("jwt")))
+  if(Boolean(window.localStorage.getItem("jwt"))){ //valami ilyet kellene reactosan megcsinálni
+    () => appDispatch({ type: "login"})
+  }else{
+    () => appDispatch({ type: "logout"})
+  }
 
   if (state.loggedIn) {
     return (
@@ -43,8 +49,8 @@ function Main() {
           <BrowserRouter>
             <Menu />
             <Routes>
-              <Route path="/request-new" element={<CreateNew />} />
-              <Route path="/listUsers" element={<ListUsers />}></Route>
+              <Route path="/" element={<CreateNew />} />
+              <Route path="/list-users" element={<ListUsers />}></Route>
             </Routes>
           </BrowserRouter>
         </DispatchContext.Provider>

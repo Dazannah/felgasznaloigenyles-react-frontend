@@ -16,9 +16,10 @@ function Login(props) {
       })
 
       if (response.data.token) {
-        appDispatch({ type: "login", data: response.data })
+        localStorage.setItem("jwt",`${response.data.token}`)
+        appDispatch({ type: "login"})
       } else {
-        console.log(response)
+        console.log(response.data)
       }
     } catch (err) {
       console.log(err)
@@ -35,15 +36,15 @@ function Login(props) {
       </div>
       <br />
       <div id="login">
-        <form onSubmit={login}>
+        <form onSubmit={e => login(e)}>
           <label htmlFor="userName">Felhasználónév:</label>
           <br />
-          <input onChange={e => setUsername(e.target.value)} type="text" id="userName" name="userName" />
+          <input onChange={e => setUsername(e.target.value)} type="text" id="userName" name="userName" autoComplete="off"/>
           <br />
           <br />
           <label htmlFor="password">Jelszó:</label>
           <br />
-          <input onChange={e => setPassword(e.target.value)} type="password" id="password" name="password" />
+          <input onChange={e => setPassword(e.target.value)} type="password" id="password" name="password" autoComplete="off"/>
           <br />
           <br />
           <input type="hidden" name="csrf-token" value="" />

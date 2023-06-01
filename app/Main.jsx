@@ -35,7 +35,8 @@ function Main() {
       token: localStorage.getItem("jwt")
     },
     location: "Jogosultság igénylés",
-    arrays: JSON.parse(localStorage.getItem("arrays"))
+    arrays: JSON.parse(localStorage.getItem("arrays")),
+    classes: JSON.parse(localStorage.getItem("classes"))
   }
 
   function ourReducer(draft, action) {
@@ -43,9 +44,9 @@ function Main() {
       case "login":
         draft.loggedIn = true
         return
-        case "setJWT":
-          draft.user.token = action.value
-          return
+      case "setJWT":
+        draft.user.token = action.value
+        return
       case "logout":
         draft.loggedIn = false
         return
@@ -61,24 +62,33 @@ function Main() {
       case "emptyflashMessageWarrning":
         draft.flashMessageWarrning = []
         return
-        case "setArrays":
-          draft.arrays = action.value
-          return
+      case "setArrays":
+        draft.arrays = action.value
+        return
     }
   }
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
 
-  useEffect(()=>{
-      async function getArrays(){
-          try{
-            const requests = await Axios.post("/get-arrays")
-            localStorage.setItem("arrays", JSON.stringify(requests.data))
-          }catch(err){
-            console.log(err)
-        }
+  useEffect(() => {
+    async function getStartData() {
+      try {
+        const requests = await Axios.post("/get-data")
+        localStorage.setItem(
+          "arrays",
+          JSON.stringify({
+            leftColumn: requests.data[0].leftColumn,
+            middleColumn: requests.data[0].middleColumn,
+            rightColumn: requests.data[0].rightColumn,
+            upperFields: requests.data[0].upperFields
+          })
+        )
+        localStorage.setItem("classes", JSON.stringify(requests.data[1]))
+      } catch (err) {
+        console.log(err)
       }
-      getArrays()
-  },[])
+    }
+    getStartData()
+  }, [])
 
   useEffect(() => {
     if (state.loggedIn) {
@@ -95,7 +105,7 @@ function Main() {
           <BrowserRouter>
             <FlashMessagesSuccess flashMessages={state.flashMessagesSuccess} />
             <FlashMessagesError flashMessages={state.flashMessageError} />
-            <FlashMessagesWarning flashMessages={state.flashMessageWarrning} flashMessageUsed={state.flashMessageUsed}/>
+            <FlashMessagesWarning flashMessages={state.flashMessageWarrning} flashMessageUsed={state.flashMessageUsed} />
             <Menu />
             <Routes>
               <Route path="/" element={<CreateNew />} />

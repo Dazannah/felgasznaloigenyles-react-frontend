@@ -27,6 +27,7 @@ function Main() {
     flashMessagesSuccess: [],
     flashMessageError: [],
     flashMessageWarrning: [],
+    flashMessageUsed: false,
     user: {
       token: localStorage.getItem("jwt")
     },
@@ -52,6 +53,7 @@ function Main() {
         return
       case "emptyflashMessageWarrning":
         draft.flashMessageWarrning = []
+        return
     }
   }
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
@@ -71,7 +73,7 @@ function Main() {
           <BrowserRouter>
             <FlashMessagesSuccess flashMessages={state.flashMessagesSuccess} />
             <FlashMessagesError flashMessages={state.flashMessageError} />
-            <FlashMessagesWarning flashMessages={state.flashMessageWarrning} />
+            <FlashMessagesWarning flashMessages={state.flashMessageWarrning} flashMessageUsed={state.flashMessageUsed}/>
             <Menu />
             <Routes>
               <Route path="/" element={<CreateNew />} />

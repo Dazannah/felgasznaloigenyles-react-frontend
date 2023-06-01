@@ -1,16 +1,16 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import DispatchContext from "../DispatchContext.jsx"
 
 function FlashMessagesWarning(props) {
-  const appDispatch = useContext(DispatchContext)
+
   return (
-    <div className="floating-alerts">
+    <div id="warning" className="floating-alerts">
       {props.flashMessages.map((msg, index) => {
         return (
           <div key={index} className="alert alert-warning text-center floating-alert shadow-sm">
-            {msg}
-            <br />
-          </div>
+          {msg}
+          <br/>
+        </div>
         )
       })}
     </div>

@@ -14,16 +14,10 @@ function Login(props) {
 
   async function login(e) {
     e.preventDefault()
+    appDispatch({type: "emptyflashMessageWarrning"})
     setIsLoading(true)
 
-    if (username == null || username == "") {
-      appDispatch({ type: "flashMessageWarrning", value: "Felhasználónév megadása kötelező." })
-    }
-    if (password == null || password == "") {
-      appDispatch({ type: "flashMessageWarrning", value: "Jelszó megadása kötelező." })
-    }
-    console.log(appState.flashMessageWarrning)
-    if (appState.flashMessageWarrning.length == 0) {
+    if ((username != 0 || username != null) || (username != 0 || username != null)) {
       try {
         const response = await Axios.post("/login", {
           username,
@@ -38,15 +32,19 @@ function Login(props) {
           setIsLoading(false)
         }
       } catch (err) {
-        console.log(err)
         appDispatch({ type: "flashMessageError", value: err.message })
         setIsLoading(false)
       }
     } else {
+      if (username == null || username == "") {
+        appDispatch({ type: "flashMessageWarrning", value: "Felhasználónév megadása kötelező." })
+      }
+      if (password == null || password == "") {
+        appDispatch({ type: "flashMessageWarrning", value: "Jelszó megadása kötelező." })
+      }
       setIsLoading(false)
     }
 
-    appDispatch({ type: "emptyflashMessageWarrning" }) //ennek keresni egy jó megoldást
   }
 
   return (

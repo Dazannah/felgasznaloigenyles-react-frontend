@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import Page from "./Page.jsx"
 import Columns from "./Columns.jsx"
 import Loading from "./Loading.jsx"
 import Axios from "axios"
 
+import StateContext from "../StateContext.jsx"
+
 function CreateNew() {
+  const appState = useContext(StateContext)
+
   const [name, setName] = useState()
   const [ticketId, setTicketId] = useState()
   const [classLeader, setClassLeader] = useState()
@@ -13,6 +17,32 @@ function CreateNew() {
   const [validFrom, setValidFrom] = useState()
   const [validTo, setValidTo] = useState()
   const [createTextArea, setCreateTextArea] = useState()
+
+  function generateState(array){
+    let statesArray = []
+    let counter = 0
+
+    array.forEach(element => {
+      let temp = element.id
+      let temp2 = "set" + element.id
+      statesArray[counter] = [temp, temp2] = useState()
+      counter++
+    })
+
+    return statesArray
+  }
+
+  const statesLeftCollumn = generateState(appState.arrays.leftColumn)
+  const statesMiddleCollumn = generateState(appState.arrays.middleColumn)
+  const statesRightCollumn = generateState(appState.arrays.rightColumn)
+
+  function getUserPermissions(permissionsArray){
+    let resultPermissionArray = []
+    permissionsArray.forEach((element, index) =>{
+      resultPermissionArray[index] = element[0]
+    })
+    return resultPermissionArray
+  }
 
   async function createNewUserRequest(event){
     event.preventDefault()
@@ -26,8 +56,11 @@ function CreateNew() {
       validTo,
       createTextArea
     }
+    const userPermissionsLeft = getUserPermissions(statesLeftCollumn)
+    const userPermissionsMiddle = getUserPermissions(statesMiddleCollumn)
+    const userPermissionsRight = getUserPermissions(statesRightCollumn)
 
-    //console.log(personalInformations)
+    console.log(userPermissionsLeft, userPermissionsMiddle, userPermissionsRight)
   }
 
   return (
@@ -39,7 +72,7 @@ function CreateNew() {
               Név:
             </label>
             <br />
-            <input onChange={(e) => setName(e.target.value)} className="content roundCorner" type="text" id="name" name="name" required />
+            <input onChange={(e) => setName(e.target.value)} className="content roundCorner" type="text" id="name" name="name"  />
             <br />
             <p />
           </div>
@@ -52,7 +85,7 @@ function CreateNew() {
             <input onChange={(e) => setTicketId(e.target.value)} className="content roundCorner" type="text" id="id" name="id" />
             <p />
 
-            <input type="radio" id="newUser" name="process" value="Új felhasználó" required checked readOnly />
+            <input type="radio" id="newUser" name="process" value="Új felhasználó"  checked readOnly />
             <label htmlFor="newUser">Új felhasználó</label>
             <br />
           </div>
@@ -62,19 +95,19 @@ function CreateNew() {
             Osztályvezető:
           </label>
           <br />
-          <input onChange={(e) => setClassLeader(e.target.value)} className="content roundCorner" type="text" id="classLeader" name="classLeader" required/>
+          <input onChange={(e) => setClassLeader(e.target.value)} className="content roundCorner" type="text" id="classLeader" name="classLeader" />
           <br />
           <label className="content roundCorner" htmlFor="workPost">
             Beosztás:
           </label>
           <br />
-          <input onChange={(e) => setWorkPost(e.target.value)} className="content roundCorner" type="text" id="workPost" name="workPost" required/>
+          <input onChange={(e) => setWorkPost(e.target.value)} className="content roundCorner" type="text" id="workPost" name="workPost" />
           <br />
-          <label className="content roundCorner" htmlFor="workLocation" required>
+          <label className="content roundCorner" htmlFor="workLocation" >
             Munkavégzés helye:
           </label>
           <br />
-          <input onChange={(e) => setWorkLocation(e.target.value)} className="content roundCorner" type="text" id="workLocation" name="workLocation" required/>
+          <input onChange={(e) => setWorkLocation(e.target.value)} className="content roundCorner" type="text" id="workLocation" name="workLocation" />
           <br />
         </div>
         <div id="validTo">
@@ -97,7 +130,7 @@ function CreateNew() {
         </div>
 
 
-        <Columns />
+        <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn}/>
         <br/><br /><br />
 
 

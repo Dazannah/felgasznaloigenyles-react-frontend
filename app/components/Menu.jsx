@@ -31,7 +31,7 @@ function Menu() {
             </Link>
           </form>
           <form>
-            <Link className="btn" to="">
+            <Link className="btn" to="/list-requests">
               Kérelmek listázása
             </Link>
           </form>

@@ -26,9 +26,11 @@ function Login(props) {
 
         if (response.data.token) {
           appDispatch({ type: "login" })
+          appDispatch({ type: "setJWT", value: response.data.token})
+
           setIsLoading(false)
         } else {
-          appDispatch({ type: "flashMessageWarrning", value: response.data })
+          appDispatch({ type: "flashMessageWarrning", value: response.data})
           setIsLoading(false)
         }
       } catch (err) {

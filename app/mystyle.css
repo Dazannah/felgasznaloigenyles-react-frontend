@@ -90,7 +90,7 @@ body {
   width: 33%;
 }
 
-#textArea {
+.textArea {
   width: 100%;
   height: 250px;
 }

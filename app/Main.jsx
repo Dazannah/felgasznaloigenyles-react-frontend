@@ -11,6 +11,9 @@ import Login from "./components/Login.jsx"
 import Menu from "./components/Menu.jsx"
 import CreateNew from "./components/CreateNew.jsx"
 import ListUsers from "./components/ListUsers.jsx"
+import ListRequests from "./components/ListRequests.jsx"
+
+//flash message
 import FlashMessagesSuccess from "./components/FlashMessagesSuccess.jsx"
 import FlashMessagesWarning from "./components/FlashMessagesWarrning.jsx"
 import FlashMessagesError from "./components/FlashMessagesError.jsx"
@@ -31,7 +34,8 @@ function Main() {
     user: {
       token: localStorage.getItem("jwt")
     },
-    location: "Jogosultság igénylés"
+    location: "Jogosultság igénylés",
+    arrays: JSON.parse(localStorage.getItem("arrays"))
   }
 
   function ourReducer(draft, action) {
@@ -39,6 +43,9 @@ function Main() {
       case "login":
         draft.loggedIn = true
         return
+        case "setJWT":
+          draft.user.token = action.value
+          return
       case "logout":
         draft.loggedIn = false
         return
@@ -54,9 +61,24 @@ function Main() {
       case "emptyflashMessageWarrning":
         draft.flashMessageWarrning = []
         return
+        case "setArrays":
+          draft.arrays = action.value
+          return
     }
   }
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
+
+  useEffect(()=>{
+      async function getArrays(){
+          try{
+            const requests = await Axios.post("/get-arrays")
+            localStorage.setItem("arrays", JSON.stringify(requests.data))
+          }catch(err){
+            console.log(err)
+        }
+      }
+      getArrays()
+  },[])
 
   useEffect(() => {
     if (state.loggedIn) {
@@ -78,7 +100,7 @@ function Main() {
             <Routes>
               <Route path="/" element={<CreateNew />} />
               <Route path="/list-users" element={<ListUsers />}></Route>
-
+              <Route path="/list-requests" element={<ListRequests />} />
               <Route path="/*" element={<NoFound />} />
             </Routes>
           </BrowserRouter>

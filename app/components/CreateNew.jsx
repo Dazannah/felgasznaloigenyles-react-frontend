@@ -4,7 +4,7 @@ import Columns from "./Columns.jsx"
 import Loading from "./Loading.jsx"
 import Axios from "axios"
 
-import Classes from "./Classes.jsx"
+import DropdownMenu from "./DropdownMenu.jsx"
 
 import StateContext from "../StateContext.jsx"
 
@@ -14,7 +14,8 @@ function CreateNew() {
 
   const [name, setName] = useState()
   const [ticketId, setTicketId] = useState()
-  const [classId, setClassId] = useState()
+  const [classId, setClassId] = useState("")
+  const [className, setClassName] = useState("")
   const [classLeader, setClassLeader] = useState()
   const [workPost, setWorkPost] = useState()
   const [workLocation, setWorkLocation] = useState()
@@ -52,6 +53,8 @@ function CreateNew() {
     event.preventDefault()
     const personalInformations = {
       name,
+      classId,
+      className,
       ticketId,
       classLeader,
       workPost,
@@ -64,21 +67,53 @@ function CreateNew() {
     const userPermissionsMiddle = getUserPermissions(statesMiddleCollumn)
     const userPermissionsRight = getUserPermissions(statesRightCollumn)
 
-    console.log(personalInformations, userPermissionsLeft, userPermissionsMiddle, userPermissionsRight)
+    const dataToSend = {
+      personalInformations,
+      userPermissionsLeft,
+      userPermissionsMiddle,
+      userPermissionsRight
+    }
+
+    const result = await Axios.post("/create-new-ticket", {
+      token: appState.user.token,
+      dataToSend
+    })
+
+    console.log(result)
   }
 
-  function filterFunction(value) {
-    console.log(value)
+  function hiddeDropdown(){
+    document.getElementById("myDropdown").classList.remove("show")
+    document.getElementById("myInput").value = ""
+    setDropdown(true)
   }
+
+  useEffect(()=>{
+    document.getElementById("classDbId").value = classId
+    document.getElementById("class").value = className
+    hiddeDropdown()
+  },[classId])
+  
+useEffect(()=>{
+
+  document.addEventListener("mouseup",(e)=>{
+    const clickId = e.target.id
+    
+    if(clickId != "dropdownButton" && clickId != "myInput" && clickId != "" && clickId != "myDropdown"){
+      hiddeDropdown()
+    }
+    })
+
+},[])
 
   function dropdownMenu(e) {
     e.preventDefault()
     if (dropDown) {
-      document.getElementById("myDropdown").removeAttribute("hidden")
+      document.getElementById("myDropdown").classList.add("show")
+      document.getElementById("myDropdown").focus()
       setDropdown(false)
     } else {
-      document.getElementById("myDropdown").setAttribute("hidden", "hidden")
-      setDropdown(true)
+      hiddeDropdown()
     }
   }
 
@@ -98,9 +133,8 @@ function CreateNew() {
               <button onClick={e => dropdownMenu(e)} type="button" id="dropdownButton" className="btn">
                 Osztály kiválasztása
               </button>
-              <div id="myDropdown" className="dropdown-content" hidden>
-                <input onChange={e => filterFunction(e.target.value)} type="text" className="roundCorner" placeholder="Keresés..." id="myInput" />
-                <Classes setClassId={setClassId} />
+              <div id="myDropdown" className="dropdown-content">
+                <DropdownMenu classId={classId} setClassId={setClassId} className={className} setClassName={setClassName}/>
               </div>
             </div>
 

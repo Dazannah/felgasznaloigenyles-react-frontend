@@ -6,8 +6,7 @@ function FlashMessagesError(props) {
       {props.flashMessages.map((msg, index) => {
         return (
           <div key={index} className="alert alert-error text-center floating-alert shadow-sm">
-            {msg}
-            <br />
+            {msg} <br />
           </div>
         )
       })}

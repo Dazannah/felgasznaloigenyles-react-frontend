@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext, useRef } from "react"
 import Page from "./Page.jsx"
 import Columns from "./Columns.jsx"
 import Loading from "./Loading.jsx"
@@ -6,10 +6,12 @@ import Axios from "axios"
 
 import DropdownMenu from "./DropdownMenu.jsx"
 
+import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
 
 function CreateNew() {
   const appState = useContext(StateContext)
+  const appDispatch = useContext(DispatchContext)
   const [dropDown, setDropdown] = useState(true)
 
   const [name, setName] = useState()
@@ -23,6 +25,8 @@ function CreateNew() {
   const [validTo, setValidTo] = useState()
   const [createTextArea, setCreateTextArea] = useState()
 
+  const formRef = useRef(null)
+
   function generateState(array) {
     let statesArray = []
     let counter = 0
@@ -30,7 +34,7 @@ function CreateNew() {
     array.forEach(element => {
       let temp = element.id
       let temp2 = "set" + element.id
-      statesArray[counter] = [temp, temp2] = useState({name: element.id, value: false})
+      statesArray[counter] = [temp, temp2] = useState({ name: element.id, value: false })
       counter++
     })
 
@@ -44,7 +48,6 @@ function CreateNew() {
   function getUserPermissions(permissionsArray) {
     let resultPermissionArray = []
     permissionsArray.forEach((element, index) => {
-      //console.log(element[0])
       resultPermissionArray[index] = element[0]
     })
     return resultPermissionArray
@@ -52,6 +55,28 @@ function CreateNew() {
 
   async function createNewUserRequest(event) {
     event.preventDefault()
+    const errors = validateRequest()
+    if (errors) {
+      appDispatch({ type: "flashMessageWarrning", value: errors })
+      window.scrollTo(0, 0)
+    } else {
+      const dataToSend = serializeDataToSend()
+      handleSend(dataToSend)
+    }
+  }
+
+  function validateRequest() {
+    let errors = []
+    if (!name) errors.push("Név megadása kötelező.")
+    if (!classId) errors.push("Osztály megadása kötelező.")
+    if (!classLeader) errors.push("Osztályvezető megadása kötelező.")
+    if (!workPost) errors.push("Beosztás megadása kötelező.")
+    if (!workLocation) errors.push("Munkavégzés hely megadása kötelező.")
+
+    if (errors.length != 0) return errors
+  }
+
+  function serializeDataToSend() {
     const personalInformations = {
       name,
       classId,
@@ -61,8 +86,7 @@ function CreateNew() {
       workPost,
       workLocation,
       validFrom,
-      validTo,
-      createTextArea
+      validTo
     }
     const userPermissionsLeft = getUserPermissions(statesLeftCollumn)
     const userPermissionsMiddle = getUserPermissions(statesMiddleCollumn)
@@ -72,40 +96,51 @@ function CreateNew() {
       personalInformations,
       userPermissionsLeft,
       userPermissionsMiddle,
-      userPermissionsRight
+      userPermissionsRight,
+      createTextArea
     }
 
-    console.log(dataToSend)
+    return dataToSend
+  }
 
+  async function handleSend(dataToSend) {
     const result = await Axios.post("/create-new-ticket", {
       token: appState.user.token,
       dataToSend
     })
+
+    if (result.data.errors) {
+      appDispatch({ type: "flashMessageWarrning", value: result.data.errors })
+      window.scrollTo(0, 0)
+    } else {
+      //resetForm()
+      formRef.current.reset()
+      appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
+      window.scrollTo(0, 0)
+    }
   }
 
-  function hiddeDropdown(){
+  function hiddeDropdown() {
     document.getElementById("myDropdown").classList.remove("show")
     document.getElementById("myInput").value = ""
     setDropdown(true)
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     document.getElementById("classDbId").value = classId
     document.getElementById("class").value = className
     hiddeDropdown()
-  },[classId])
-  
-useEffect(()=>{
+  }, [classId])
 
-  document.addEventListener("mouseup",(e)=>{
-    const clickId = e.target.id
-    
-    if(clickId != "dropdownButton" && clickId != "myInput" && clickId != "" && clickId != "myDropdown"){
-      hiddeDropdown()
-    }
+  useEffect(() => {
+    document.addEventListener("mouseup", e => {
+      const clickId = e.target.id
+
+      if (clickId != "dropdownButton" && clickId != "myInput" && clickId != "" && clickId != "myDropdown") {
+        hiddeDropdown()
+      }
     })
-
-},[])
+  }, [])
 
   function dropdownMenu(e) {
     e.preventDefault()
@@ -120,7 +155,7 @@ useEffect(()=>{
 
   return (
     <Page title="Új létrehozás">
-      <form onSubmit={createNewUserRequest}>
+      <form onSubmit={createNewUserRequest} ref={formRef}>
         <div id="row">
           <div id="leftUp">
             <label className="content roundCorner" htmlFor="name">
@@ -135,7 +170,7 @@ useEffect(()=>{
                 Osztály kiválasztása
               </button>
               <div id="myDropdown" className="dropdown-content">
-                <DropdownMenu classId={classId} setClassId={setClassId} className={className} setClassName={setClassName}/>
+                <DropdownMenu classId={classId} setClassId={setClassId} className={className} setClassName={setClassName} />
               </div>
             </div>
 

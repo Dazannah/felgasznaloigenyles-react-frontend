@@ -34,7 +34,7 @@ function Main() {
     user: {
       token: localStorage.getItem("jwt")
     },
-    location: "Jogosultság igénylés",
+    siteLocation: "",
     arrays: JSON.parse(localStorage.getItem("arrays")),
     classes: JSON.parse(localStorage.getItem("classes"))
   }
@@ -47,6 +47,9 @@ function Main() {
       case "setJWT":
         draft.user.token = action.value
         return
+        case "setSiteLocation":
+          draft.siteLocation = action.value
+          return
       case "logout":
         draft.loggedIn = false
         return

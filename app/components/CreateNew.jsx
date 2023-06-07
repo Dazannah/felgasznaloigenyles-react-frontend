@@ -30,7 +30,7 @@ function CreateNew() {
     array.forEach(element => {
       let temp = element.id
       let temp2 = "set" + element.id
-      statesArray[counter] = [temp, temp2] = useState()
+      statesArray[counter] = [temp, temp2] = useState({name: element.id, value: false})
       counter++
     })
 
@@ -44,6 +44,7 @@ function CreateNew() {
   function getUserPermissions(permissionsArray) {
     let resultPermissionArray = []
     permissionsArray.forEach((element, index) => {
+      //console.log(element[0])
       resultPermissionArray[index] = element[0]
     })
     return resultPermissionArray
@@ -74,12 +75,12 @@ function CreateNew() {
       userPermissionsRight
     }
 
+    console.log(dataToSend)
+
     const result = await Axios.post("/create-new-ticket", {
       token: appState.user.token,
       dataToSend
     })
-
-    console.log(result)
   }
 
   function hiddeDropdown(){

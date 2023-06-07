@@ -5,8 +5,7 @@ import StateContext from "../StateContext.jsx"
 
 function Menu() {
   const appDispatch = useContext(DispatchContext)
-  const appState = useState(StateContext)
-  const [redirect, setRedirectTo] = useState(null)
+  const appState = useContext(StateContext)
 
   function logout(e) {
     e.preventDefault()
@@ -16,7 +15,7 @@ function Menu() {
   return (
     <>
       <div id="title">
-        <p>{`${appState.location}`}</p>
+        <p>{`${appState.siteLocation}`}</p>
       </div>
       <div id="menuWrapper">
         <div id="menu">

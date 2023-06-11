@@ -3,6 +3,7 @@ import Page from "./Page.jsx"
 import Columns from "./Columns.jsx"
 import Loading from "./Loading.jsx"
 import Axios from "axios"
+import utils from "../utils.jsx"
 
 import DropdownMenu from "./DropdownMenu.jsx"
 
@@ -24,6 +25,8 @@ function CreateNew() {
   const [validFrom, setValidFrom] = useState()
   const [validTo, setValidTo] = useState()
   const [createTextArea, setCreateTextArea] = useState()
+  const [process, setProcess] = useState("Új felhasználó")
+  const [isVisible, setIsVisible] = useState(false)
 
   const formRef = useRef(null)
 
@@ -106,14 +109,19 @@ function CreateNew() {
   async function handleSend(dataToSend) {
     const result = await Axios.post("/create-new-ticket", {
       token: appState.user.token,
-      dataToSend
+      dataToSend,
+      process
     })
 
-    if (result.data.errors) {
+    const invalidToken = utils(result.data, appDispatch, "checkToken")
+
+    if (invalidToken) {
+      appDispatch({ type: "flashMessageWarrning", value: "Érvénytelen bejelentkezés." })
+      window.scrollTo(0, 0)
+    } else if (result.data.errors) {
       appDispatch({ type: "flashMessageWarrning", value: result.data.errors })
       window.scrollTo(0, 0)
     } else {
-      //resetForm()
       formRef.current.reset()
       appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
       window.scrollTo(0, 0)
@@ -121,16 +129,9 @@ function CreateNew() {
   }
 
   function hiddeDropdown() {
-    document.getElementById("myDropdown").classList.remove("show")
-    document.getElementById("myInput").value = ""
+    setIsVisible(false)
     setDropdown(true)
   }
-
-  useEffect(() => {
-    document.getElementById("classDbId").value = classId
-    document.getElementById("class").value = className
-    hiddeDropdown()
-  }, [classId])
 
   useEffect(() => {
     document.addEventListener("mouseup", e => {
@@ -145,8 +146,7 @@ function CreateNew() {
   function dropdownMenu(e) {
     e.preventDefault()
     if (dropDown) {
-      document.getElementById("myDropdown").classList.add("show")
-      document.getElementById("myDropdown").focus()
+      setIsVisible(true)
       setDropdown(false)
     } else {
       hiddeDropdown()
@@ -169,15 +169,15 @@ function CreateNew() {
               <button onClick={e => dropdownMenu(e)} type="button" id="dropdownButton" className="btn">
                 Osztály kiválasztása
               </button>
-              <div id="myDropdown" className="dropdown-content">
+              <div id="myDropdown" className={isVisible ? "show " + "dropdown-content" : " " + "dropdown-content"}>
                 <DropdownMenu classId={classId} setClassId={setClassId} className={className} setClassName={setClassName} />
               </div>
             </div>
 
-            <input className="content roundCorner" type="text" id="class" name="class" required readOnly />
+            <input className="content roundCorner" type="text" id="class" name="class" value={className} required readOnly />
             <br />
             <br />
-            <input hidden className="content roundCorner" type="text" id="classDbId" name="dbId" readOnly />
+            <input hidden className="content roundCorner" type="text" id="classDbId" name="dbId" value={classId} readOnly />
           </div>
 
           <div id="rightUp">

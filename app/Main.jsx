@@ -4,6 +4,8 @@ import { useImmerReducer } from "use-immer"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Axios from "axios"
 
+import utils from "./utils.jsx"
+
 Axios.defaults.baseURL = "http://localhost:3000"
 
 //components
@@ -47,9 +49,9 @@ function Main() {
       case "setJWT":
         draft.user.token = action.value
         return
-        case "setSiteLocation":
-          draft.siteLocation = action.value
-          return
+      case "setSiteLocation":
+        draft.siteLocation = action.value
+        return
       case "logout":
         draft.loggedIn = false
         return
@@ -71,6 +73,14 @@ function Main() {
     }
   }
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
+
+  useEffect(() => {
+    async function validateSession() {
+      const result = await Axios.post("/validate-token", { token: localStorage.getItem("jwt") })
+      utils(result.data, dispatch, "checkToken")
+    }
+    validateSession()
+  }, [state.loggedIn == true])
 
   useEffect(() => {
     async function getStartData() {
@@ -108,7 +118,7 @@ function Main() {
           <BrowserRouter>
             <FlashMessagesSuccess flashMessages={state.flashMessagesSuccess} />
             <FlashMessagesError flashMessages={state.flashMessageError} />
-            <FlashMessagesWarning flashMessages={state.flashMessageWarrning} flashMessageUsed={state.flashMessageUsed} />
+            <FlashMessagesWarning flashMessages={state.flashMessageWarrning} />
             <Menu />
             <Routes>
               <Route path="/" element={<CreateNew />} />

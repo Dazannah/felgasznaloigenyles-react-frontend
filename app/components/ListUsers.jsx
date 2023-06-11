@@ -9,7 +9,12 @@ function ListUsers() {
     setIsLoading(false)
   }
 
-  if (isLoading) return <Loading />
+  if (isLoading)
+    return (
+      <Page title="Felhasználók listázása">
+        <Loading />
+      </Page>
+    )
 
   return (
     <Page title="Felhasználók listázása">

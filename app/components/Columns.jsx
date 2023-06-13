@@ -19,17 +19,17 @@ function columns(props) {
                 <div id="leftCheckBox">
     
                     II.a Igényelt jogosultság felsorolása:<br/><br/>
-                    <ColumnBlueprint states={props.leftStates} arrays={appState.arrays.leftColumn}/>
+                    <ColumnBlueprint listOut={props.listOut} request={props.request} states={props.leftStates} arrays={appState.arrays.leftColumn} arrayPosition={"userPermissionsLeft"}/>
                 </div>
     
                 <div id="middleCheckBox">
                     II.b Jogosultsági szintek Ecostat:<br/><br/>
-                    <ColumnBlueprint states={props.middleStates} arrays={appState.arrays.middleColumn}/>
+                    <ColumnBlueprint listOut={props.listOut} request={props.request} states={props.middleStates} arrays={appState.arrays.middleColumn} arrayPosition={"userPermissionsMiddle"}/>
                 </div>
     
                 <div id="rightCheckBox">
                     II.c Jogosultsági szintek Medworks:<br/><br/>
-                    <ColumnBlueprint states={props.rightStates} arrays={appState.arrays.rightColumn}/>
+                    <ColumnBlueprint listOut={props.listOut} request={props.request} states={props.rightStates} arrays={appState.arrays.rightColumn} arrayPosition={"userPermissionsRight"}/>
                 </div>
             </div>
         )

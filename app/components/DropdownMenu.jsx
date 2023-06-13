@@ -2,17 +2,15 @@ import React, { useEffect, useState, useContext } from "react"
 import Classes from "./Classes.jsx"
 
 function DropdownMenu(props) {
+  const [dropDown, setDropdown] = useState(true)
+  const [isVisible, setIsVisible] = useState(false)
   const [filterValue, setFilterValue] = useState("")
 
-  function filterFunction(input) {
-    setFilterValue(input.toUpperCase())
-  }
-
-  /*function filterFunction(input) {
-    var filter, ul, li, a, i
-    filter = input.toUpperCase()
+  useEffect(()=>{
+    let filter, ul, li, a
+    filter = filterValue.toUpperCase()
     a = document.getElementsByClassName("classBtn")
-    for (i = 0; i < a.length; i++) {
+    for (let i = 0; i < a.length; i++) {
       let txtValue = a[i].innerHTML
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
         a[i].style.display = ""
@@ -20,12 +18,53 @@ function DropdownMenu(props) {
         a[i].style.display = "none"
       }
     }
-  }*/
+  },[filterValue])
+
+  function hiddeDropdown() {
+    setIsVisible(false)
+    setDropdown(true)
+    setFilterValue("")
+  }
+
+  useEffect(() => {
+    document.addEventListener("mouseup", e => {
+      hideDropdownListener(e)
+    })
+
+    return document.removeEventListener("mouseup", e => {
+      hideDropdownListener(e)
+    })
+
+    function hideDropdownListener(e){
+      const clickId = e.target.id
+
+      if (clickId != "dropdownButton" && clickId != "myInput" && clickId != "" && clickId != "myDropdown") {
+        hiddeDropdown()
+      }
+    }
+  }, [])
+
+  function dropdownMenu(e) {
+    e.preventDefault()
+    if (dropDown) {
+      setIsVisible(true)
+      setDropdown(false)
+    } else {
+      hiddeDropdown()
+    }
+  }
 
   return (
     <>
-      <input onChange={e => filterFunction(e.target.value)} type="text" className="roundCorner" placeholder="Keresés..." id="myInput" autoComplete="off" />
-      <Classes classId={props.classId} setClassId={props.setClassId} className={props.className} setClassName={props.setClassName} filterValue={filterValue} />
+      <div className="dropdown">
+        <button onClick={e => dropdownMenu(e)} type="button" id="dropdownButton" className="btn">
+          Osztály kiválasztása
+        </button>
+        <div id="myDropdown" className={isVisible ? "show " + "dropdown-content" : " " + "dropdown-content"}>
+          <input onChange={e => setFilterValue(e.target.value)} type="text" className="roundCorner" placeholder="Keresés..." id="myInput" autoComplete="off" value={filterValue}/>
+          <Classes classId={props.classId} setClassId={props.setClassId} className={props.className} setClassName={props.setClassName} filterValue={filterValue} />
+        </div>
+      </div>
     </>
   )
 }

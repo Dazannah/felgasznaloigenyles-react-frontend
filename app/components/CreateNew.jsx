@@ -13,7 +13,7 @@ import StateContext from "../StateContext.jsx"
 function CreateNew() {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
-  const [dropDown, setDropdown] = useState(true)
+
 
   const [name, setName] = useState()
   const [ticketId, setTicketId] = useState()
@@ -26,7 +26,6 @@ function CreateNew() {
   const [validTo, setValidTo] = useState()
   const [createTextArea, setCreateTextArea] = useState()
   const [process, setProcess] = useState("Új felhasználó")
-  const [isVisible, setIsVisible] = useState(false)
 
   const formRef = useRef(null)
 
@@ -128,30 +127,7 @@ function CreateNew() {
     }
   }
 
-  function hiddeDropdown() {
-    setIsVisible(false)
-    setDropdown(true)
-  }
 
-  useEffect(() => {
-    document.addEventListener("mouseup", e => {
-      const clickId = e.target.id
-
-      if (clickId != "dropdownButton" && clickId != "myInput" && clickId != "" && clickId != "myDropdown") {
-        hiddeDropdown()
-      }
-    })
-  }, [])
-
-  function dropdownMenu(e) {
-    e.preventDefault()
-    if (dropDown) {
-      setIsVisible(true)
-      setDropdown(false)
-    } else {
-      hiddeDropdown()
-    }
-  }
 
   return (
     <Page title="Új létrehozás">
@@ -165,14 +141,7 @@ function CreateNew() {
             <input onChange={e => setName(e.target.value)} className="content roundCorner" type="text" id="name" name="name" />
             <br />
             <p />
-            <div className="dropdown">
-              <button onClick={e => dropdownMenu(e)} type="button" id="dropdownButton" className="btn">
-                Osztály kiválasztása
-              </button>
-              <div id="myDropdown" className={isVisible ? "show " + "dropdown-content" : " " + "dropdown-content"}>
                 <DropdownMenu classId={classId} setClassId={setClassId} className={className} setClassName={setClassName} />
-              </div>
-            </div>
 
             <input className="content roundCorner" type="text" id="class" name="class" value={className} required readOnly />
             <br />

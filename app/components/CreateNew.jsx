@@ -5,27 +5,19 @@ import Loading from "./Loading.jsx"
 import Axios from "axios"
 import utils from "../utils.jsx"
 
-import DropdownMenu from "./DropdownMenu.jsx"
+import CreateNewTextarea from "./CreateNewTextarea.jsx"
+import UpperFields from "./UpperFields.jsx"
 
 import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
+import FormDispatchContext from "../FormDispatchContext.jsx"
+import FormStateContext from "../FormStateContext.jsx"
 
 function CreateNew() {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
-
-
-  const [name, setName] = useState()
-  const [ticketId, setTicketId] = useState()
-  const [classId, setClassId] = useState("")
-  const [className, setClassName] = useState("")
-  const [classLeader, setClassLeader] = useState()
-  const [workPost, setWorkPost] = useState()
-  const [workLocation, setWorkLocation] = useState()
-  const [validFrom, setValidFrom] = useState()
-  const [validTo, setValidTo] = useState()
-  const [createTextArea, setCreateTextArea] = useState()
-  const [process, setProcess] = useState("Új felhasználó")
+  const formState = useContext(FormStateContext)
+  const formDispatch = useContext(FormDispatchContext)
 
   const formRef = useRef(null)
 
@@ -69,26 +61,26 @@ function CreateNew() {
 
   function validateRequest() {
     let errors = []
-    if (!name) errors.push("Név megadása kötelező.")
-    if (!classId) errors.push("Osztály megadása kötelező.")
-    if (!classLeader) errors.push("Osztályvezető megadása kötelező.")
-    if (!workPost) errors.push("Beosztás megadása kötelező.")
-    if (!workLocation) errors.push("Munkavégzés hely megadása kötelező.")
+    if (!formState.name) errors.push("Név megadása kötelező.")
+    if (!formState.classId) errors.push("Osztály megadása kötelező.")
+    if (!formState.classLeader) errors.push("Osztályvezető megadása kötelező.")
+    if (!formState.formStateworkPost) errors.push("Beosztás megadása kötelező.")
+    if (!formState.workLocation) errors.push("Munkavégzés hely megadása kötelező.")
 
     if (errors.length != 0) return errors
   }
 
   function serializeDataToSend() {
     const personalInformations = {
-      name,
-      classId,
-      className,
-      ticketId,
-      classLeader,
-      workPost,
-      workLocation,
-      validFrom,
-      validTo
+      name: formState.name,
+      classId: formState.classId,
+      className: formState.className,
+      ticketId: formState.ticketId,
+      classLeader: formState.classLeader,
+      workPost: formState.workPost,
+      workLocation: formState.workLocation,
+      validFrom: formState.validFrom,
+      validTo: formState.validTo
     }
     const userPermissionsLeft = getUserPermissions(statesLeftCollumn)
     const userPermissionsMiddle = getUserPermissions(statesMiddleCollumn)
@@ -127,90 +119,12 @@ function CreateNew() {
     }
   }
 
-
-
   return (
     <Page title="Új létrehozás">
       <form onSubmit={createNewUserRequest} ref={formRef}>
-        <div id="row">
-          <div id="leftUp">
-            <label className="content roundCorner" htmlFor="name">
-              Név:
-            </label>
-            <br />
-            <input onChange={e => setName(e.target.value)} className="content roundCorner" type="text" id="name" name="name" />
-            <br />
-            <p />
-                <DropdownMenu classId={classId} setClassId={setClassId} className={className} setClassName={setClassName} />
-
-            <input className="content roundCorner" type="text" id="class" name="class" value={className} required readOnly />
-            <br />
-            <br />
-            <input hidden className="content roundCorner" type="text" id="classDbId" name="dbId" value={classId} readOnly />
-          </div>
-
-          <div id="rightUp">
-            <label className="content roundCorner" htmlFor="id">
-              Nyilv. szám:
-            </label>
-            <br />
-            <input onChange={e => setTicketId(e.target.value)} className="content roundCorner" type="text" id="id" name="id" />
-            <p />
-
-            <input type="radio" id="newUser" name="process" value="Új felhasználó" checked readOnly />
-            <label htmlFor="newUser">Új felhasználó</label>
-            <br />
-          </div>
-        </div>
-        <div id="middle">
-          <label className="content roundCorner" htmlFor="classLeader">
-            Osztályvezető:
-          </label>
-          <br />
-          <input onChange={e => setClassLeader(e.target.value)} className="content roundCorner" type="text" id="classLeader" name="classLeader" />
-          <br />
-          <label className="content roundCorner" htmlFor="workPost">
-            Beosztás:
-          </label>
-          <br />
-          <input onChange={e => setWorkPost(e.target.value)} className="content roundCorner" type="text" id="workPost" name="workPost" />
-          <br />
-          <label className="content roundCorner" htmlFor="workLocation">
-            Munkavégzés helye:
-          </label>
-          <br />
-          <input onChange={e => setWorkLocation(e.target.value)} className="content roundCorner" type="text" id="workLocation" name="workLocation" />
-          <br />
-        </div>
-        <div id="validTo">
-          <div id="validToLeft">
-            <label className="content roundCorner" htmlFor="validFrom">
-              Érvényesség kezdete:
-            </label>
-            <br />
-            <input onChange={e => setValidFrom(e.target.value)} className="content roundCorner" type="datetime-local" id="validFrom" name="validFrom" />
-            <br />
-          </div>
-          <div id="validToRight">
-            <label className="content roundCorner" htmlFor="validTo">
-              Érvényesség vége:
-            </label>
-            <br />
-            <input onChange={e => setValidTo(e.target.value)} className="content roundCorner" type="datetime-local" id="validTo" name="validTo" />
-            <br />
-          </div>
-        </div>
+        <UpperFields />
         <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        Egyéb igény (egyéb szakrendszer, alkalmazás, mobiltelefon, adathordozó, laptop használat):
-        <br />
-        <textarea onChange={e => setCreateTextArea(e.target.value)} className="roundCorner textArea" id="createTextArea" name="createTextArea"></textarea>
-        <br />
-        <br />
+        <CreateNewTextarea />
         <input type="hidden" name="csrf-token" value="" />
         <input type="submit" className="button" value="Küldés" />
       </form>

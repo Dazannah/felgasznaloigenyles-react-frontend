@@ -62,7 +62,7 @@ function DropdownMenu(props) {
         </button>
         <div id="myDropdown" className={isVisible ? "show " + "dropdown-content" : " " + "dropdown-content"}>
           <input onChange={e => setFilterValue(e.target.value)} type="text" className="roundCorner" placeholder="Keresés..." id="myInput" autoComplete="off" value={filterValue}/>
-          <Classes classId={props.classId} setClassId={props.setClassId} className={props.className} setClassName={props.setClassName} filterValue={filterValue} />
+          <Classes filterValue={filterValue} />
         </div>
       </div>
     </>

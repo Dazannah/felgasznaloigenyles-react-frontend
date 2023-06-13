@@ -1,12 +1,14 @@
 import React, { useContext, useEffect } from "react"
 import StateContext from "../StateContext.jsx"
+import FormDispatchContext from "../FormDispatchContext.jsx"
 
 function Classes(props) {
   const appState = useContext(StateContext)
+  const formDispatch = useContext(FormDispatchContext)
 
   function handleClassClick(e) {
-    props.setClassId(e.target.id)
-    props.setClassName(e.target.innerHTML)
+    formDispatch({type: "setClassId", value: e.target.id})
+    formDispatch({type: "setClassName", value: e.target.innerHTML})
   }
 
   return (

@@ -25,6 +25,8 @@ import NoFound from "./components/NoFound.jsx"
 //contexts
 import StateContext from "./StateContext.jsx"
 import DispatchContext from "./DispatchContext.jsx"
+import FormStateContext from "./FormStateContext.jsx"
+import FormDispatchContext from "./FormDispatchContext.jsx"
 
 function Main() {
   const initialState = {
@@ -39,6 +41,20 @@ function Main() {
     siteLocation: "",
     arrays: JSON.parse(localStorage.getItem("arrays")),
     classes: JSON.parse(localStorage.getItem("classes"))
+  }
+
+  const formInitialState ={
+    name: "",
+    ticketId: "",
+    classId: "",
+    className: "",
+    classLeader: "",
+    workPost: "",
+    workLocation: "",
+    validFrom: "",
+    validTo: "",
+    createTextArea: "",
+    process: ""
   }
 
   function ourReducer(draft, action) {
@@ -72,8 +88,50 @@ function Main() {
         return
     }
   }
-  const [state, dispatch] = useImmerReducer(ourReducer, initialState)
 
+  function formReducer(draft, action) {
+    switch (action.type) {
+      case "setName":
+        draft.name = action.value
+        return
+          case "setTicketId":
+            draft.ticketId = action.value
+            return
+              case "setClassId":
+                draft.classId = action.value
+                return
+                  case "setClassName":
+                    draft.className = action.value
+                    return
+                      case "setClassLeader":
+                        draft.classLeader = action.value
+                        return
+                          case "setWorkPost":
+                            draft.workPost = action.value
+                            return
+                            case "setWorkLocation":
+                              draft.workLocation = action.value
+                              return
+                              case "setValidFrom":
+                                draft.validFrom = action.value
+                                return
+                                case "setValidTo":
+                                  draft.validTo = action.value
+                                  return
+                                  case "setCreateTextArea":
+                                    draft.createTextArea = action.value
+                                    return
+                                    case "setProcess":
+                                      draft.process = action.value
+                                      return
+    }
+  }
+
+  const [state, dispatch] = useImmerReducer(ourReducer, initialState)
+  const [formState, formDispatch] = useImmerReducer(formReducer, formInitialState)
+
+
+  console.log(formState.classId, formState.className)
   useEffect(() => {
     async function validateSession() {
       const result = await Axios.post("/validate-token", { token: localStorage.getItem("jwt") })
@@ -113,22 +171,26 @@ function Main() {
 
   if (state.loggedIn) {
     return (
-      <StateContext.Provider value={state}>
-        <DispatchContext.Provider value={dispatch}>
-          <BrowserRouter>
-            <FlashMessagesSuccess flashMessages={state.flashMessagesSuccess} />
-            <FlashMessagesError flashMessages={state.flashMessageError} />
-            <FlashMessagesWarning flashMessages={state.flashMessageWarrning} />
-            <Menu />
-            <Routes>
-              <Route path="/" element={<CreateNew />} />
-              <Route path="/list-users" element={<ListUsers />}></Route>
-              <Route path="/list-requests" element={<ListRequests />} />
-              <Route path="/*" element={<NoFound />} />
-            </Routes>
-          </BrowserRouter>
-        </DispatchContext.Provider>
-      </StateContext.Provider>
+      <FormStateContext.Provider value={formState}>
+        <FormDispatchContext.Provider value={formDispatch}>
+          <StateContext.Provider value={state}>
+            <DispatchContext.Provider value={dispatch}>
+              <BrowserRouter>
+                <FlashMessagesSuccess flashMessages={state.flashMessagesSuccess} />
+                <FlashMessagesError flashMessages={state.flashMessageError} />
+                <FlashMessagesWarning flashMessages={state.flashMessageWarrning} />
+                <Menu />
+                <Routes>
+                  <Route path="/" element={<CreateNew />} />
+                  <Route path="/list-users" element={<ListUsers />}></Route>
+                  <Route path="/list-requests" element={<ListRequests />} />
+                  <Route path="/*" element={<NoFound />} />
+                </Routes>
+              </BrowserRouter>
+            </DispatchContext.Provider>
+          </StateContext.Provider>
+        </FormDispatchContext.Provider>
+      </FormStateContext.Provider>
     )
   } else {
     return (

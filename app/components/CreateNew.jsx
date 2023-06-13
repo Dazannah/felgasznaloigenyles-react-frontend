@@ -35,6 +35,10 @@ function CreateNew() {
     return statesArray
   }
 
+  useEffect(()=>{
+    formDispatch({type: "setProcess", value: "Új felhasználó"})
+  },[])
+
   const statesLeftCollumn = generateState(appState.arrays.leftColumn)
   const statesMiddleCollumn = generateState(appState.arrays.middleColumn)
   const statesRightCollumn = generateState(appState.arrays.rightColumn)
@@ -64,7 +68,7 @@ function CreateNew() {
     if (!formState.name) errors.push("Név megadása kötelező.")
     if (!formState.classId) errors.push("Osztály megadása kötelező.")
     if (!formState.classLeader) errors.push("Osztályvezető megadása kötelező.")
-    if (!formState.formStateworkPost) errors.push("Beosztás megadása kötelező.")
+    if (!formState.workPost) errors.push("Beosztás megadása kötelező.")
     if (!formState.workLocation) errors.push("Munkavégzés hely megadása kötelező.")
 
     if (errors.length != 0) return errors
@@ -91,7 +95,7 @@ function CreateNew() {
       userPermissionsLeft,
       userPermissionsMiddle,
       userPermissionsRight,
-      createTextArea
+      createTextArea: formState.createTextArea
     }
 
     return dataToSend
@@ -101,7 +105,7 @@ function CreateNew() {
     const result = await Axios.post("/create-new-ticket", {
       token: appState.user.token,
       dataToSend,
-      process
+      process: formState.process
     })
 
     const invalidToken = utils(result.data, appDispatch, "checkToken")

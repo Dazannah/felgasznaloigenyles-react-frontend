@@ -130,8 +130,6 @@ function Main() {
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
   const [formState, formDispatch] = useImmerReducer(formReducer, formInitialState)
 
-
-  console.log(formState.classId, formState.className)
   useEffect(() => {
     async function validateSession() {
       const result = await Axios.post("/validate-token", { token: localStorage.getItem("jwt") })

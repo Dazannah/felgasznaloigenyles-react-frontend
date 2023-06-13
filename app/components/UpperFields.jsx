@@ -19,7 +19,7 @@ function UpperFields(props){
                     Név:
                     </label>
                     <br />
-                    <input onChange={e => setName(e.target.value)} className="content roundCorner" type="text" id="name" name="name" />
+                    <input onChange={e => formDispatch({type: "setName",value: e.target.value})} className="content roundCorner" type="text" id="name" name="name" />
                     <br />
                     <p />
                     <DropdownMenu />
@@ -35,7 +35,7 @@ function UpperFields(props){
                     Nyilv. szám:
                     </label>
                     <br />
-                    <input onChange={e => setTicketId(e.target.value)} className="content roundCorner" type="text" id="id" name="id" />
+                    <input onChange={e => formDispatch({type: "setTicketId", value: e.target.value})} className="content roundCorner" type="text" id="id" name="id" />
                     <p />
 
                     <input type="radio" id="newUser" name="process" value="Új felhasználó" checked readOnly />
@@ -48,19 +48,19 @@ function UpperFields(props){
                     Osztályvezető:
                 </label>
                 <br />
-                <input onChange={e => setClassLeader(e.target.value)} className="content roundCorner" type="text" id="classLeader" name="classLeader" />
+                <input onChange={e => formDispatch({type: "setClassLeader", value: e.target.value})} className="content roundCorner" type="text" id="classLeader" name="classLeader" />
                 <br />
                 <label className="content roundCorner" htmlFor="workPost">
                     Beosztás:
                 </label>
                 <br />
-                <input onChange={e => setWorkPost(e.target.value)} className="content roundCorner" type="text" id="workPost" name="workPost" />
+                <input onChange={e => formDispatch({type: "setWorkPost", value: e.target.value})} className="content roundCorner" type="text" id="workPost" name="workPost" />
                 <br />
                 <label className="content roundCorner" htmlFor="workLocation">
                     Munkavégzés helye:
                 </label>
                 <br />
-                <input onChange={e => setWorkLocation(e.target.value)} className="content roundCorner" type="text" id="workLocation" name="workLocation" />
+                <input onChange={e => formDispatch({type: "setWorkLocation", value: e.target.value})} className="content roundCorner" type="text" id="workLocation" name="workLocation" />
                 <br />
                 </div>
                 <div id="validTo">
@@ -69,7 +69,7 @@ function UpperFields(props){
                     Érvényesség kezdete:
                     </label>
                     <br />
-                    <input onChange={e => setValidFrom(e.target.value)} className="content roundCorner" type="datetime-local" id="validFrom" name="validFrom" />
+                    <input onChange={e => formDispatch({type: "setValidFrom", value: e.target.value})} className="content roundCorner" type="datetime-local" id="validFrom" name="validFrom" />
                     <br />
                 </div>
                 <div id="validToRight">
@@ -77,7 +77,7 @@ function UpperFields(props){
                     Érvényesség vége:
                     </label>
                     <br />
-                    <input onChange={e => setValidTo(e.target.value)} className="content roundCorner" type="datetime-local" id="validTo" name="validTo" />
+                    <input onChange={e => formDispatch({type: "setValidTo", value: e.target.value})} className="content roundCorner" type="datetime-local" id="validTo" name="validTo" value={formState.validTo}/>
                     <br />
                 </div>
             </div>

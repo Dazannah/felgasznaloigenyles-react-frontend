@@ -46,6 +46,8 @@ function Main() {
   const formInitialState ={
     name: "",
     ticketId: "",
+    isTechnical: false,
+    technicalTextArea: "",
     classId: "",
     className: "",
     classLeader: "",
@@ -97,6 +99,12 @@ function Main() {
           case "setTicketId":
             draft.ticketId = action.value
             return
+            case "setIsTechnical":
+            draft.isTechnical = action.value
+            return
+            case "setTechnicalTextArea":
+              draft.technicalTextArea = action.value
+              return
               case "setClassId":
                 draft.classId = action.value
                 return
@@ -129,6 +137,7 @@ function Main() {
 
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
   const [formState, formDispatch] = useImmerReducer(formReducer, formInitialState)
+  console.log(formState.technicalTextArea)
 
   useEffect(() => {
     async function validateSession() {

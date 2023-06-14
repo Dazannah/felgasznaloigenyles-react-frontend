@@ -8,11 +8,27 @@ import UpperFields from "./UpperFields.jsx"
 import Columns from "./Columns.jsx"
 import CreateNewTextarea from "./CreateNewTextarea.jsx"
 import AllowTextarea from "./AllowTextarea.jsx"
+import TechnicalTextarea from "./TechnicalTextarea.jsx"
 
 function ListRequests(props) {
   const [isLoading, setIsLoading] = useState(true)
   const [requests, setRequests] = useState()
   const [isAllowed, setIsAllowed] = useState()
+  let ticketStates= []
+
+  function generateState(array) {
+    let statesArray = []
+    let counter = 0
+
+    array.forEach(element => {
+      let temp = element.id
+      let temp2 = "set" + element.id
+      statesArray[counter] = [temp, temp2] = useState({ name: element.id, value: false })
+      counter++
+    })
+
+    return statesArray
+  }
 
   useEffect(() => {
     async function getRequests() {
@@ -29,6 +45,7 @@ function ListRequests(props) {
     }
 
     getRequests()
+  
   }, [])
 
   function openContent(e) {
@@ -39,6 +56,9 @@ function ListRequests(props) {
       button.style.display = "block"
     }
   }
+
+  console.log(requests)
+  const ticketsState = generateState(requests)
 
   function submitHandle(event){
     event.preventDefault()
@@ -68,7 +88,8 @@ function ListRequests(props) {
                   <UpperFields listOut={true} request={request}/>
                   <Columns listOut={true} request={request}/>
                   <CreateNewTextarea listOut={true} request={request}/>
-                  <AllowTextarea request={request} setIsAllowed={setIsAllowed}/>
+                  { request.technical.isTechnical ? <TechnicalTextarea listOut={true} request={request}/> : ""}
+                  <AllowTextarea request={request} ticketStates={ticketStates} ticketContentId={`${index}contentKey`}/>
 
                   <input type="hidden" name="csrf-token" value="" />
                   <input type="submit" className="button" value="Küldés" />

@@ -19,7 +19,7 @@ function UpperFields(props){
                     Név:
                     </label>
                     <br />
-                    <input onChange={e => formDispatch({type: "setName",value: e.target.value})} className="content roundCorner" type="text" id="name" name="name" {...props.listOut ? {value:`${props.request.personalInformations.name}`, readOnly:true   } : "" }/>
+                    <input onChange={e => formDispatch({type: "setName",value: e.target.value})} className="content roundCorner" type="text" id="name" name="name" {...props.listOut ? {value:`${props.request.personalInformations.name}`, readOnly:true   } : "" }/><label htmlFor="isTechnical">Technikai fiók</label> <input onChange={e => formDispatch({type: "setIsTechnical", value: e.target.checked})} {...props.listOut ? {checked: props.request.technical.isTechnical, disabled: true} : ""} id="isTechnical" type="checkbox"/>
                     <br />
                     <p />
                     { props.listOut ? "Osztály:" : <DropdownMenu />}
@@ -37,7 +37,7 @@ function UpperFields(props){
                     </label>
                     <br />
                     <input onChange={e => formDispatch({type: "setTicketId", value: e.target.value})} className="content roundCorner" type="text" id="id" name="id" {...props.listOut ? {value:`${props.request.personalInformations.ticketId}`, readOnly:true}: "" }/>
-                    <p />
+                    <p /><br /><br />
 
                     <input type="radio" id="newUser" name="process" value="Új felhasználó" checked readOnly />
                     <label htmlFor="newUser">Új felhasználó</label>

@@ -7,6 +7,7 @@ import utils from "../utils.jsx"
 
 import CreateNewTextarea from "./CreateNewTextarea.jsx"
 import UpperFields from "./UpperFields.jsx"
+import TechnicalTextarea from "./TechnicalTextarea.jsx"
 
 import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
@@ -65,11 +66,17 @@ function CreateNew() {
 
   function validateRequest() {
     let errors = []
+
     if (!formState.name) errors.push("Név megadása kötelező.")
     if (!formState.classId) errors.push("Osztály megadása kötelező.")
     if (!formState.classLeader) errors.push("Osztályvezető megadása kötelező.")
     if (!formState.workPost) errors.push("Beosztás megadása kötelező.")
     if (!formState.workLocation) errors.push("Munkavégzés hely megadása kötelező.")
+    if(formState.isTechnical){
+      if(formState.validTo == ""){
+        errors.push("Technikai fiók esetében érvényesség vége megadása kötelező.")
+      }
+    }
 
     if (errors.length != 0) return errors
   }
@@ -95,7 +102,11 @@ function CreateNew() {
       userPermissionsLeft,
       userPermissionsMiddle,
       userPermissionsRight,
-      createTextArea: formState.createTextArea
+      createTextArea: formState.createTextArea,
+      technical: {
+        isTechnical: formState.isTechnical,
+        technicalTextArea: formState.technicalTextArea
+      }
     }
 
     return dataToSend
@@ -119,6 +130,7 @@ function CreateNew() {
     } else {
       formRef.current.reset()
       appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
+      formDispatch({type: "setClassName", value: ""})
       window.scrollTo(0, 0)
     }
   }
@@ -129,6 +141,7 @@ function CreateNew() {
         <UpperFields />
         <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} />
         <CreateNewTextarea />
+        {formState.isTechnical? <TechnicalTextarea/> : ""}
         <input type="hidden" name="csrf-token" value="" />
         <input type="submit" className="button" value="Küldés" />
       </form>

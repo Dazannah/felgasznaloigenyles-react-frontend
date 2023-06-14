@@ -1,8 +1,9 @@
 import React from "react";
 
 function AllowTextarea(props){
+
     function setIsAllowed(e){
-        props.setIsAllowed(e.target.value)
+        console.log(e)
     }
     return(
         <>

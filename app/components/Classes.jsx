@@ -7,8 +7,8 @@ function Classes(props) {
   const formDispatch = useContext(FormDispatchContext)
 
   function handleClassClick(e) {
-    formDispatch({type: "setClassId", value: e.target.id})
-    formDispatch({type: "setClassName", value: e.target.innerHTML})
+    formDispatch({ type: "setClassId", value: e.target.id })
+    formDispatch({ type: "setClassName", value: e.target.innerHTML })
   }
 
   return (

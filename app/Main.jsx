@@ -43,7 +43,7 @@ function Main() {
     classes: JSON.parse(localStorage.getItem("classes"))
   }
 
-  const formInitialState ={
+  const formInitialState = {
     name: "",
     ticketId: "",
     isTechnical: false,
@@ -56,7 +56,9 @@ function Main() {
     validFrom: "",
     validTo: "",
     createTextArea: "",
-    process: ""
+    process: "",
+    permission: "",
+    permissionId: ""
   }
 
   function ourReducer(draft, action) {
@@ -96,42 +98,48 @@ function Main() {
       case "setName":
         draft.name = action.value
         return
-          case "setTicketId":
-            draft.ticketId = action.value
-            return
-            case "setIsTechnical":
-            draft.isTechnical = action.value
-            return
-            case "setTechnicalTextArea":
-              draft.technicalTextArea = action.value
-              return
-              case "setClassId":
-                draft.classId = action.value
-                return
-                  case "setClassName":
-                    draft.className = action.value
-                    return
-                      case "setClassLeader":
-                        draft.classLeader = action.value
-                        return
-                          case "setWorkPost":
-                            draft.workPost = action.value
-                            return
-                            case "setWorkLocation":
-                              draft.workLocation = action.value
-                              return
-                              case "setValidFrom":
-                                draft.validFrom = action.value
-                                return
-                                case "setValidTo":
-                                  draft.validTo = action.value
-                                  return
-                                  case "setCreateTextArea":
-                                    draft.createTextArea = action.value
-                                    return
-                                    case "setProcess":
-                                      draft.process = action.value
-                                      return
+      case "setTicketId":
+        draft.ticketId = action.value
+        return
+      case "setIsTechnical":
+        draft.isTechnical = action.value
+        return
+      case "setTechnicalTextArea":
+        draft.technicalTextArea = action.value
+        return
+      case "setClassId":
+        draft.classId = action.value
+        return
+      case "setClassName":
+        draft.className = action.value
+        return
+      case "setClassLeader":
+        draft.classLeader = action.value
+        return
+      case "setWorkPost":
+        draft.workPost = action.value
+        return
+      case "setWorkLocation":
+        draft.workLocation = action.value
+        return
+      case "setValidFrom":
+        draft.validFrom = action.value
+        return
+      case "setValidTo":
+        draft.validTo = action.value
+        return
+      case "setCreateTextArea":
+        draft.createTextArea = action.value
+        return
+      case "setProcess":
+        draft.process = action.value
+        return
+      case "setPermission":
+        draft.permission = action.value
+        return
+      case "setPermissionId":
+        draft.permissionId = action.value
+        return
     }
   }
 

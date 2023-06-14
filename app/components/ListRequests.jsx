@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import Loading from "./Loading.jsx"
 import Axios from "axios"
 
@@ -10,34 +10,24 @@ import CreateNewTextarea from "./CreateNewTextarea.jsx"
 import AllowTextarea from "./AllowTextarea.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 
+import StateContext from "../StateContext.jsx"
+
 function ListRequests(props) {
+  const initialState = useContext(StateContext)
+
   const [isLoading, setIsLoading] = useState(true)
   const [requests, setRequests] = useState()
-  const [isAllowed, setIsAllowed] = useState()
-  let ticketStates= []
-
-  function generateState(array) {
-    let statesArray = []
-    let counter = 0
-
-    array.forEach(element => {
-      let temp = element.id
-      let temp2 = "set" + element.id
-      statesArray[counter] = [temp, temp2] = useState({ name: element.id, value: false })
-      counter++
-    })
-
-    return statesArray
-  }
+  const [ticketStates, setTicketStates] = useState([])
+  const [getTickets, setGetTickets] = useState(true)
 
   useEffect(() => {
     async function getRequests() {
       try {
-        const requests = await Axios.post("/requests-list-all", {
-          token: localStorage.getItem("jwt")
+        const incomingRequests = await Axios.post("/requests-list-all", {
+          token: initialState.user.token
         })
 
-        setRequests(requests.data)
+        setRequests(incomingRequests.data)
         setIsLoading(false)
       } catch (err) {
         console.log(err)
@@ -45,8 +35,8 @@ function ListRequests(props) {
     }
 
     getRequests()
-  
-  }, [])
+    setGetTickets(false)
+  }, [getTickets])
 
   function openContent(e) {
     const button = document.getElementById(e)
@@ -57,12 +47,21 @@ function ListRequests(props) {
     }
   }
 
-  console.log(requests)
-  const ticketsState = generateState(requests)
-
-  function submitHandle(event){
+  async function submitHandle(event) {
     event.preventDefault()
-    console.log("asd")
+    const formData = new FormData(event.target)
+    const values = Object.fromEntries(formData.entries())
+
+    try {
+      const result = await Axios.post("/request-update", {
+        token: initialState.user.token,
+        values
+      })
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+    console.log(values)
   }
 
   if (isLoading)
@@ -84,14 +83,13 @@ function ListRequests(props) {
                 <strong>Név:</strong> {request.personalInformations.name} <strong>Osztály:</strong> {request.personalInformations.className} <strong>Nyilv. szám:</strong> {request.personalInformations.ticketId} <strong> Művelet: {request.process}</strong> Létrehozva: {request.ticketCreation.createTime} Igénylő: {request.ticketCreation.userName}{" "}
               </button>
               <div key={index + "contentKey"} id={index + "content"} className="collapsibleContent ">
+                <UpperFields listOut={true} request={request} />
+                <Columns listOut={true} request={request} />
+                <CreateNewTextarea listOut={true} request={request} />
+                {request.technical.isTechnical ? <TechnicalTextarea listOut={true} request={request} /> : ""}
                 <form onSubmit={submitHandle}>
-                  <UpperFields listOut={true} request={request}/>
-                  <Columns listOut={true} request={request}/>
-                  <CreateNewTextarea listOut={true} request={request}/>
-                  { request.technical.isTechnical ? <TechnicalTextarea listOut={true} request={request}/> : ""}
-                  <AllowTextarea request={request} ticketStates={ticketStates} ticketContentId={`${index}contentKey`}/>
+                  <AllowTextarea request={request} ticketStates={ticketStates} ticketContentId={`${index}contentKey`} />
 
-                  <input type="hidden" name="csrf-token" value="" />
                   <input type="submit" className="button" value="Küldés" />
                 </form>
               </div>

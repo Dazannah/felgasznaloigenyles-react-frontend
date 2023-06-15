@@ -11,6 +11,7 @@ import AllowTextarea from "./AllowTextarea.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import TableBody from "./TableBody.jsx"
 import TableHead from "./TableHead.jsx"
+import UserName from "./UserName.jsx"
 
 import StateContext from "../StateContext.jsx"
 import DispatchContext from "../DispatchContext.jsx"
@@ -76,17 +77,9 @@ function ListRequests(props) {
     }
   }
 
-  function openContent(e) {
-    const button = document.getElementById(e)
-    if (button.style.display == "block") {
-      button.style.display = "none"
-    } else {
-      button.style.display = "block"
-    }
-  }
-
   async function submitHandle(event) {
     event.preventDefault()
+    const collapsibles = document.getElementsByClassName("collapsibleContent")
     const formData = new FormData(event.target)
     const values = Object.fromEntries(formData.entries())
 
@@ -96,6 +89,10 @@ function ListRequests(props) {
         values
       })
       setGetTickets(true)
+
+      for (let i = 0; i < collapsibles.length; i++) {
+        collapsibles[i].style.display = "none"
+      }
       appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
       window.scrollTo(0, 0)
     } catch (error) {
@@ -110,7 +107,7 @@ function ListRequests(props) {
       </Page>
     )
 
-  if (requests.length == 0) return <Page title="Kérelmek listázása">No</Page>
+  if (requests.length == 0) return <Page title="Kérelmek listázása">Nincs engedélyezésre váró kérelem.</Page>
   return (
     <Page title="Kérelmek listázása">
       <TableHead columns={columns} handleSorting={handleSorting} />
@@ -118,17 +115,16 @@ function ListRequests(props) {
         return (
           <>
             <div key={index + "DivKey"} id={index + "Div"} className="request">
-              <button key={index} id={index} type="button" className="collapsible roundcorner" onClick={() => openContent(index + "content")}>
-                <TableBody request={request} columns={columns} />
-              </button>
+              <TableBody request={request} columns={columns} index={index} />
+
               <div key={index + "contentKey"} id={index + "content"} className="collapsibleContent ">
                 <UpperFields listOut={true} request={request} />
                 <Columns listOut={true} request={request} />
                 <CreateNewTextarea listOut={true} request={request} />
                 {request.technical.isTechnical ? <TechnicalTextarea listOut={true} request={request} /> : ""}
                 <form onSubmit={submitHandle}>
+                  <UserName request={request} />
                   <AllowTextarea request={request} ticketStates={ticketStates} ticketContentId={`${index}contentKey`} />
-
                   <input type="hidden" name="ticketId" value={request._id} />
                   <input type="submit" className="button" value="Küldés" />
                 </form>

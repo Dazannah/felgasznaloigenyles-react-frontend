@@ -36,9 +36,9 @@ function CreateNew() {
     return statesArray
   }
 
-  useEffect(()=>{
-    formDispatch({type: "setProcess", value: "Új felhasználó"})
-  },[])
+  useEffect(() => {
+    formDispatch({ type: "setProcess", value: "Új felhasználó" })
+  }, [])
 
   const statesLeftCollumn = generateState(appState.arrays.leftColumn)
   const statesMiddleCollumn = generateState(appState.arrays.middleColumn)
@@ -72,8 +72,8 @@ function CreateNew() {
     if (!formState.classLeader) errors.push("Osztályvezető megadása kötelező.")
     if (!formState.workPost) errors.push("Beosztás megadása kötelező.")
     if (!formState.workLocation) errors.push("Munkavégzés hely megadása kötelező.")
-    if(formState.isTechnical){
-      if(formState.validTo == ""){
+    if (formState.isTechnical) {
+      if (formState.validTo == "") {
         errors.push("Technikai fiók esetében érvényesség vége megadása kötelező.")
       }
     }
@@ -130,18 +130,18 @@ function CreateNew() {
     } else {
       formRef.current.reset()
       appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
-      formDispatch({type: "setClassName", value: ""})
+      formDispatch({ type: "setClassName", value: "" })
       window.scrollTo(0, 0)
     }
   }
 
   return (
     <Page title="Új létrehozás">
-      <form onSubmit={createNewUserRequest} ref={formRef}>
+      <form id="createForm" onSubmit={createNewUserRequest} ref={formRef}>
         <UpperFields />
         <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} />
         <CreateNewTextarea />
-        {formState.isTechnical? <TechnicalTextarea/> : ""}
+        {formState.isTechnical ? <TechnicalTextarea /> : ""}
         <input type="hidden" name="csrf-token" value="" />
         <input type="submit" className="button" value="Küldés" />
       </form>

@@ -11,9 +11,11 @@ import AllowTextarea from "./AllowTextarea.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 
 import StateContext from "../StateContext.jsx"
+import DispatchContext from "../DispatchContext.jsx"
 
 function ListRequests(props) {
   const initialState = useContext(StateContext)
+  const appDispatch = useContext(DispatchContext)
 
   const [isLoading, setIsLoading] = useState(true)
   const [requests, setRequests] = useState()
@@ -57,11 +59,12 @@ function ListRequests(props) {
         token: initialState.user.token,
         values
       })
-      console.log(result)
+      setGetTickets(true)
+      appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
+      window.scrollTo(0, 0)
     } catch (error) {
       console.log(error)
     }
-    console.log(values)
   }
 
   if (isLoading)
@@ -90,6 +93,7 @@ function ListRequests(props) {
                 <form onSubmit={submitHandle}>
                   <AllowTextarea request={request} ticketStates={ticketStates} ticketContentId={`${index}contentKey`} />
 
+                  <input type="hidden" name="ticketId" value={request._id} />
                   <input type="submit" className="button" value="Küldés" />
                 </form>
               </div>

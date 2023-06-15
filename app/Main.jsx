@@ -145,7 +145,6 @@ function Main() {
 
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
   const [formState, formDispatch] = useImmerReducer(formReducer, formInitialState)
-  console.log(formState.technicalTextArea)
 
   useEffect(() => {
     async function validateSession() {

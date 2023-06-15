@@ -17,7 +17,6 @@ function AllowTextarea(props) {
       <textarea className="roundCorner textArea" id="textArea" name="notes" />
       <br />
       <br />
-      <input type="hidden" name="ticketId" value={props.request._id} />
     </>
   )
 }

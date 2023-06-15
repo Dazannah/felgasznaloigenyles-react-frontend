@@ -9,6 +9,8 @@ import Columns from "./Columns.jsx"
 import CreateNewTextarea from "./CreateNewTextarea.jsx"
 import AllowTextarea from "./AllowTextarea.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
+import TableBody from "./TableBody.jsx"
+import TableHead from "./TableHead.jsx"
 
 import StateContext from "../StateContext.jsx"
 import DispatchContext from "../DispatchContext.jsx"
@@ -21,6 +23,15 @@ function ListRequests(props) {
   const [requests, setRequests] = useState()
   const [ticketStates, setTicketStates] = useState([])
   const [getTickets, setGetTickets] = useState(true)
+
+  const columns = [
+    { label: "Név", accessor: "personalInformations.name" },
+    { label: "Osztály", accessor: "personalInformations.className" },
+    { label: "Nyilv. szám", accessor: "personalInformations.ticketId" },
+    { label: "Művelet", accessor: "process" },
+    { label: "Létrehozva", accessor: "ticketCreation.createTime" },
+    { label: "Igénylő", accessor: "ticketCreation.userName" }
+  ]
 
   useEffect(() => {
     async function getRequests() {
@@ -35,10 +46,35 @@ function ListRequests(props) {
         console.log(err)
       }
     }
-
     getRequests()
     setGetTickets(false)
   }, [getTickets])
+
+  function handleSorting(sortField, sortOrder) {
+    let sorted
+    if (sortField) {
+      const splitSortField = sortField.split(".")
+      if (splitSortField.length > 1) {
+        sorted = [...requests].sort((a, b) => {
+          return (
+            a[splitSortField[0]][splitSortField[1]].toString().localeCompare(b[splitSortField[0]][splitSortField[1]].toString(), "hu", {
+              numeric: true
+            }) * (sortOrder === "asc" ? 1 : -1)
+          )
+        })
+      } else {
+        sorted = [...requests].sort((a, b) => {
+          return (
+            a[splitSortField[0]].toString().localeCompare(b[splitSortField[0]].toString(), "hu", {
+              numeric: true
+            }) * (sortOrder === "asc" ? 1 : -1)
+          )
+        })
+      }
+
+      setRequests(sorted)
+    }
+  }
 
   function openContent(e) {
     const button = document.getElementById(e)
@@ -75,15 +111,15 @@ function ListRequests(props) {
     )
 
   if (requests.length == 0) return <Page title="Kérelmek listázása">No</Page>
-
   return (
     <Page title="Kérelmek listázása">
+      <TableHead columns={columns} handleSorting={handleSorting} />
       {requests.map(function (request, index) {
         return (
           <>
             <div key={index + "DivKey"} id={index + "Div"} className="request">
-              <button id={index} type="button" className="collapsible roundcorner" onClick={() => openContent(index + "content")}>
-                <strong>Név:</strong> {request.personalInformations.name} <strong>Osztály:</strong> {request.personalInformations.className} <strong>Nyilv. szám:</strong> {request.personalInformations.ticketId} <strong> Művelet: {request.process}</strong> Létrehozva: {request.ticketCreation.createTime} Igénylő: {request.ticketCreation.userName}{" "}
+              <button key={index} id={index} type="button" className="collapsible roundcorner" onClick={() => openContent(index + "content")}>
+                <TableBody request={request} columns={columns} />
               </button>
               <div key={index + "contentKey"} id={index + "content"} className="collapsibleContent ">
                 <UpperFields listOut={true} request={request} />

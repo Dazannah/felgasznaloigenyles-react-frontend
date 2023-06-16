@@ -486,3 +486,9 @@ body {
   background: rgba(241, 241, 241, 0.5);
   transition: 500ms;
 }
+
+.shorterTextField{
+  display:block;
+  width: 30%;
+  line-break:normal;
+}

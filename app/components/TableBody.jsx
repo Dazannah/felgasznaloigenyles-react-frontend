@@ -11,7 +11,7 @@ function TableBody(props) {
   }
 
   return (
-    <button key={props.index} id={props.index} type="button" className="collapsible roundcorner" onClick={() => openContent(props.index + "content")}>
+    <button key={props.index} id={props.request._id} type="button" className="collapsible roundcorner" onClick={() => openContent(props.index + "content")}>
       <div key={props.request._id} id="sortTextWrapper">
         {props.columns.map(({ accessor }) => {
           const splitAccessor = accessor.split(".")

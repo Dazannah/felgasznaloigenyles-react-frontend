@@ -82,17 +82,41 @@ function ListRequests(props) {
     const collapsibles = document.getElementsByClassName("collapsibleContent")
     const formData = new FormData(event.target)
     const values = Object.fromEntries(formData.entries())
+    const keys = Object.keys(values)
+    let leftColumnKeys = []
+
+    initialState.arrays.leftColumn.forEach(element =>{
+      leftColumnKeys.push(element.name)
+    })
+
+    let dataToSend ={}
+    let userNames = {}
+    
+    keys.map(keysElement =>{
+      initialState.arrays.leftColumn.forEach(element =>{
+        if(keysElement == element.name){
+          userNames[keysElement] = values[keysElement]
+        }else {
+          if(!leftColumnKeys.includes(keysElement)){
+            dataToSend[keysElement] = values[keysElement]
+          }
+        }
+      })
+
+      /*if(initialState.arrays.leftCollumn[0].includes(element)){
+
+      }*/
+    })
+
+    dataToSend.userNames = userNames
 
     try {
       const result = await Axios.post("/request-update", {
         token: initialState.user.token,
-        values
+        dataToSend
       })
       setGetTickets(true)
 
-      for (let i = 0; i < collapsibles.length; i++) {
-        collapsibles[i].style.display = "none"
-      }
       appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
       window.scrollTo(0, 0)
     } catch (error) {

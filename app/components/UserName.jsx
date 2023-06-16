@@ -5,15 +5,16 @@ function UserName(props) {
   const appState = useContext(StateContext)
   return (
     <div>
-      {appState.arrays.leftColumn.forEach((element, index) => {
+      {appState.arrays.leftColumn.map((element, index) => {
         if (props.request.userPermissionsLeft[index].value) {
           return (
             <>
-              <label class="content roundCorner" for={props.request._id + element.name}>
+            <br />
+              <label className="content roundCorner" htmlFor={props.request._id + element.name}>
                 {element.value}
               </label>
               <br />
-              <input id={props.request._id + element.name} class="content roundCorner shorterTextField" type="text" name={element.name} />
+              <input id={props.request._id + element.name} className="content roundCorner shorterTextField" type="text" name={element.name} />
             </>
           )
         }

@@ -487,8 +487,8 @@ body {
   transition: 500ms;
 }
 
-.shorterTextField{
-  display:block;
+.shorterTextField {
+  display: block;
   width: 30%;
-  line-break:normal;
+  line-break: normal;
 }

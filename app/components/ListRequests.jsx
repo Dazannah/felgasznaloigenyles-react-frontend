@@ -116,7 +116,7 @@ function ListRequests(props) {
                 <UpperFields listOut={true} request={request} />
                 <Columns listOut={true} request={request} />
                 <CreateNewTextarea listOut={true} request={request} />
-                {request.technical.isTechnical ? <TechnicalTextarea listOut={true} request={request} /> : ""}
+                <TechnicalTextarea listOut={true} request={request} />
                 <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>
                   <UserName request={request} />
                   <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />

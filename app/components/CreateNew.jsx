@@ -140,7 +140,7 @@ function CreateNew() {
       <form id="createForm" onSubmit={createNewUserRequest} ref={formRef}>
         <UpperFields />
         <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} />
-        <CreateNewTextarea />
+        <CreateNewTextarea listOut={false} />
         {formState.isTechnical ? <TechnicalTextarea /> : ""}
         <input type="hidden" name="csrf-token" value="" />
         <input type="submit" className="button" value="Küldés" />

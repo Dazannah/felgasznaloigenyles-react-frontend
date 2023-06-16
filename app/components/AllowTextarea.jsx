@@ -1,20 +1,30 @@
 import React from "react"
 
 function AllowTextarea(props) {
+  const isAllowed = getValue("Engedélyezett")
+  const isDenied = getValue("Elutasított")
+
+  function getValue(permission) {
+    if (props.request.permission) {
+      return props.request.permission.allowed == permission
+    }
+  }
+
   return (
     <>
       <label>
-        <input type="radio" name="permission" value="Engedélyezett" />
+        <input {...(props.request.permission ? { disabled: true, defaultChecked: isAllowed } : "")} type="radio" name="permission" value="Engedélyezett" />
         Engedélyez
       </label>
       <label>
-        <input type="radio" name="permission" value="Elutasított" />
+        <input {...(props.request.permission ? { disabled: true, defaultChecked: isDenied } : "")} type="radio" name="permission" value="Elutasított" />
         Elutasít
       </label>
+
       <br />
       <br />
-      Megjegyzések:
-      <textarea className="roundCorner textArea" id="textArea" name="notes" />
+      <span {...(props.request.permission ? (props.request.permission.permissionNote == "" ? { hidden: true } : "") : "")}>Megjegyzések:</span>
+      <textarea {...(props.request.permission ? (props.request.permission.permissionNote != "" ? { value: props.request.permission.permissionNote } : { hidden: true }) : "")} className="roundCorner textArea" id="textArea" name="notes" />
       <br />
       <br />
     </>

@@ -7,6 +7,27 @@ function Menu() {
   const appDispatch = useContext(DispatchContext)
   const appState = useContext(StateContext)
 
+  const [active, setActive] = useState()
+
+  function setAcctiveBtn(e) {
+    document.getElementById(active).classList.remove("activeMenuButton")
+    setActive(e)
+    document.getElementById(e).classList.add("activeMenuButton")
+  }
+
+  useEffect(() => {
+    const menuButtons = document.getElementsByTagName("a")
+    let tmpActive
+
+    for (let i = 0; i < menuButtons.length; i++) {
+      if (menuButtons[i].href == window.location.href && menuButtons[i].id != "logOutBtn") {
+        tmpActive = menuButtons[i].id
+      }
+    }
+    setActive(tmpActive)
+    document.getElementById(tmpActive).classList.add("activeMenuButton")
+  }, [])
+
   function logout(e) {
     e.preventDefault()
     appDispatch({ type: "logout" })
@@ -14,46 +35,46 @@ function Menu() {
 
   return (
     <>
-      <div id="title">
+      <div key="title" id="title">
         <p>{`${appState.siteLocation}`}</p>
       </div>
-      <div id="menuWrapper">
-        <div id="menu">
-          <form>
-            <Link className="btn" to="/">
+      <div key="menuWrapper" id="menuWrapper">
+        <div key="menu" id="menu">
+          <form key="createNew">
+            <Link id="createNewBtn" onClick={e => setAcctiveBtn(e.target.id)} key="createNewBtn" className="btn" to="/">
               Új felvétel
             </Link>
           </form>
-          <form>
-            <Link className="btn" to="/list-users">
+          <form key="listUsers">
+            <Link id="listUsersBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listUsersBtn" className="btn" to="/list-users">
               Felhasználók listázása
             </Link>
           </form>
-          <form>
-            <Link className="btn" to="/list-requests">
+          <form key="listRequests">
+            <Link id="listRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listRequestsBtn" className="btn" to="/list-requests">
               Kérelmek listázása
             </Link>
           </form>
-          <form>
-            <Link className="btn" to="/list-allowed-tickets">
+          <form key="allowedRequests">
+            <Link id="allowedRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="allowedRequestsBtn" className="btn" to="/list-allowed-tickets">
               Engedélyezett kérelmek listázása
             </Link>
           </form>
-          <form>
-            <Link className="btn" to="">
-              Elkészült ticketek
+          <form key="completedRequests">
+            <Link id="completedRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="completedRequestsBtn" className="btn" to="/asd">
+              Elkészült kérelmek
             </Link>
           </form>
-          <form>
-            <Link className="btn" to="">
+          <form key="distributinList">
+            <Link id="distributinListBtn" onClick={e => setAcctiveBtn(e.target.id)} key="distributinListBtn" className="btn" to="/asdasd">
               Terjesztési lista ígénylés
             </Link>
           </form>
         </div>
 
-        <div id="logOut">
-          <form>
-            <Link className="btn" onClick={e => logout(e)} to="/">
+        <div key="logOutDiv" id="logOut">
+          <form key="logOut">
+            <Link id="logOutBtn" key="logOutBtn" className="btn" onClick={e => logout(e)} to="/">
               Kijelentkezés
             </Link>
           </form>

@@ -8,7 +8,33 @@ function TableHead(props) {
     const sortOrder = accessor === sortField && order === "asc" ? "desc" : "asc"
     setSortField(accessor)
     setOrder(sortOrder)
-    props.handleSorting(accessor, sortOrder)
+    handleSorting(accessor, sortOrder)
+  }
+
+  function handleSorting(sortField, sortOrder) {
+    let sorted
+    if (sortField) {
+      const splitSortField = sortField.split(".")
+      if (splitSortField.length > 1) {
+        sorted = [...props.requests].sort((a, b) => {
+          return (
+            a[splitSortField[0]][splitSortField[1]].toString().localeCompare(b[splitSortField[0]][splitSortField[1]].toString(), "hu", {
+              numeric: true
+            }) * (sortOrder === "asc" ? 1 : -1)
+          )
+        })
+      } else {
+        sorted = [...props.requests].sort((a, b) => {
+          return (
+            a[splitSortField[0]].toString().localeCompare(b[splitSortField[0]].toString(), "hu", {
+              numeric: true
+            }) * (sortOrder === "asc" ? 1 : -1)
+          )
+        })
+      }
+
+      props.setRequests(sorted)
+    }
   }
 
   useEffect(() => {

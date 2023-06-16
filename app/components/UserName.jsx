@@ -4,17 +4,17 @@ import StateContext from "../StateContext.jsx"
 function UserName(props) {
   const appState = useContext(StateContext)
   return (
-    <div>
+    <div key={props.request._id + "usernameDiv"}>
       {appState.arrays.leftColumn.map((element, index) => {
         if (props.request.userPermissionsLeft[index].value) {
           return (
             <>
-            <br />
-              <label className="content roundCorner" htmlFor={props.request._id + element.name}>
+              <br key={props.request._id + element.name + "br1"} />
+              <label key={props.request._id + element.name + "label"} className="content roundCorner" htmlFor={props.request._id + element.name}>
                 {element.value}
               </label>
-              <br />
-              <input id={props.request._id + element.name} className="content roundCorner shorterTextField" type="text" name={element.name} />
+              <br key={props.request._id + element.name + "br2"} />
+              <input key={props.request._id + element.name + "input"} id={props.request._id + element.name} className="content roundCorner shorterTextField" type="text" name={element.name} />
             </>
           )
         }

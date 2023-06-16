@@ -20,11 +20,6 @@ function ListRequests(props) {
   const initialState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
 
-  const [isLoading, setIsLoading] = useState(true)
-  const [requests, setRequests] = useState()
-  const [ticketStates, setTicketStates] = useState([])
-  const [getTickets, setGetTickets] = useState(true)
-
   const formRef = useRef(null)
 
   const columns = [
@@ -36,67 +31,6 @@ function ListRequests(props) {
     { label: "Igénylő", accessor: "ticketCreation.userName" }
   ]
 
-  useEffect(() => {
-    async function getRequests() {
-      try {
-        const incomingRequests = await Axios.post("/requests-list-all", {
-          token: initialState.user.token
-        })
-
-        setRequests(incomingRequests.data)
-        setIsLoading(false)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    getRequests()
-    setGetTickets(false)
-  }, [getTickets])
-
-  async function submitHandle(event) {
-    event.preventDefault()
-    const collapsibles = document.getElementsByClassName("collapsibleContent")
-    const formData = new FormData(event.target)
-    const values = Object.fromEntries(formData.entries())
-    const keys = Object.keys(values)
-    let leftColumnKeys = []
-
-    initialState.arrays.leftColumn.forEach(element => {
-      leftColumnKeys.push(element.name)
-    })
-
-    let dataToSend = {}
-    let userNames = {}
-
-    keys.map(keysElement => {
-      initialState.arrays.leftColumn.forEach(element => {
-        if (keysElement == element.name) {
-          userNames[keysElement] = values[keysElement]
-        } else {
-          if (!leftColumnKeys.includes(keysElement)) {
-            dataToSend[keysElement] = values[keysElement]
-          }
-        }
-      })
-    })
-
-    dataToSend.userNames = userNames
-
-    try {
-      const result = await Axios.post("/request-update", {
-        token: initialState.user.token,
-        dataToSend
-      })
-      setGetTickets(true)
-
-      appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
-      formRef.current.reset()
-      window.scrollTo(0, 0)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   if (isLoading)
     return (
       <Page title="Kérelmek listázása">
@@ -107,7 +41,7 @@ function ListRequests(props) {
   if (requests.length == 0) return <Page title="Kérelmek listázása">Nincs engedélyezésre váró kérelem.</Page>
   return (
     <Page title="Kérelmek listázása">
-      <TableHead columns={columns} setRequests={setRequests} requests={requests} />
+      <TableHead columns={columns} handleSorting={handleSorting} />
       {requests.map(function (request, index) {
         return (
           <>
@@ -118,7 +52,6 @@ function ListRequests(props) {
                 <UpperFields listOut={true} request={request} />
                 <Columns listOut={true} request={request} />
                 <CreateNewTextarea listOut={true} request={request} />
-                {console.log(request.technical)}
                 {request.technical.isTechnical ? <TechnicalTextarea listOut={true} request={request} /> : ""}
                 <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>
                   <UserName request={request} />

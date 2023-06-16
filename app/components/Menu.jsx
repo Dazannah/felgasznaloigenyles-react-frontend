@@ -35,7 +35,7 @@ function Menu() {
             </Link>
           </form>
           <form>
-            <Link className="btn" to="">
+            <Link className="btn" to="/list-allowed-tickets">
               Engedélyezett kérelmek listázása
             </Link>
           </form>

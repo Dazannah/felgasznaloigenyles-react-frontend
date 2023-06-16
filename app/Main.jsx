@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react"
 import ReactDOM from "react-dom/client"
 import { useImmerReducer } from "use-immer"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Router } from "react-router-dom"
 import Axios from "axios"
 
 import utils from "./utils.jsx"
@@ -27,6 +27,7 @@ import StateContext from "./StateContext.jsx"
 import DispatchContext from "./DispatchContext.jsx"
 import FormStateContext from "./FormStateContext.jsx"
 import FormDispatchContext from "./FormDispatchContext.jsx"
+import AllowedRequests from "./components/AllowedRequests.jsx"
 
 function Main() {
   const initialState = {
@@ -198,6 +199,7 @@ function Main() {
                   <Route path="/" element={<CreateNew />} />
                   <Route path="/list-users" element={<ListUsers />}></Route>
                   <Route path="/list-requests" element={<ListRequests />} />
+                  <Route path="/list-allowed-tickets" element={<AllowedRequests />} />
                   <Route path="/*" element={<NoFound />} />
                 </Routes>
               </BrowserRouter>

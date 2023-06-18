@@ -6,7 +6,7 @@ import Axios from "axios"
 
 import utils from "./utils.jsx"
 
-Axios.defaults.baseURL = "http://localhost:3000"
+Axios.defaults.baseURL = process.env.BACKENDURL || "http://localhost:3000"
 
 //components
 import Login from "./components/Login.jsx"

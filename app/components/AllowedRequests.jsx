@@ -104,7 +104,7 @@ function AllowedRequests(props) {
     )
 
   if (allowedRequests.length == 0) {
-    return <Page title="Engedélyezett kérelmek listázása">Nincsennek engedélyezett kérelmek.</Page>
+    return <Page title="Engedélyezett kérelmek listázása">Nincs engedélyezett kérelmek.</Page>
   }
   return (
     <Page title="Engedélyezett kérelmek listázása">

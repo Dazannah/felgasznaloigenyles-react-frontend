@@ -14,6 +14,7 @@ import Menu from "./components/Menu.jsx"
 import CreateNew from "./components/CreateNew.jsx"
 import ListUsers from "./components/ListUsers.jsx"
 import ListRequests from "./components/ListRequests.jsx"
+import CompletedTickets from "./components/CompletedTickets.jsx"
 
 //flash message
 import FlashMessagesSuccess from "./components/FlashMessagesSuccess.jsx"
@@ -203,7 +204,8 @@ function Main() {
                   <Route path="/" element={<CreateNew />} />
                   <Route path="/list-users" element={<ListUsers />}></Route>
                   <Route path="/list-requests" element={<ListRequests />} />
-                  <Route path="/list-allowed-tickets" element={<AllowedRequests />} />
+                  <Route path="/list-allowed-requests" element={<AllowedRequests />} />
+                  <Route path="/list-completed-requests" element={<CompletedTickets />} />
                   <Route path="/*" element={<NoFound />} />
                 </Routes>
               </BrowserRouter>

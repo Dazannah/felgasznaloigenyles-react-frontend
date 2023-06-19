@@ -56,12 +56,12 @@ function Menu() {
             </Link>
           </form>
           <form key="allowedRequests">
-            <Link id="allowedRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="allowedRequestsBtn" className="btn" to="/list-allowed-tickets">
+            <Link id="allowedRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="allowedRequestsBtn" className="btn" to="/list-allowed-requests">
               Engedélyezett kérelmek listázása
             </Link>
           </form>
           <form key="completedRequests">
-            <Link id="completedRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="completedRequestsBtn" className="btn" to="/asd">
+            <Link id="completedRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="completedRequestsBtn" className="btn" to="/list-completed-requests">
               Elkészült kérelmek
             </Link>
           </form>

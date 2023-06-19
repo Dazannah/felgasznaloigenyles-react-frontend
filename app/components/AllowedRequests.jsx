@@ -22,6 +22,7 @@ function AllowedRequests(props) {
 
   const [allowedRequests, setAllowedRequests] = useState()
   const [isLoading, setIsloading] = useState(true)
+  const [requests, setRequests] = useState(true)
 
   const formRef = useRef(null)
 
@@ -41,9 +42,10 @@ function AllowedRequests(props) {
       })
       setAllowedRequests(allowedRequests.data)
       setIsloading(false)
+      setRequests(false)
     }
     getAllowedRequests()
-  }, [])
+  }, [requests])
 
   async function submitHandle(event) {
     event.preventDefault()
@@ -51,7 +53,7 @@ function AllowedRequests(props) {
     const values = Object.fromEntries(formData.entries())
     const leftColumnKeys = []
     const errors = []
-    console.log(values)
+
     if (!values.done) {
       appDispatch({ type: "flashMessageWarning", value: '"Elkészítve" bepipálása kötelező.' })
     } else {
@@ -62,13 +64,12 @@ function AllowedRequests(props) {
       initialState.arrays.leftColumn.forEach(element => {
         leftColumnKeys.push(element.name)
       })
-      //console.log(leftColumnKeys, initialState.arrays.leftColumn)
       valuesKeys.forEach(element => {
         if (leftColumnKeys.includes(element)) {
           if (values[element] === "") {
             const index = leftColumnKeys.indexOf(element)
-            console.log(index)
-            errors.push(`${initialState.arrays.leftColumn[index].value} felhasználó név megadása kötelező.`)
+
+            errors.push(`${initialState.arrays.leftColumn[index].value} megadása kötelező.`)
           } else {
             userNames[element] = values[element]
           }
@@ -84,9 +85,10 @@ function AllowedRequests(props) {
         try {
           const result = await Axios.post("/close-new-user-ticket", {
             token: initialState.user.token,
-            data: dataToSend
+            dataToSend
           })
-          console.log(result)
+          appDispatch({ type: "flashMessagesSuccess", value: "Felhasználó létrehozása sikeres." })
+          setRequests(true)
         } catch (err) {
           appDispatch({ type: "flashMessageWarning", value: err.message })
         }
@@ -101,6 +103,9 @@ function AllowedRequests(props) {
       </Page>
     )
 
+  if (allowedRequests.length == 0) {
+    return <Page title="Engedélyezett kérelmek listázása">Nincsennek engedélyezett kérelmek.</Page>
+  }
   return (
     <Page title="Engedélyezett kérelmek listázása">
       <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} />

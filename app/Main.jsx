@@ -4,9 +4,9 @@ import { useImmerReducer } from "use-immer"
 import { BrowserRouter, Routes, Route, Router } from "react-router-dom"
 import Axios from "axios"
 
-import utils from "./utils.jsx"
+Axios.defaults.baseURL = process.env.BACKENDURL
 
-Axios.defaults.baseURL = process.env.BACKENDURL || "http://localhost:3000"
+import utils from "./utils.jsx"
 
 //components
 import Login from "./components/Login.jsx"
@@ -82,7 +82,7 @@ function Main() {
       case "flashMessageError":
         draft.flashMessageError.push(action.value)
         return
-      case "flashMessageWarrning":
+      case "flashMessageWarning":
         draft.flashMessageWarrning.push(action.value)
         return
       case "emptyflashMessageWarrning":
@@ -149,8 +149,12 @@ function Main() {
 
   useEffect(() => {
     async function validateSession() {
-      const result = await Axios.post("/validate-token", { token: localStorage.getItem("jwt") })
-      utils(result.data, dispatch, "checkToken")
+      try {
+        const result = await Axios.post("/validate-token", { token: localStorage.getItem("jwt") })
+        utils(result.data, dispatch, "checkToken")
+      } catch (err) {
+        console.log(err)
+      }
     }
     validateSession()
   }, [state.loggedIn == true])

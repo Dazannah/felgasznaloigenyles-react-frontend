@@ -14,10 +14,10 @@ function Login(props) {
 
   async function login(e) {
     e.preventDefault()
-    appDispatch({type: "emptyflashMessageWarrning"})
+    appDispatch({ type: "emptyflashMessageWarrning" })
     setIsLoading(true)
 
-    if ((username != 0 || username != null) || (username != 0 || username != null)) {
+    if (username != 0 || username != null || username != 0 || username != null) {
       try {
         const response = await Axios.post("/login", {
           username,
@@ -26,11 +26,11 @@ function Login(props) {
 
         if (response.data.token) {
           appDispatch({ type: "login" })
-          appDispatch({ type: "setJWT", value: response.data.token})
+          appDispatch({ type: "setJWT", value: response.data.token })
 
           setIsLoading(false)
         } else {
-          appDispatch({ type: "flashMessageWarrning", value: response.data})
+          appDispatch({ type: "flashMessageWarrning", value: response.data })
           setIsLoading(false)
         }
       } catch (err) {
@@ -46,7 +46,6 @@ function Login(props) {
       }
       setIsLoading(false)
     }
-
   }
 
   return (

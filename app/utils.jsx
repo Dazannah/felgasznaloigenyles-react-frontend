@@ -14,6 +14,4 @@ function checkToken(serverResponseData, appDispatch) {
   }
 }
 
-//cjs-re áét
-
 export default utils

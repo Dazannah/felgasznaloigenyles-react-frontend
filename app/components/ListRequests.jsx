@@ -54,45 +54,48 @@ function ListRequests(props) {
 
   async function submitHandle(event) {
     event.preventDefault()
-    const collapsibles = document.getElementsByClassName("collapsibleContent")
     const formData = new FormData(event.target)
     const values = Object.fromEntries(formData.entries())
     const keys = Object.keys(values)
     let leftColumnKeys = []
 
-    initialState.arrays.leftColumn.forEach(element => {
-      leftColumnKeys.push(element.name)
-    })
-
-    let dataToSend = {}
-    let userNames = {}
-
-    keys.map(keysElement => {
+    if (!values.permission) {
+      appDispatch({ type: "flashMessageWarning", value: "Engedélyezés/elutasítás megadása kötelező." })
+    } else {
       initialState.arrays.leftColumn.forEach(element => {
-        if (keysElement == element.name) {
-          userNames[keysElement] = values[keysElement]
-        } else {
-          if (!leftColumnKeys.includes(keysElement)) {
-            dataToSend[keysElement] = values[keysElement]
+        leftColumnKeys.push(element.name)
+      })
+
+      let dataToSend = {}
+      let userNames = {}
+
+      keys.map(keysElement => {
+        initialState.arrays.leftColumn.forEach(element => {
+          if (keysElement == element.name) {
+            userNames[keysElement] = values[keysElement]
+          } else {
+            if (!leftColumnKeys.includes(keysElement)) {
+              dataToSend[keysElement] = values[keysElement]
+            }
           }
-        }
+        })
       })
-    })
 
-    dataToSend.userNames = userNames
+      dataToSend.userNames = userNames
 
-    try {
-      const result = await Axios.post("/request-update", {
-        token: initialState.user.token,
-        dataToSend
-      })
-      setGetTickets(true)
+      try {
+        await Axios.post("/request-update", {
+          token: initialState.user.token,
+          dataToSend
+        })
+        setGetTickets(true)
 
-      appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
-      formRef.current.reset()
-      window.scrollTo(0, 0)
-    } catch (error) {
-      console.log(error)
+        appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
+        formRef.current.reset()
+        window.scrollTo(0, 0)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 

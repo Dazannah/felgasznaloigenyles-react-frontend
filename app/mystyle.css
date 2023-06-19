@@ -321,7 +321,7 @@ body {
 
 .floating-alert {
   display: none;
-  position: absolute;
+  position: fixed;
   z-index: 999;
   top: 38px;
   left: 50%;

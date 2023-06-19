@@ -13,10 +13,12 @@ import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import IsDone from "./IsDone.jsx"
 
+import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
 
 function AllowedRequests(props) {
   const initialState = useContext(StateContext)
+  const appDispatch = useContext(DispatchContext)
 
   const [allowedRequests, setAllowedRequests] = useState()
   const [isLoading, setIsloading] = useState(true)
@@ -43,8 +45,53 @@ function AllowedRequests(props) {
     getAllowedRequests()
   }, [])
 
-  function submitHandle() {
-    console.log("asd")
+  async function submitHandle(event) {
+    event.preventDefault()
+    const formData = new FormData(event.target)
+    const values = Object.fromEntries(formData.entries())
+    const leftColumnKeys = []
+    const errors = []
+    console.log(values)
+    if (!values.done) {
+      appDispatch({ type: "flashMessageWarning", value: '"Elkészítve" bepipálása kötelező.' })
+    } else {
+      const dataToSend = {}
+      const userNames = {}
+      const valuesKeys = Object.keys(values)
+
+      initialState.arrays.leftColumn.forEach(element => {
+        leftColumnKeys.push(element.name)
+      })
+      //console.log(leftColumnKeys, initialState.arrays.leftColumn)
+      valuesKeys.forEach(element => {
+        if (leftColumnKeys.includes(element)) {
+          if (values[element] === "") {
+            const index = leftColumnKeys.indexOf(element)
+            console.log(index)
+            errors.push(`${initialState.arrays.leftColumn[index].value} felhasználó név megadása kötelező.`)
+          } else {
+            userNames[element] = values[element]
+          }
+        } else {
+          dataToSend[element] = values[element]
+        }
+      })
+
+      if (errors.length > 0) {
+        appDispatch({ type: "flashMessageWarning", value: errors })
+      } else {
+        dataToSend.userNames = userNames
+        try {
+          const result = await Axios.post("/close-new-user-ticket", {
+            token: initialState.user.token,
+            data: dataToSend
+          })
+          console.log(result)
+        } catch (err) {
+          appDispatch({ type: "flashMessageWarning", value: err.message })
+        }
+      }
+    }
   }
 
   if (isLoading)

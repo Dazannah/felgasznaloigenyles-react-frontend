@@ -53,7 +53,12 @@ function CompletedTickets(props) {
     )
 
   if (completedRequests.length == 0) {
-    return <Page title="Elkészült kérelmek">Nincs elkészült kérelmek.</Page>
+    return (
+      <Page title="Elkészült kérelmek">
+        <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} />
+        Nincs elkészült kérelmek.
+      </Page>
+    )
   }
 
   return (
@@ -64,17 +69,15 @@ function CompletedTickets(props) {
           <div key={request._id + "DivKey"} id={index + "Div"} className="request">
             <TableBody request={request} columns={columns} index={index} />
             <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
-              <form>
-                <UpperFields listOut={true} request={request} />
+              <UpperFields listOut={true} request={request} />
 
-                <Columns listOut={true} request={request} />
-                <CreateNewTextarea listOut={true} request={request} />
-                <TechnicalTextarea listOut={true} request={request} />
+              <Columns listOut={true} request={request} />
+              <CreateNewTextarea listOut={true} request={request} />
+              <TechnicalTextarea listOut={true} request={request} />
 
-                <UserName listOut={true} request={request} />
-                <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
-                <IsDone listOut={true} request={request} />
-              </form>
+              <UserName listOut={true} request={request} />
+              <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
+              <IsDone listOut={true} request={request} />
             </div>
           </div>
         )

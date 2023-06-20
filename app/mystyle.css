@@ -492,3 +492,19 @@ body {
   width: 30%;
   line-break: normal;
 }
+
+.userEdit {
+  background-color: orange;
+}
+
+.userEdit:hover {
+  background-color: rgb(255, 209, 122);
+}
+
+.userDelete {
+  background-color: red;
+}
+
+.userDelete:hover {
+  background-color: rgb(255, 116, 116);
+}

@@ -32,7 +32,7 @@ function TableBody(props) {
           let tData
           if (isNestedProperty) {
             const nestedProperty = props.request[splitAccessor[0]]
-            tData = nestedProperty ? nestedProperty[splitAccessor[1]] : "——"
+            tData = nestedProperty[splitAccessor[1]] ? nestedProperty[splitAccessor[1]] : "——"
           } else {
             tData = props.request[accessor] ? props.request[accessor] : "——"
           }

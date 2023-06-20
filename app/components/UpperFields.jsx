@@ -9,6 +9,14 @@ function UpperFields(props) {
   const formState = useContext(FormStateContext)
   const formDispatch = useContext(FormDispatchContext)
 
+  function editUser(e) {
+    console.log(e.target)
+  }
+
+  function deleteUser(e) {
+    console.log(e.target)
+  }
+
   return (
     <>
       <div id="row">
@@ -37,9 +45,22 @@ function UpperFields(props) {
           <p />
           <br />
           <br />
-
-          <input type="radio" id="newUser" name="process" value="Új felhasználó" checked disabled />
-          <label htmlFor="newUser">Új felhasználó</label>
+          {props.listUsers ? (
+            <>
+              <button onClick={e => editUser(e)} className="userEdit roundCorner btn" type="button" id={props.request._id}>
+                Felhasználó jogosultság módosítása
+              </button>
+              <br />
+              <button onClick={e => deleteUser(e)} className="userDelete roundCorner btn" type="button" id={props.request._id}>
+                Felhasználó törlése
+              </button>
+            </>
+          ) : (
+            <form>
+              <input type="radio" id="newUser" name="process" value="Új felhasználó" checked disabled />
+              <label htmlFor="newUser">Új felhasználó</label>
+            </form>
+          )}
 
           <br />
         </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 
 function TableHead(props) {
-  const [sortField, setSortField] = useState("ticketCreation.createTime")
+  const [sortField, setSortField] = useState()
   const [order, setOrder] = useState("asc")
 
   function handleSortingChange(accessor) {
@@ -40,21 +40,24 @@ function TableHead(props) {
   useEffect(() => {
     function addStyckiClass() {
       let div = document.getElementById("sortHead")
-      let divOffset = div.offsetTop
-      let windowOfset = window.pageYOffset
+      if (div) {
+        let divOffset = div.offsetTop
+        let windowOfset = window.pageYOffset
 
-      if (windowOfset > divOffset) {
-        div.classList.add("stickyDiv")
-      }
-      if (windowOfset < 176) {
-        div.classList.remove("stickyDiv")
+        if (windowOfset > divOffset) {
+          div.classList.add("stickyDiv")
+        }
+        if (windowOfset < 176) {
+          div.classList.remove("stickyDiv")
+        }
       }
     }
-    window.addEventListener("scroll", () => {
-      addStyckiClass()
-    })
 
-    return window.removeEventListener("scroll", addStyckiClass())
+    window.addEventListener("scroll", addStyckiClass)
+
+    return () => {
+      window.removeEventListener("scroll", addStyckiClass)
+    }
   }, [])
 
   return (

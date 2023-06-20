@@ -41,7 +41,8 @@ function CompletedTickets(props) {
     { label: "Nyilv. szám", accessor: "personalInformations.ticketId" },
     { label: "Művelet", accessor: "process" },
     { label: "Engedélyezve", accessor: "permission.allowed" },
-    { label: "Engedélyező", accessor: "permission.authorizedBy" }
+    { label: "Engedélyező", accessor: "permission.authorizedBy" },
+    { label: "Lezárt", accessor: "completed.time" }
   ]
 
   if (isLoading)
@@ -60,21 +61,22 @@ function CompletedTickets(props) {
       <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} />
       {completedRequests.map(function (request, index) {
         return (
-          <>
-            <div key={request._id + "DivKey"} id={index + "Div"} className="request">
-              <TableBody request={request} columns={columns} index={index} />
-              <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
+          <div key={request._id + "DivKey"} id={index + "Div"} className="request">
+            <TableBody request={request} columns={columns} index={index} />
+            <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
+              <form>
                 <UpperFields listOut={true} request={request} />
+
                 <Columns listOut={true} request={request} />
                 <CreateNewTextarea listOut={true} request={request} />
                 <TechnicalTextarea listOut={true} request={request} />
 
-                <UserName request={request} />
+                <UserName listOut={true} request={request} />
                 <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
-                <IsDone request={request} />
-              </div>
+                <IsDone listOut={true} request={request} />
+              </form>
             </div>
-          </>
+          </div>
         )
       })}
     </Page>

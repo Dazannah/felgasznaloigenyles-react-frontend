@@ -37,10 +37,10 @@ function UpperFields(props) {
           <p />
           <br />
           <br />
-          <form>
-            <input type="radio" id="newUser" name="process" value="Új felhasználó" checked disabled />
-            <label htmlFor="newUser">Új felhasználó</label>
-          </form>
+
+          <input type="radio" id="newUser" name="process" value="Új felhasználó" checked disabled />
+          <label htmlFor="newUser">Új felhasználó</label>
+
           <br />
         </div>
       </div>

@@ -3,11 +3,24 @@ import React from "react"
 function TableBody(props) {
   function openContent(e) {
     const button = document.getElementById(e)
-    if (button.style.display == "block") {
+    if (button.style.display === "block") {
       button.style.display = "none"
     } else {
       button.style.display = "block"
     }
+  }
+
+  const objectForStyles = {
+    "permission.allowed": {
+      Elutasított: "redColor",
+      Engedélyezett: "greenColor"
+    },
+    process: {
+      "Új felhasználó": "greenColor",
+      "Felhasználó törlése": "redColor",
+      "Felhasználó módosítása": "orangeColor"
+    },
+    default: " sortText"
   }
 
   return (
@@ -15,21 +28,31 @@ function TableBody(props) {
       <div key={props.request._id} id="sortTextWrapper">
         {props.columns.map(({ accessor }, index) => {
           const splitAccessor = accessor.split(".")
-          if (splitAccessor.length > 1) {
-            const tData = props.request[splitAccessor[0]][splitAccessor[1]] ? props.request[splitAccessor[0]][splitAccessor[1]] : "——"
-            return (
-              <div key={props.request._id + "Data" + index} className="sortText">
-                {tData}
-              </div>
-            )
+          const isNestedProperty = splitAccessor.length > 1
+          let tData
+          if (isNestedProperty) {
+            const nestedProperty = props.request[splitAccessor[0]]
+            tData = nestedProperty ? nestedProperty[splitAccessor[1]] : "——"
           } else {
-            const tData = props.request[accessor] ? props.request[accessor] : "——"
-            return (
-              <div key={props.request._id + "Data" + index} {...(tData == "Új felhasználó" ? { className: "sortText greenColor" } : "")}>
-                {tData}
-              </div>
-            )
+            tData = props.request[accessor] ? props.request[accessor] : "——"
           }
+
+          let statusClassName
+          if (isNestedProperty) {
+            if (objectForStyles[`${splitAccessor[0]}.${splitAccessor[1]}`]) {
+              statusClassName = objectForStyles[`${splitAccessor[0]}.${splitAccessor[1]}`][tData]
+            }
+          } else {
+            if (objectForStyles[accessor]) {
+              statusClassName = objectForStyles[accessor][tData]
+            }
+          }
+
+          return (
+            <div key={props.request._id + "Data" + index} className={statusClassName ? statusClassName + objectForStyles.default : objectForStyles.default}>
+              {tData}
+            </div>
+          )
         })}
       </div>
     </button>

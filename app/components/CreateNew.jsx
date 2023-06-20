@@ -56,7 +56,7 @@ function CreateNew() {
     event.preventDefault()
     const errors = validateRequest()
     if (errors) {
-      appDispatch({ type: "flashMessageWarrning", value: errors })
+      appDispatch({ type: "flashMessageWarning", value: errors })
       window.scrollTo(0, 0)
     } else {
       const dataToSend = serializeDataToSend()
@@ -113,25 +113,29 @@ function CreateNew() {
   }
 
   async function handleSend(dataToSend) {
-    const result = await Axios.post("/create-new-ticket", {
-      token: appState.user.token,
-      dataToSend,
-      process: formState.process
-    })
+    try {
+      const result = await Axios.post("/create-new-ticket", {
+        token: appState.user.token,
+        dataToSend,
+        process: formState.process
+      })
+      console.log(result)
+      const invalidToken = utils(result.data, appDispatch, "checkToken")
 
-    const invalidToken = utils(result.data, appDispatch, "checkToken")
-
-    if (invalidToken) {
-      appDispatch({ type: "flashMessageWarrning", value: "Érvénytelen bejelentkezés." })
-      window.scrollTo(0, 0)
-    } else if (result.data.errors) {
-      appDispatch({ type: "flashMessageWarrning", value: result.data.errors })
-      window.scrollTo(0, 0)
-    } else {
-      formRef.current.reset()
-      appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
-      formDispatch({ type: "setClassName", value: "" })
-      window.scrollTo(0, 0)
+      if (invalidToken) {
+        appDispatch({ type: "flashMessageWarrning", value: "Érvénytelen bejelentkezés." })
+        window.scrollTo(0, 0)
+      } else if (result.data.errors) {
+        appDispatch({ type: "flashMessageWarrning", value: result.data.errors })
+        window.scrollTo(0, 0)
+      } else {
+        formRef.current.reset()
+        appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
+        formDispatch({ type: "setClassName", value: "" })
+        window.scrollTo(0, 0)
+      }
+    } catch (err) {
+      console.log(err)
     }
   }
 

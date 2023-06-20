@@ -4,7 +4,9 @@ import FormDispatchContext from "../FormDispatchContext.jsx"
 
 function Technical(props) {
   const formDispatch = useContext(FormDispatchContext)
-  if (props.request.technical.isTechnical && props.request.technical.technicalTextArea.trim() != "") {
+  const showTextArea = props.request ? props.request.technical.isTechnical && props.request.technical.technicalTextArea.trim() != "" : true
+
+  if (showTextArea) {
     return (
       <>
         Technikai fiók megjegyzés:

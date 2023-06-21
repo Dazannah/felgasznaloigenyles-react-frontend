@@ -19,7 +19,6 @@ function EditUser(props) {
   const [isLoading, setIsLoading] = useState(true)
   const [user, setUser] = useState()
   const { id } = useParams()
-  const [localTitle, setLocalTitle] = useState("Felhasználó módosítása")
 
   useEffect(() => {
     async function getUser() {

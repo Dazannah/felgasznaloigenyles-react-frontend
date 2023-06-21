@@ -4,14 +4,22 @@ import Axios from "axios"
 
 import Page from "./Page.jsx"
 import Loading from "./Loading.jsx"
+import UpperFields from "./UpperFields.jsx"
+import Columns from "./Columns.jsx"
+import CreateNewTextarea from "./CreateNewTextarea.jsx"
+import TechnicalTextarea from "./TechnicalTextarea.jsx"
+import UserName from "./UserName.jsx"
 
 import StateContext from "../StateContext.jsx"
+import DispatchContext from "../DispatchContext.jsx"
+
 function EditUser(props) {
+  const appDispatch = useContext(DispatchContext)
   const initialState = useContext(StateContext)
   const [isLoading, setIsLoading] = useState(true)
   const [user, setUser] = useState()
   const { id } = useParams()
-  console.log(id)
+  const [localTitle, setLocalTitle] = useState("Felhasználó módosítása")
 
   useEffect(() => {
     async function getUser() {
@@ -20,9 +28,10 @@ function EditUser(props) {
           authorization: `Bearer ${initialState.user.token}`
         }
       })
-      console.log(result)
-      //setUser(result)
-      //setIsLoading(false)
+
+      setUser(result.data)
+      appDispatch({ type: "setSiteLocation", value: `${result.data.personalInformations.name}` })
+      setIsLoading(false)
     }
 
     getUser()
@@ -30,24 +39,24 @@ function EditUser(props) {
 
   if (isLoading)
     return (
-      <Page title="Felhasználó jogosultság módosítása">
+      <Page title="Felhasználó módosítása">
         <Loading />
       </Page>
     )
 
   if (!user) {
-    return <Page title="Felhasználó jogosultság módosítása">Ez a felhasználó ID nem létetik.</Page>
+    return <Page title="Felhasználó módosítása">Ez a felhasználó ID nem létetik.</Page>
   }
   return (
-    <Page title="Felhasználók listázása">
+    <Page>
       <form>
-        <UpperFields request={request} setUserId={setUserId} />
+        <UpperFields request={user} editUser={true} />
 
-        <Columns request={request} />
-        <CreateNewTextarea request={request} />
-        <TechnicalTextarea request={request} />
+        <Columns request={user} editUser={true} />
+        <CreateNewTextarea request={user} editUser={true} />
+        <TechnicalTextarea request={user} editUser={true} />
 
-        <UserName request={request} />
+        <UserName request={user} editUser={true} />
       </form>
     </Page>
   )

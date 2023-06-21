@@ -10,22 +10,30 @@ function Menu() {
   const [active, setActive] = useState()
 
   function setAcctiveBtn(e) {
-    document.getElementById(active).classList.remove("activeMenuButton")
-    setActive(e)
-    document.getElementById(e).classList.add("activeMenuButton")
+    try {
+      document.getElementById(active).classList.remove("activeMenuButton")
+      setActive(e)
+      document.getElementById(e).classList.add("activeMenuButton")
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   useEffect(() => {
-    const menuButtons = document.getElementsByTagName("a")
-    let tmpActive
+    try {
+      const menuButtons = document.getElementsByTagName("a")
+      let tmpActive
 
-    for (let i = 0; i < menuButtons.length; i++) {
-      if (menuButtons[i].href == window.location.href && menuButtons[i].id != "logOutBtn") {
-        tmpActive = menuButtons[i].id
+      for (let i = 0; i < menuButtons.length; i++) {
+        if (menuButtons[i].href == window.location.href && menuButtons[i].id != "logOutBtn") {
+          tmpActive = menuButtons[i].id
+        }
       }
+      setActive(tmpActive)
+      document.getElementById(tmpActive).classList.add("activeMenuButton")
+    } catch (err) {
+      console.log(err)
     }
-    setActive(tmpActive)
-    document.getElementById(tmpActive).classList.add("activeMenuButton")
   }, [])
 
   function logout(e) {

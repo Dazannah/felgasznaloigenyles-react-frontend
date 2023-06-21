@@ -9,12 +9,8 @@ function UpperFields(props) {
   const formState = useContext(FormStateContext)
   const formDispatch = useContext(FormDispatchContext)
 
-  function editUser(e) {
-    console.log(e.target)
-  }
-
-  function deleteUser(e) {
-    console.log(e.target)
+  function handleProcessStart(id, process) {
+    props.setUserId([id, process])
   }
 
   return (
@@ -47,11 +43,11 @@ function UpperFields(props) {
           <br />
           {props.listUsers ? (
             <>
-              <button onClick={e => editUser(e)} className="userEdit roundCorner btn" type="button" id={props.request._id}>
+              <button onClick={() => handleProcessStart(props.request._id, "edit")} className="userEdit roundCorner btn" type="button" id={props.request._id}>
                 Felhasználó jogosultság módosítása
               </button>
               <br />
-              <button onClick={e => deleteUser(e)} className="userDelete roundCorner btn" type="button" id={props.request._id}>
+              <button onClick={() => handleProcessStart(props.request._id, "delete")} className="userDelete roundCorner btn" type="button" id={props.request._id}>
                 Felhasználó törlése
               </button>
             </>

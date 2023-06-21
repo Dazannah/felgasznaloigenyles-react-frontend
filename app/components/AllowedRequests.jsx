@@ -37,8 +37,10 @@ function AllowedRequests(props) {
 
   useEffect(() => {
     async function getAllowedRequests() {
-      const allowedRequests = await Axios.post("/get-allowed-tickets", {
-        token: initialState.user.token
+      const allowedRequests = await Axios.get("/get-allowed-tickets", {
+        headers: {
+          authorization: `Bearer ${initialState.user.token}`
+        }
       })
       setAllowedRequests(allowedRequests.data)
       setIsloading(false)
@@ -83,10 +85,17 @@ function AllowedRequests(props) {
       } else {
         dataToSend.userNames = userNames
         try {
-          const result = await Axios.post("/close-new-user-ticket", {
-            token: initialState.user.token,
-            dataToSend
-          })
+          const result = await Axios.post(
+            "/close-new-user-ticket",
+            {
+              dataToSend
+            },
+            {
+              headers: {
+                authorization: `Bearer ${initialState.user.token}`
+              }
+            }
+          )
           appDispatch({ type: "flashMessagesSuccess", value: "Felhasználó létrehozása sikeres." })
           setRequests(true)
         } catch (err) {

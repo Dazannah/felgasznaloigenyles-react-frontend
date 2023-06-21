@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react"
+import { useNavigate } from "react-router-dom"
 import Axios from "axios"
 
 import Page from "./Page.jsx"
@@ -16,16 +17,21 @@ import IsDone from "./IsDone.jsx"
 import StateContext from "../StateContext.jsx"
 
 function ListUsers() {
+  const navigate = useNavigate()
   const initialState = useContext(StateContext)
 
   const [isLoading, setIsLoading] = useState(true)
   const [users, setUsers] = useState()
   const [getRequests, setGetRequests] = useState(true)
+  const [userId, setUserId] = useState()
+  const [isInitialLoad, setIsInitialLoad] = useState(true)
 
   useEffect(() => {
     async function getUsers() {
-      const response = await Axios.post("/list-users", {
-        token: initialState.user.token
+      const response = await Axios.get("/list-users", {
+        headers: {
+          authorization: `Bearer ${initialState.user.token}`
+        }
       })
       setUsers(response.data)
       setIsLoading(false)
@@ -34,6 +40,38 @@ function ListUsers() {
 
     getUsers()
   }, [getRequests])
+
+  /*function handleUserIdSet(id, process) {
+    setUserId([ id, process ])
+  }*/
+
+  useEffect(() => {
+    async function handleUserId() {
+      if (isInitialLoad) {
+        setIsInitialLoad(false)
+        return
+      }
+      const [id, process] = userId
+      handleSubmit(id, process)
+    }
+
+    handleUserId()
+  }, [userId])
+  async function handleSubmit(id, process) {
+    if (process === "delete") {
+      const answer = confirm("Biztosan törölni akarod a felhasználót?")
+      if (answer) submitRequest(id, process)
+    } else {
+      navigate(`/user/${id}/${process}`)
+    }
+  }
+
+  async function submitRequest(id, process) {
+    const result = await Axios.post(`/user/${id}/${process}`, {
+      token: initialState.user.token
+    })
+    console.log(result)
+  }
 
   const columns = [
     { label: "Név", accessor: "personalInformations.name" },
@@ -68,7 +106,7 @@ function ListUsers() {
             <TableBody request={request} columns={columns} index={index} />
             <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
               <form>
-                <UpperFields listOut={true} request={request} listUsers={true} />
+                <UpperFields listOut={true} request={request} listUsers={true} setUserId={setUserId} />
 
                 <Columns listOut={true} request={request} />
                 <CreateNewTextarea listOut={true} request={request} />

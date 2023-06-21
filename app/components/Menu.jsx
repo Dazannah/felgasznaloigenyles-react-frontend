@@ -62,7 +62,7 @@ function Menu() {
           </form>
           <form key="completedRequests">
             <Link id="completedRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="completedRequestsBtn" className="btn" to="/list-completed-requests">
-              Elkészült kérelmek
+              Lezárt kérelmek
             </Link>
           </form>
           <form key="distributinList">

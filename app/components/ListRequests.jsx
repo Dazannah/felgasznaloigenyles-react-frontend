@@ -38,8 +38,10 @@ function ListRequests(props) {
   useEffect(() => {
     async function getRequests() {
       try {
-        const incomingRequests = await Axios.post("/requests-list-all", {
-          token: initialState.user.token
+        const incomingRequests = await Axios.get("/requests-list-all", {
+          headers: {
+            authorization: `Bearer ${initialState.user.token}`
+          }
         })
 
         setRequests(incomingRequests.data)
@@ -84,10 +86,17 @@ function ListRequests(props) {
       dataToSend.userNames = userNames
 
       try {
-        await Axios.post("/request-update", {
-          token: initialState.user.token,
-          dataToSend
-        })
+        await Axios.post(
+          "/request-update",
+          {
+            dataToSend
+          },
+          {
+            headers: {
+              authorization: `Bearer ${initialState.user.token}`
+            }
+          }
+        )
         setGetTickets(true)
 
         appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })

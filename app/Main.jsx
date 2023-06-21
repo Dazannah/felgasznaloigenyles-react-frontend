@@ -15,6 +15,7 @@ import CreateNew from "./components/CreateNew.jsx"
 import ListUsers from "./components/ListUsers.jsx"
 import ListRequests from "./components/ListRequests.jsx"
 import CompletedTickets from "./components/CompletedTickets.jsx"
+import EditUser from "./components/EditUser.jsx"
 
 //flash message
 import FlashMessagesSuccess from "./components/FlashMessagesSuccess.jsx"
@@ -151,7 +152,11 @@ function Main() {
   useEffect(() => {
     async function validateSession() {
       try {
-        const result = await Axios.post("/validate-token", { token: localStorage.getItem("jwt") })
+        const result = await Axios.get("/validate-token", {
+          headers: {
+            authorization: `Bearer ${state.user.token}`
+          }
+        })
         utils(result.data, dispatch, "checkToken")
       } catch (err) {
         console.log(err)
@@ -206,6 +211,7 @@ function Main() {
                   <Route path="/list-requests" element={<ListRequests />} />
                   <Route path="/list-allowed-requests" element={<AllowedRequests />} />
                   <Route path="/list-completed-requests" element={<CompletedTickets />} />
+                  <Route path="/user/:id/edit" element={<EditUser />} />
                   <Route path="/*" element={<NoFound />} />
                 </Routes>
               </BrowserRouter>

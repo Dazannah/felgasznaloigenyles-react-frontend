@@ -24,8 +24,10 @@ function CompletedTickets(props) {
 
   useEffect(() => {
     async function getCompletedRequests() {
-      const response = await Axios.post("/get-completed-tickets", {
-        token: initialState.user.token
+      const response = await Axios.get("/get-completed-tickets", {
+        headers: {
+          authorization: `Bearer ${initialState.user.token}`
+        }
       })
       setCompletedRequests(response.data)
       setIsLoading(false)
@@ -47,14 +49,14 @@ function CompletedTickets(props) {
 
   if (isLoading)
     return (
-      <Page title="Elkészült kérelmek">
+      <Page title="Lezárt kérelmek">
         <Loading />
       </Page>
     )
 
   if (completedRequests.length == 0) {
     return (
-      <Page title="Elkészült kérelmek">
+      <Page title="Lezárt kérelmek">
         <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} />
         Nincs elkészült kérelmek.
       </Page>
@@ -62,7 +64,7 @@ function CompletedTickets(props) {
   }
 
   return (
-    <Page title="Elkészült kérelmek">
+    <Page title="Lezárt kérelmek">
       <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} />
       {completedRequests.map(function (request, index) {
         return (

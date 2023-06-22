@@ -9,10 +9,8 @@ import UpperFields from "./UpperFields.jsx"
 import Columns from "./Columns.jsx"
 import CreateNewTextarea from "./CreateNewTextarea.jsx"
 import UserName from "./UserName.jsx"
-import AllowTextarea from "./AllowTextarea.jsx"
 import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
-import IsDone from "./IsDone.jsx"
 
 import StateContext from "../StateContext.jsx"
 
@@ -67,9 +65,7 @@ function ListUsers() {
   }
 
   async function submitRequest(id, process) {
-    const result = await Axios.post(`/user/${id}/${process}`, {
-      token: initialState.user.token
-    })
+    const result = await Axios.post(`/user/${id}/${process}`, {}, { headers: { authorization: `Bearer ${initialState.user.token}` } })
     console.log(result)
   }
 

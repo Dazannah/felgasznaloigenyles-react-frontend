@@ -54,7 +54,7 @@ function UpperFields(props) {
           ) : (
             <form>
               <input type="radio" id="newUser" name="process" value="Új felhasználó" checked disabled />
-              <label htmlFor="newUser">Új felhasználó</label>
+              <label htmlFor="newUser">{props.request ? props.request.process : "Új felhasználó"}</label>
             </form>
           )}
 

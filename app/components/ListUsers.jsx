@@ -68,7 +68,6 @@ function ListUsers() {
       if (result.data === "A felhasználónak van folyamatban lévő törlési kérelme.") {
         appDispatch({ type: "flashMessageWarning", value: result.data })
       } else if (result.data.acknowledged) {
-        console.log(result)
         appDispatch({ type: "flashMessagesSuccess", value: "Törlési kérelem sikeresen mentve." })
       }
     } catch (err) {

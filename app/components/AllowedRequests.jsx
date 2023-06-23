@@ -55,55 +55,88 @@ function AllowedRequests(props) {
     event.preventDefault()
     const formData = new FormData(event.target)
     const values = Object.fromEntries(formData.entries())
-    const leftColumnKeys = []
-    const errors = []
 
     if (!values.done) {
       appDispatch({ type: "flashMessageWarning", value: '"Elkészítve" bepipálása kötelező.' })
     } else {
-      const dataToSend = {}
-      const userNames = {}
-      const valuesKeys = Object.keys(values)
-
-      initialState.arrays.leftColumn.forEach(element => {
-        leftColumnKeys.push(element.name)
-      })
-      valuesKeys.forEach(element => {
-        if (leftColumnKeys.includes(element)) {
-          if (values[element] === "") {
-            const index = leftColumnKeys.indexOf(element)
-
-            errors.push(`${initialState.arrays.leftColumn[index].value} megadása kötelező.`)
-          } else {
-            userNames[element] = values[element]
-          }
-        } else {
-          dataToSend[element] = values[element]
-        }
-      })
-
-      if (errors.length > 0) {
-        appDispatch({ type: "flashMessageWarning", value: errors })
+      if (values.process === "Felhasználó törlése") {
+        sendDeleteRequest(values)
       } else {
-        dataToSend.userNames = userNames
-        try {
-          const result = await Axios.post(
-            "/close-new-user-ticket",
-            {
-              dataToSend
-            },
-            {
-              headers: {
-                authorization: `Bearer ${initialState.user.token}`
-              }
-            }
-          )
-          appDispatch({ type: "flashMessagesSuccess", value: "Felhasználó létrehozása sikeres." })
-          setRequests(true)
-        } catch (err) {
-          appDispatch({ type: "flashMessageWarning", value: err.message })
+        const { errors, dataToSend, userNames } = handleFields(values)
+
+        if (errors.length > 0) {
+          appDispatch({ type: "flashMessageWarning", value: errors })
+        } else {
+          dataToSend.userNames = userNames
+          sendRequestWithFields(dataToSend)
         }
       }
+    }
+  }
+
+  function handleFields(values) {
+    const leftColumnKeys = []
+    const errors = []
+    const dataToSend = {}
+    const userNames = {}
+    const valuesKeys = Object.keys(values)
+
+    initialState.arrays.leftColumn.forEach(element => {
+      leftColumnKeys.push(element.name)
+    })
+    valuesKeys.forEach(element => {
+      if (leftColumnKeys.includes(element)) {
+        if (values[element] === "") {
+          const index = leftColumnKeys.indexOf(element)
+
+          errors.push(`${initialState.arrays.leftColumn[index].value} megadása kötelező.`)
+        } else {
+          userNames[element] = values[element]
+        }
+      } else {
+        dataToSend[element] = values[element]
+      }
+    })
+    return { errors, dataToSend, userNames }
+  }
+
+  async function sendRequestWithFields(dataToSend) {
+    try {
+      const result = await Axios.post(
+        "/close-new-user-ticket",
+        {
+          dataToSend
+        },
+        {
+          headers: {
+            authorization: `Bearer ${initialState.user.token}`
+          }
+        }
+      )
+      appDispatch({ type: "flashMessagesSuccess", value: "Felhasználó létrehozása sikeres." })
+      setRequests(true)
+    } catch (err) {
+      appDispatch({ type: "flashMessageWarning", value: err.message })
+    }
+  }
+
+  async function sendDeleteRequest(values) {
+    try {
+      const result = await Axios.post(
+        "/close-delete-user-request",
+        {
+          values
+        },
+        {
+          headers: {
+            authorization: `Bearer ${initialState.user.token}`
+          }
+        }
+      )
+      appDispatch({ type: "flashMessagesSuccess", value: result.data })
+      setRequests(true)
+    } catch (err) {
+      appDispatch({ type: "flashMessageWarning", value: err.message })
     }
   }
 
@@ -139,6 +172,7 @@ function AllowedRequests(props) {
                 <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
                 <IsDone request={request} />
                 <input key={request._id + "ticketIdInput"} type="hidden" name="ticketId" value={request._id} />
+                <input key={request._id + "process"} type="hidden" name="process" value={request.process} />
                 <input key={request._id + "submit"} type="submit" className="button" value="Küldés" />
               </form>
             </div>

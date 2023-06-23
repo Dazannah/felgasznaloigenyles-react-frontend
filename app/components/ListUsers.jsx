@@ -12,9 +12,11 @@ import UserName from "./UserName.jsx"
 import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 
+import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
 
 function ListUsers() {
+  const appDispatch = useContext(DispatchContext)
   const navigate = useNavigate()
   const initialState = useContext(StateContext)
 
@@ -61,8 +63,17 @@ function ListUsers() {
   }
 
   async function submitRequest(id, process) {
-    const result = await Axios.post(`/user/${id}/${process}`, {}, { headers: { authorization: `Bearer ${initialState.user.token}` } })
-    console.log(result)
+    try {
+      const result = await Axios.post(`/user/${id}/${process}`, {}, { headers: { authorization: `Bearer ${initialState.user.token}` } })
+      if (result.data === "A felhasználónak van folyamatban lévő törlési kérelme.") {
+        appDispatch({ type: "flashMessageWarning", value: result.data })
+      } else if (result.data.acknowledged) {
+        console.log(result)
+        appDispatch({ type: "flashMessagesSuccess", value: "Törlési kérelem sikeresen mentve." })
+      }
+    } catch (err) {
+      appDispatch({ type: "flashMessageWarning", value: err.message })
+    }
   }
 
   const columns = [

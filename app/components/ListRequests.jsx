@@ -36,22 +36,24 @@ function ListRequests(props) {
   ]
 
   useEffect(() => {
-    async function getRequests() {
-      try {
-        const incomingRequests = await Axios.get("/requests-list-all", {
-          headers: {
-            authorization: `Bearer ${initialState.user.token}`
-          }
-        })
+    if (getTickets) {
+      async function getRequests() {
+        try {
+          const incomingRequests = await Axios.get("/requests-list-all", {
+            headers: {
+              authorization: `Bearer ${initialState.user.token}`
+            }
+          })
 
-        setRequests(incomingRequests.data)
-        setIsLoading(false)
-      } catch (err) {
-        console.log(err)
+          setRequests(incomingRequests.data)
+          setIsLoading(false)
+        } catch (err) {
+          console.log(err)
+        }
       }
+      getRequests()
+      setGetTickets(false)
     }
-    getRequests()
-    setGetTickets(false)
   }, [getTickets])
 
   async function submitHandle(event) {

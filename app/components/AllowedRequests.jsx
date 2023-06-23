@@ -36,17 +36,19 @@ function AllowedRequests(props) {
   ]
 
   useEffect(() => {
-    async function getAllowedRequests() {
-      const allowedRequests = await Axios.get("/get-allowed-tickets", {
-        headers: {
-          authorization: `Bearer ${initialState.user.token}`
-        }
-      })
-      setAllowedRequests(allowedRequests.data)
-      setIsloading(false)
-      setRequests(false)
+    if (requests) {
+      async function getAllowedRequests() {
+        const allowedRequests = await Axios.get("/get-allowed-tickets", {
+          headers: {
+            authorization: `Bearer ${initialState.user.token}`
+          }
+        })
+        setAllowedRequests(allowedRequests.data)
+        setIsloading(false)
+        setRequests(false)
+      }
+      getAllowedRequests()
     }
-    getAllowedRequests()
   }, [requests])
 
   async function submitHandle(event) {

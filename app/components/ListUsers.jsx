@@ -35,13 +35,8 @@ function ListUsers() {
       setIsLoading(false)
       setGetRequests(false)
     }
-
     getUsers()
-  }, [getRequests])
-
-  /*function handleUserIdSet(id, process) {
-    setUserId([ id, process ])
-  }*/
+  }, [])
 
   useEffect(() => {
     async function handleUserId() {
@@ -55,6 +50,7 @@ function ListUsers() {
 
     handleUserId()
   }, [userId])
+
   async function handleSubmit(id, process) {
     if (process === "delete") {
       const answer = confirm("Biztosan törölni akarod a felhasználót?")

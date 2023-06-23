@@ -23,18 +23,20 @@ function CompletedTickets(props) {
   const [getRequests, setGetRequests] = useState(true)
 
   useEffect(() => {
-    async function getCompletedRequests() {
-      const response = await Axios.get("/get-completed-tickets", {
-        headers: {
-          authorization: `Bearer ${initialState.user.token}`
-        }
-      })
-      setCompletedRequests(response.data)
-      setIsLoading(false)
-      setGetRequests(false)
-    }
+    if (getRequests) {
+      async function getCompletedRequests() {
+        const response = await Axios.get("/get-completed-tickets", {
+          headers: {
+            authorization: `Bearer ${initialState.user.token}`
+          }
+        })
+        setCompletedRequests(response.data)
+        setIsLoading(false)
+        setGetRequests(false)
+      }
 
-    getCompletedRequests()
+      getCompletedRequests()
+    }
   }, [getRequests])
 
   const columns = [

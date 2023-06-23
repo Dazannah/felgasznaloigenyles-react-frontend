@@ -130,10 +130,10 @@ function CreateNew() {
       const invalidToken = utils(result.data, appDispatch, "checkToken")
 
       if (invalidToken) {
-        appDispatch({ type: "flashMessageWarrning", value: "Érvénytelen bejelentkezés." })
+        appDispatch({ type: "flashMessageWarning", value: "Érvénytelen bejelentkezés." })
         window.scrollTo(0, 0)
       } else if (result.data.errors) {
-        appDispatch({ type: "flashMessageWarrning", value: result.data.errors })
+        appDispatch({ type: "flashMessageWarning", value: result.data.errors })
         window.scrollTo(0, 0)
       } else {
         formRef.current.reset()

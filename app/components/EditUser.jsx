@@ -59,17 +59,19 @@ function EditUser(props) {
   }
   return (
     <Page>
-      <form id="editForm" onSubmit={editUser} ref={formRef}>
-        <UpperFields request={user} classChoosable={true} listOut={true} />
-        <Columns request={user} />
-        <CreateNewTextarea request={user} />
-        <TechnicalTextarea request={user} />
+      <div className="create-form">
+        <form id="editForm" onSubmit={editUser} ref={formRef}>
+          <UpperFields request={user} classChoosable={true} listOut={true} />
+          <Columns request={user} />
+          <CreateNewTextarea request={user} />
+          <TechnicalTextarea request={user} />
 
-        <UserName request={user} />
-        {formState.isTechnical ? <TechnicalTextarea /> : ""}
-        <input type="hidden" name="csrf-token" value="" />
-        <input type="submit" className="button" value="Küldés" />
-      </form>
+          <UserName request={user} />
+          {formState.isTechnical ? <TechnicalTextarea /> : ""}
+          <input type="hidden" name="csrf-token" value="" />
+          <input type="submit" className="form-submit-input round-corner" value="Küldés" />
+        </form>
+      </div>
     </Page>
   )
 }

@@ -283,6 +283,7 @@ input[type="datetime-local"] {
 .form-submit-input {
   width: 100px;
   height: 30px;
+  margin-top: 10px;
   background-color: #15808a;
   color: white;
   margin-bottom: 5px;

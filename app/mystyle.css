@@ -1,5 +1,7 @@
 body {
   font-family: Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 #login-wrapper {
@@ -87,11 +89,10 @@ body {
 
 /* Site Menu */
 
-#menu-wrapper {
-}
-
 #main-menu {
-  border: 3px solid black;
+  width: 100%;
+  min-height: 3.75rem;
+  background-color: #15808a;
 }
 
 nav ul {
@@ -102,8 +103,7 @@ nav ul {
 nav li {
   list-style: none;
   float: left;
-  margin-right: 5px;
-  border: 3px solid #15808a;
+  width: fit-content;
 }
 
 nav li:nth-child(7) {
@@ -111,14 +111,22 @@ nav li:nth-child(7) {
 }
 
 nav a {
-  text-decoration: none;
   display: block;
+  min-height: 3.75rem;
+  line-height: 3.75rem;
+  padding: 0 8px;
+  text-decoration: none;
+  color: white;
 }
 
-.menu-btn {
+nav a:hover {
+  background-color: #fff;
+  color: #000;
 }
 
 .active-main-menu-btn {
+  background-color: #fff;
+  color: #000;
 }
 
 /* Site Menu End */

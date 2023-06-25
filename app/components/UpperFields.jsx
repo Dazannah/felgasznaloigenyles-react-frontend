@@ -21,12 +21,12 @@ function UpperFields(props) {
             Név:
           </label>
           <br />
-          <input onChange={e => formDispatch({ type: "setName", value: e.target.value })} className="content roundCorner" type="text" id="name" name="name" {...(props.listOut ? { value: `${props.request.personalInformations.name}`, readOnly: true } : "")} />
-          <label htmlFor="isTechnical">Technikai fiók</label> <input onChange={e => formDispatch({ type: "setIsTechnical", value: e.target.checked })} {...(props.listOut ? { checked: props.request.technical.isTechnical, disabled: true } : "")} id="isTechnical" type="checkbox" />
+          <input onChange={e => formDispatch({ type: "setName", value: e.target.value })} className="content roundCorner" type="text" id="name" name="name" {...(props.listOut ? { defaultValue: `${props.request.personalInformations.name}` } : "")} readOnly={props.readonly} />
+          <label htmlFor="isTechnical">Technikai fiók</label> <input onChange={e => formDispatch({ type: "setIsTechnical", value: e.target.checked })} {...(props.listOut ? { checked: props.request.technical.isTechnical } : "")} disabled={props.readOnly} id="isTechnical" type="checkbox" />
           <br />
           <p />
-          {props.listOut ? "Osztály:" : <DropdownMenu />}
-          <input className="content roundCorner" type="text" id="class" name="class" value={formState.className} readOnly {...(props.listOut ? { value: `${props.request.personalInformations.className}`, readOnly: true } : "")} />
+          {props.classChoosable ? <DropdownMenu /> : "Osztály:"}
+          <input className="content roundCorner" type="text" id="class" name="class" defaultValue={formState.className} readOnly {...(props.listOut ? { defaultValue: `${props.request.personalInformations.className}` } : "")} />
           <br />
           <br />
           <input hidden className="content roundCorner" type="text" id="classDbId" name="dbId" {...(props.listOut ? { value: `${props.request.personalInformations._id}` } : { value: formState.classId })} readOnly />

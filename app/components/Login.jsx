@@ -50,33 +50,32 @@ function Login(props) {
 
   return (
     <Page title="Bejelentkezés">
-      <div id="title">
-        <p>Jogosultság igénylés</p>
+      <div id="login-wrapper">
+        <div id="login-logo-wrapper">
+          {" "}
+          <img id="login-logo" src="/imgs/logo.png" alt="" />
+        </div>
+
+        <div id="login-title">
+          <h1>Jogosultság igénylő</h1>
+        </div>
+        <div id="login-form-wrapper">
+          <form className="login-form" onSubmit={e => login(e)}>
+            <label htmlFor="userName" className="hidden-lable">
+              Felhasználónév:
+            </label>
+            <input className="login-input roundCorners" onChange={e => setUsername(e.target.value)} type="text" placeholder="Felhasználónév" id="userName" name="userName" autoComplete="off" required />
+
+            <label htmlFor="password" className="hidden-lable">
+              Jelszó:
+            </label>
+            <input className="login-input roundCorners" onChange={e => setPassword(e.target.value)} type="password" placeholder="Jelszó" id="password" name="password" autoComplete="off" required />
+
+            <input type="hidden" name="csrf-token" value="" />
+            <div id="login-button-wrapper">{isLoading ? <Loading /> : <input id="login-button" className="roundCorners" type="submit" value="Bejelentkezés" />}</div>
+          </form>
+        </div>
       </div>
-      <div id="title2">
-        Hódmezővásárhelyi - Makói Egészségügyi Ellátó Központ
-        <br />
-      </div>
-      <br />
-      <div id="login">
-        <form onSubmit={e => login(e)}>
-          <label htmlFor="userName">Felhasználónév:</label>
-          <br />
-          <input onChange={e => setUsername(e.target.value)} type="text" id="userName" name="userName" autoComplete="off" />
-          <br />
-          <br />
-          <label htmlFor="password">Jelszó:</label>
-          <br />
-          <input onChange={e => setPassword(e.target.value)} type="password" id="password" name="password" autoComplete="off" />
-          <br />
-          <br />
-          <input type="hidden" name="csrf-token" value="" />
-          {isLoading ? <Loading /> : <input className="button" type="submit" value="Bejelentkezés" />}
-          <br />
-          <br />
-        </form>
-      </div>
-      <br />
     </Page>
   )
 }

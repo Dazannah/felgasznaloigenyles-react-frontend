@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext, useRef } from "react"
 import { useParams } from "react-router-dom"
 import Axios from "axios"
 
@@ -12,6 +12,8 @@ import UserName from "./UserName.jsx"
 
 import StateContext from "../StateContext.jsx"
 import DispatchContext from "../DispatchContext.jsx"
+import FormDispatchContext from "../FormDispatchContext.jsx"
+import FormStateContext from "../FormStateContext.jsx"
 
 function EditUser(props) {
   const appDispatch = useContext(DispatchContext)
@@ -19,6 +21,11 @@ function EditUser(props) {
   const [isLoading, setIsLoading] = useState(true)
   const [user, setUser] = useState()
   const { id } = useParams()
+
+  const formState = useContext(FormStateContext)
+  const formDispatch = useContext(FormDispatchContext)
+
+  const formRef = useRef(null)
 
   useEffect(() => {
     async function getUser() {
@@ -36,6 +43,10 @@ function EditUser(props) {
     getUser()
   }, [])
 
+  async function editUser(event) {
+    event.preventDefault()
+  }
+
   if (isLoading)
     return (
       <Page title="Felhasználó módosítása">
@@ -48,14 +59,16 @@ function EditUser(props) {
   }
   return (
     <Page>
-      <form>
-        <UpperFields request={user} editUser={true} />
+      <form id="editForm" onSubmit={editUser} ref={formRef}>
+        <UpperFields request={user} classChoosable={true} listOut={true} />
+        <Columns request={user} />
+        <CreateNewTextarea request={user} />
+        <TechnicalTextarea request={user} />
 
-        <Columns request={user} editUser={true} />
-        <CreateNewTextarea request={user} editUser={true} />
-        <TechnicalTextarea request={user} editUser={true} />
-
-        <UserName request={user} editUser={true} />
+        <UserName request={user} />
+        {formState.isTechnical ? <TechnicalTextarea /> : ""}
+        <input type="hidden" name="csrf-token" value="" />
+        <input type="submit" className="button" value="Küldés" />
       </form>
     </Page>
   )

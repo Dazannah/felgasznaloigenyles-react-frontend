@@ -1,8 +1,198 @@
 body {
-  background-color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Tahoma, sans-serif;
 }
 
+#login-wrapper {
+  max-width: 500px;
+  min-height: 500px;
+  margin: auto;
+  padding: 30px;
+}
+
+#login-logo-wrapper {
+  margin: auto;
+  margin-top: 30px;
+  width: fit-content;
+  height: auto;
+}
+
+#login-logo {
+  height: 300px;
+  width: auto;
+}
+
+#login-title {
+  text-align: center;
+}
+
+#login-title h1 {
+  font-weight: normal;
+}
+
+#login-form-wrapper {
+  width: 80%;
+  margin: auto;
+}
+
+.login-input {
+  display: block;
+  font-family: Tahoma, sans-serif;
+  box-sizing: border-box;
+  border: 1px solid #15808a;
+  width: 100%;
+  height: 50px;
+  font-size: 150%;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+.login-input:focus {
+  border: 1px solid #15808a;
+  box-shadow: inset 2px 2px 2px #15808a;
+}
+
+#login-button-wrapper {
+  text-align: center;
+  margin-top: 10px;
+}
+
+#login-button {
+  margin-top: 10px;
+  display: block;
+  font-family: Tahoma, sans-serif;
+  box-sizing: border-box;
+  border: none;
+  width: 100%;
+  height: 50px;
+  font-size: 150%;
+  margin-bottom: 10px;
+}
+
+#login-button:hover {
+  background-color: #15808a;
+  color: white;
+}
+
+.hidden-lable {
+  position: absolute;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.roundCorners {
+  border-radius: 5px;
+}
+
+/* Site Menu */
+
+#menu-wrapper {
+}
+
+#main-menu {
+  border: 3px solid black;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  list-style: none;
+  float: left;
+  margin-right: 5px;
+  border: 3px solid #15808a;
+}
+
+nav li:nth-child(7) {
+  float: right;
+}
+
+nav a {
+  text-decoration: none;
+  display: block;
+}
+
+.menu-btn {
+}
+
+.active-main-menu-btn {
+}
+
+/* Site Menu End */
+
+/* Loading Dots */
+
+.dots-loading {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.dots-loading::before,
+.dots-loading::after {
+  content: " ";
+}
+
+.dots-loading div,
+.dots-loading::before,
+.dots-loading::after {
+  margin: 35px 5px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #15808a;
+  opacity: 0;
+}
+
+.dots-loading::before {
+  -moz-animation: opacitychange 1s ease-in-out infinite;
+  -webkit-animation: opacitychange 1s ease-in-out infinite;
+  -o-animation: opacitychange 1s ease-in-out infinite;
+  animation: opacitychange 1s ease-in-out infinite;
+}
+
+.dots-loading div {
+  -moz-animation: opacitychange 1s ease-in-out 0.33s infinite;
+  -webkit-animation: opacitychange 1s ease-in-out 0.33s infinite;
+  -o-animation: opacitychange 1s ease-in-out 0.33s infinite;
+  animation: opacitychange 1s ease-in-out 0.33s infinite;
+  -webkit-animation-fill-mode: infinite;
+  animation-fill-mode: infinite;
+}
+
+.dots-loading::after {
+  -moz-animation: opacitychange 1s ease-in-out 0.66s infinite;
+  -webkit-animation: opacitychange 1s ease-in-out 0.66s infinite;
+  -o-animation: opacitychange 1s ease-in-out 0.66s infinite;
+  animation: opacitychange 1s ease-in-out 0.66s infinite;
+  -webkit-animation-fill-mode: infinite;
+  animation-fill-mode: infinite;
+}
+
+/* Loading Dots End*/
+
+/* Cleare Class */
+
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+}
+
+.group:after {
+  clear: both;
+}
+
+.group {
+  zoom: 1;
+}
+
+/* Cleare Class End */
+
+/* Old css*/
 #login {
   display: flex;
   margin-top: 5%;
@@ -151,20 +341,6 @@ body {
   background-color: #555;
 }
 
-.button {
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  border: none;
-  border-radius: 3px;
-  padding: 5px;
-  margin: 1px;
-}
-
-.button:hover {
-  background-color: #555;
-}
-
 .activeMenuButton {
   background-color: #333333;
 }
@@ -246,53 +422,6 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 3px;
-}
-
-.dots-loading {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.dots-loading::before,
-.dots-loading::after {
-  content: " ";
-}
-
-.dots-loading div,
-.dots-loading::before,
-.dots-loading::after {
-  margin: 35px 5px;
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: #c4c4c4;
-  opacity: 0;
-}
-
-.dots-loading::before {
-  -moz-animation: opacitychange 1s ease-in-out infinite;
-  -webkit-animation: opacitychange 1s ease-in-out infinite;
-  -o-animation: opacitychange 1s ease-in-out infinite;
-  animation: opacitychange 1s ease-in-out infinite;
-}
-
-.dots-loading div {
-  -moz-animation: opacitychange 1s ease-in-out 0.33s infinite;
-  -webkit-animation: opacitychange 1s ease-in-out 0.33s infinite;
-  -o-animation: opacitychange 1s ease-in-out 0.33s infinite;
-  animation: opacitychange 1s ease-in-out 0.33s infinite;
-  -webkit-animation-fill-mode: infinite;
-  animation-fill-mode: infinite;
-}
-
-.dots-loading::after {
-  -moz-animation: opacitychange 1s ease-in-out 0.66s infinite;
-  -webkit-animation: opacitychange 1s ease-in-out 0.66s infinite;
-  -o-animation: opacitychange 1s ease-in-out 0.66s infinite;
-  animation: opacitychange 1s ease-in-out 0.66s infinite;
-  -webkit-animation-fill-mode: infinite;
-  animation-fill-mode: infinite;
 }
 
 @keyframes opacitychange {

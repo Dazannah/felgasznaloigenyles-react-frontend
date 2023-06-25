@@ -14,92 +14,102 @@ function UpperFields(props) {
   }
 
   return (
-    <>
-      <div id="row">
-        <div id="leftUp">
-          <label className="content roundCorner" htmlFor="name">
-            Név:
-          </label>
-          <br />
-          <input onChange={e => formDispatch({ type: "setName", value: e.target.value })} className="content roundCorner" type="text" id="name" name="name" {...(props.listOut ? { defaultValue: `${props.request.personalInformations.name}` } : "")} readOnly={props.readonly} />
-          <label htmlFor="isTechnical">Technikai fiók</label> <input onChange={e => formDispatch({ type: "setIsTechnical", value: e.target.checked })} {...(props.listOut ? { checked: props.request.technical.isTechnical } : "")} disabled={props.readOnly} id="isTechnical" type="checkbox" />
-          <br />
-          <p />
-          {props.classChoosable ? <DropdownMenu /> : "Osztály:"}
-          <input className="content roundCorner" type="text" id="class" name="class" defaultValue={formState.className} readOnly {...(props.listOut ? { defaultValue: `${props.request.personalInformations.className}` } : "")} />
-          <br />
-          <br />
-          <input hidden className="content roundCorner" type="text" id="classDbId" name="dbId" {...(props.listOut ? { value: `${props.request.personalInformations._id}` } : { value: formState.classId })} readOnly />
+    <div id="upper-fileds-wrapper">
+      <div id="row" className="group">
+        <div id="left-up">
+          <div className="mini-container">
+            <label htmlFor="name">
+              <span>Név</span>
+            </label>{" "}
+            <br />
+            <input className="round-corner" onChange={e => formDispatch({ type: "setName", value: e.target.value })} type="text" id="name" name="name" {...(props.listOut ? { defaultValue: `${props.request.personalInformations.name}` } : "")} readOnly={props.readonly} />
+          </div>
+
+          <div className="mini-container">
+            <label htmlFor="isTechnical">Technikai fiók</label> <input onChange={e => formDispatch({ type: "setIsTechnical", value: e.target.checked })} {...(props.listOut ? { checked: props.request.technical.isTechnical } : "")} disabled={props.readOnly} id="isTechnical" type="checkbox" />
+            <br />
+          </div>
+
+          <div className="mini-container">
+            {props.classChoosable ? <DropdownMenu /> : "Osztály"} <br />
+            <input className="round-corner" type="text" id="class" name="class" defaultValue={formState.className} readOnly {...(props.listOut ? { defaultValue: `${props.request.personalInformations.className}` } : "")} />
+            <input className="hidden-lable" type="text" id="classDbId" name="dbId" {...(props.listOut ? { value: `${props.request.personalInformations._id}` } : { value: formState.classId })} readOnly />
+          </div>
         </div>
 
-        <div id="rightUp">
-          <label className="content roundCorner" htmlFor="id">
-            Nyilv. szám:
-          </label>
-          <br />
-          <input onChange={e => formDispatch({ type: "setTicketId", value: e.target.value })} className="content roundCorner" type="text" id="id" name="id" {...(props.listOut ? { value: `${props.request.personalInformations.ticketId}`, readOnly: true } : "")} />
-          <p />
-          <br />
-          <br />
-          {props.listUsers ? (
-            <>
-              <button onClick={() => handleProcessStart(props.request._id, "edit")} className="userEdit roundCorner btn" type="button" id={props.request._id}>
-                Felhasználó jogosultság módosítása
-              </button>
+        <div id="right-up" className="group">
+          <div className="mini-container">
+            <label htmlFor="id">Nyilv. szám</label> <br />
+            <input className="round-corner" onChange={e => formDispatch({ type: "setTicketId", value: e.target.value })} type="text" id="id" name="id" {...(props.listOut ? { value: `${props.request.personalInformations.ticketId}`, readOnly: true } : "")} />
+          </div>
+          <div id="progress-container">
+            {props.listUsers ? (
+              <>
+                <button onClick={() => handleProcessStart(props.request._id, "edit")} className="userEdit roundCorner btn" type="button" id={props.request._id}>
+                  Felhasználó jogosultság módosítása
+                </button>
+
+                <button onClick={() => handleProcessStart(props.request._id, "delete")} className="userDelete roundCorner btn" type="button" id={props.request._id}>
+                  Felhasználó törlése
+                </button>
+              </>
+            ) : (
+              <form>
+                <input type="radio" id="newUser" name="process" value="Új felhasználó" checked disabled />
+                <label htmlFor="newUser">{props.request ? props.request.process : "Új felhasználó"}</label>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+      <div id="middle" className="group">
+        <div className="float-left-half">
+          <div className="mini-container">
+            <label className="" htmlFor="classLeader">
+              Osztályvezető
+            </label>
+            <br />
+            <input onChange={e => formDispatch({ type: "setClassLeader", value: e.target.value })} type="text" id="classLeader" name="classLeader" {...(props.listOut ? { value: `${props.request.personalInformations.classLeader}`, readOnly: true } : "")} />
+          </div>
+          <div className="mini-container">
+            <label className="" htmlFor="workPost">
+              Beosztás
+            </label>
+            <br />
+            <input onChange={e => formDispatch({ type: "setWorkPost", value: e.target.value })} type="text" id="workPost" name="workPost" {...(props.listOut ? { value: `${props.request.personalInformations.workPost}`, readOnly: true } : "")} />
+          </div>
+        </div>
+
+        <div className="float-left-half">
+          <div className="mini-container">
+            <label className="" htmlFor="workLocation">
+              Munkavégzés helye
+            </label>
+            <br />
+            <input onChange={e => formDispatch({ type: "setWorkLocation", value: e.target.value })} type="text" id="workLocation" name="workLocation" {...(props.listOut ? { value: `${props.request.personalInformations.workLocation}`, readOnly: true } : "")} />
+          </div>
+
+          <div id="dates">
+            <div className="date-fields-from">
+              <label className="" htmlFor="validFrom">
+                Érvényesség kezdete
+              </label>
               <br />
-              <button onClick={() => handleProcessStart(props.request._id, "delete")} className="userDelete roundCorner btn" type="button" id={props.request._id}>
-                Felhasználó törlése
-              </button>
-            </>
-          ) : (
-            <form>
-              <input type="radio" id="newUser" name="process" value="Új felhasználó" checked disabled />
-              <label htmlFor="newUser">{props.request ? props.request.process : "Új felhasználó"}</label>
-            </form>
-          )}
-
-          <br />
+              <input className="date-fields" onChange={e => formDispatch({ type: "setValidFrom", value: e.target.value })} type="datetime-local" id="validFrom" name="validFrom" {...(props.listOut ? { value: `${props.request.personalInformations.validFrom}`, readOnly: true } : "")} />
+              <br />
+            </div>
+            <div className="date-field-to">
+              <label htmlFor="validTo" {...(props.listOut ? { value: `${props.request.personalInformations.validTo}`, readOnly: true } : "")}>
+                Érvényesség vége
+              </label>
+              <br />
+              <input onChange={e => formDispatch({ type: "setValidTo", value: e.target.value })} type="datetime-local" id="validTo" name="validTo" {...(props.listOut ? { value: `${props.request.personalInformations.validTo}`, readOnly: true } : "")} />
+              <br />
+            </div>
+          </div>
         </div>
       </div>
-      <div id="middle">
-        <label className="content roundCorner" htmlFor="classLeader">
-          Osztályvezető:
-        </label>
-        <br />
-        <input onChange={e => formDispatch({ type: "setClassLeader", value: e.target.value })} className="content roundCorner" type="text" id="classLeader" name="classLeader" {...(props.listOut ? { value: `${props.request.personalInformations.classLeader}`, readOnly: true } : "")} />
-        <br />
-        <label className="content roundCorner" htmlFor="workPost">
-          Beosztás:
-        </label>
-        <br />
-        <input onChange={e => formDispatch({ type: "setWorkPost", value: e.target.value })} className="content roundCorner" type="text" id="workPost" name="workPost" {...(props.listOut ? { value: `${props.request.personalInformations.workPost}`, readOnly: true } : "")} />
-        <br />
-        <label className="content roundCorner" htmlFor="workLocation">
-          Munkavégzés helye:
-        </label>
-        <br />
-        <input onChange={e => formDispatch({ type: "setWorkLocation", value: e.target.value })} className="content roundCorner" type="text" id="workLocation" name="workLocation" {...(props.listOut ? { value: `${props.request.personalInformations.workLocation}`, readOnly: true } : "")} />
-        <br />
-      </div>
-      <div id="validTo">
-        <div id="validToLeft">
-          <label className="content roundCorner" htmlFor="validFrom">
-            Érvényesség kezdete:
-          </label>
-          <br />
-          <input onChange={e => formDispatch({ type: "setValidFrom", value: e.target.value })} className="content roundCorner" type="datetime-local" id="validFrom" name="validFrom" {...(props.listOut ? { value: `${props.request.personalInformations.validFrom}`, readOnly: true } : "")} />
-          <br />
-        </div>
-        <div id="validToRight">
-          <label className="content roundCorner" htmlFor="validTo" {...(props.listOut ? { value: `${props.request.personalInformations.validTo}`, readOnly: true } : "")}>
-            Érvényesség vége:
-          </label>
-          <br />
-          <input onChange={e => formDispatch({ type: "setValidTo", value: e.target.value })} className="content roundCorner" type="datetime-local" id="validTo" name="validTo" {...(props.listOut ? { value: `${props.request.personalInformations.validTo}`, readOnly: true } : "")} />
-          <br />
-        </div>
-      </div>
-    </>
+    </div>
   )
 }
 

@@ -6,7 +6,7 @@ function DropdownMenu(props) {
   const [isVisible, setIsVisible] = useState(false)
   const [filterValue, setFilterValue] = useState("")
 
-  useEffect(()=>{
+  useEffect(() => {
     let filter, ul, li, a
     filter = filterValue.toUpperCase()
     a = document.getElementsByClassName("classBtn")
@@ -18,7 +18,7 @@ function DropdownMenu(props) {
         a[i].style.display = "none"
       }
     }
-  },[filterValue])
+  }, [filterValue])
 
   function hiddeDropdown() {
     setIsVisible(false)
@@ -35,7 +35,7 @@ function DropdownMenu(props) {
       hideDropdownListener(e)
     })
 
-    function hideDropdownListener(e){
+    function hideDropdownListener(e) {
       const clickId = e.target.id
 
       if (clickId != "dropdownButton" && clickId != "myInput" && clickId != "" && clickId != "myDropdown") {
@@ -57,11 +57,11 @@ function DropdownMenu(props) {
   return (
     <>
       <div className="dropdown">
-        <button onClick={e => dropdownMenu(e)} type="button" id="dropdownButton" className="btn">
+        <button onClick={e => dropdownMenu(e)} type="button" id="dropdownButton" className="button round-corner">
           Osztály kiválasztása
         </button>
         <div id="myDropdown" className={isVisible ? "show " + "dropdown-content" : " " + "dropdown-content"}>
-          <input onChange={e => setFilterValue(e.target.value)} type="text" className="roundCorner" placeholder="Keresés..." id="myInput" autoComplete="off" value={filterValue}/>
+          <input onChange={e => setFilterValue(e.target.value)} type="text" className="roundCorner" placeholder="Keresés..." id="myInput" autoComplete="off" value={filterValue} />
           <Classes filterValue={filterValue} />
         </div>
       </div>

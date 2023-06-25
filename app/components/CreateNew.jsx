@@ -148,14 +148,15 @@ function CreateNew() {
 
   return (
     <Page title="Új létrehozás">
-      <form id="createForm" onSubmit={createNewUserRequest} ref={formRef}>
-        <UpperFields />
-        <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} />
-        <CreateNewTextarea listOut={false} />
-        {formState.isTechnical ? <TechnicalTextarea /> : ""}
-        <input type="hidden" name="csrf-token" value="" />
-        <input type="submit" className="button" value="Küldés" />
-      </form>
+      <div className="create-form">
+        <form onSubmit={createNewUserRequest} ref={formRef}>
+          <UpperFields classChoosable={true} />
+          <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} />
+          <CreateNewTextarea listOut={false} />
+          {formState.isTechnical ? <TechnicalTextarea /> : ""}
+          <input type="hidden" name="csrf-token" value="" />
+        </form>
+      </div>
     </Page>
   )
 }

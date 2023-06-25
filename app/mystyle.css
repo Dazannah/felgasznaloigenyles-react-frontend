@@ -1,5 +1,24 @@
-body {
+html {
   font-family: Tahoma, sans-serif;
+}
+
+/*@media (max-width: 1540px) {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media (min-width: 1540px) {
+  body {
+    margin: 0;
+    padding: 0;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+}*/
+
+body {
   margin: 0;
   padding: 0;
 }
@@ -68,11 +87,13 @@ body {
   height: 50px;
   font-size: 150%;
   margin-bottom: 10px;
+  background-color: #15808a;
+  color: #fff;
 }
 
 #login-button:hover {
-  background-color: #15808a;
-  color: white;
+  background-color: #e3a420;
+  color: #000;
 }
 
 .hidden-lable {
@@ -83,7 +104,8 @@ body {
   visibility: hidden;
 }
 
-.roundCorners {
+.round-corner {
+  border: 1px solid #15808a;
   border-radius: 5px;
 }
 
@@ -120,8 +142,8 @@ nav a {
 }
 
 nav a:hover {
-  background-color: #fff;
-  color: #000;
+  background-color: #e3a420;
+  color: white;
 }
 
 .active-main-menu-btn {
@@ -130,6 +152,99 @@ nav a:hover {
 }
 
 /* Site Menu End */
+
+/* Main Content */
+
+#main-content-wrapper {
+  margin-top: 20px;
+}
+
+#upper-fileds-wrapper {
+  max-height: 30%;
+}
+
+#row {
+  width: 100%;
+  max-height: 100%;
+}
+
+#row input[type="text"] {
+  height: max-content;
+  max-height: 145px;
+  width: 450px;
+}
+
+.create-form {
+  background-color: #f1f1f1;
+  padding: 10px;
+  margin: 10px;
+}
+
+#left-up,
+#right-up,
+.float-left-half {
+  float: left;
+  width: 50%;
+  padding-bottom: 10px;
+}
+
+.date-fields-from {
+  display: block;
+  float: left;
+}
+
+.date-field-to {
+  display: block;
+  float: left;
+  padding-left: 30px;
+}
+
+#middle {
+  width: 100%;
+  padding: 0;
+}
+
+#middle input[type="text"] {
+  width: 450px;
+}
+
+#three-checkBox {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 2%;
+}
+
+.mini-container {
+  float: left;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+/* Main Content End */
+
+input[type="checkbox"] {
+  accent-color: #e3a420;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+textarea {
+  border-radius: 5px;
+  border: 1px solid #15808a;
+  padding: 2px 5px;
+}
+
+.button {
+  background-color: #15808a;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.button:hover {
+  background-color: #fff;
+  color: #000;
+}
 
 /* Loading Dots */
 
@@ -238,14 +353,6 @@ nav a:hover {
   margin: auto;
 }
 
-#leftUp {
-  width: 50%;
-}
-
-#rightUp {
-  width: 50%;
-}
-
 .content {
   width: 95%;
   margin: 5px;
@@ -254,22 +361,6 @@ nav a:hover {
 .roundCorner {
   border: none;
   border-radius: 3px;
-}
-
-#row {
-  display: flex;
-  justify-content: space-evenly;
-  padding-top: 2%;
-}
-
-#threeCheckBox {
-  display: flex;
-  justify-content: space-evenly;
-  padding-top: 2%;
-}
-
-#middle {
-  width: 80%;
 }
 
 #validTo {
@@ -296,10 +387,6 @@ nav a:hover {
 
 .requestElement {
   background-color: white;
-}
-
-#createForm {
-  background-color: #f1f1f1;
 }
 
 .collapsible {

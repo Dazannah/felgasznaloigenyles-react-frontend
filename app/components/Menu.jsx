@@ -29,7 +29,7 @@ function Menu() {
         tmpActive = menuButtons[i].id
       }
     }
-    console.log(tmpActive)
+
     setActive(tmpActive)
     if (tmpActive) {
       document.getElementById(tmpActive).classList.add("active-main-menu-btn")
@@ -78,7 +78,7 @@ function Menu() {
           <li>
             {" "}
             <Link id="distributinListBtn" onClick={e => setAcctiveBtn(e.target.id)} key="distributinListBtn" to="/asdasd">
-              Terjesztési lista ígénylés
+              Terjesztési lista igénylés
             </Link>
           </li>
           <li>

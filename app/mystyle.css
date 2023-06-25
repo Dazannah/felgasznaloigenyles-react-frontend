@@ -221,6 +221,40 @@ nav a:hover {
   padding-bottom: 10px;
 }
 
+.text-area {
+  width: 100%;
+  min-height: 150px;
+  padding: 8px;
+}
+
+.collapsible {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #15808a;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  margin: 3px;
+  width: 100%;
+  border: none;
+  min-height: 8%;
+  outline: none;
+  font-size: 100%;
+}
+
+.active,
+.collapsible:hover {
+  background-color: #e3a420;
+}
+
+.collapsibleContent {
+  padding: 0 18px;
+  margin: 10px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
 /* Main Content End */
 
 input[type="checkbox"] {
@@ -228,8 +262,7 @@ input[type="checkbox"] {
 }
 
 input[type="text"],
-input[type="datetime-local"],
-textarea {
+input[type="datetime-local"] {
   border-radius: 5px;
   border: 1px solid #15808a;
   padding: 2px 5px;
@@ -239,11 +272,26 @@ textarea {
   background-color: #15808a;
   color: white;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
 .button:hover {
-  background-color: #fff;
-  color: #000;
+  background-color: #e3a420;
+  color: #fff;
+}
+
+.form-submit-input {
+  width: 100px;
+  height: 30px;
+  background-color: #15808a;
+  color: white;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.form-submit-input:hover {
+  background-color: #e3a420;
+  color: #fff;
 }
 
 /* Loading Dots */
@@ -387,33 +435,6 @@ textarea {
 
 .requestElement {
   background-color: white;
-}
-
-.collapsible {
-  display: flex;
-  justify-content: space-evenly;
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  margin: 3px;
-  width: 100%;
-  border: none;
-  min-height: 8%;
-  outline: none;
-  font-size: 15px;
-}
-
-.active,
-.collapsible:hover {
-  background-color: #555;
-}
-
-.collapsibleContent {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
 }
 
 .btn {

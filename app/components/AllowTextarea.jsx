@@ -24,7 +24,7 @@ function AllowTextarea(props) {
       <br />
       <br />
       <span {...(props.request.permission ? (props.request.permission.permissionNote == "" ? { hidden: true } : "") : "")}>Megjegyzések:</span>
-      <textarea {...(props.request.permission ? (props.request.permission.permissionNote != "" ? { value: props.request.permission.permissionNote, readOnly: true } : { hidden: true }) : "")} className="roundCorner textArea" id="textArea" name="notes" />
+      <textarea {...(props.request.permission ? (props.request.permission.permissionNote != "" ? { value: props.request.permission.permissionNote, readOnly: true } : { hidden: true }) : "")} className="round-corner text-area" id="textArea" name="notes" />
       <br />
       <br />
     </>

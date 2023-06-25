@@ -29,7 +29,7 @@ function CreateNewTextarea(props) {
         <br />
         Egyéb igény (egyéb szakrendszer, alkalmazás, mobiltelefon, adathordozó, laptop használat):
         <br />
-        <textarea {...(props.listOut ? { value: `${props.request.createTextArea}`, readOnly: true } : "")} onChange={e => formDispatch({ type: "setCreateTextArea", value: e.target.value })} className="roundCorner textArea" id="createTextArea" name="createTextArea"></textarea>
+        <textarea {...(props.listOut ? { value: `${props.request.createTextArea}`, readOnly: true } : "")} onChange={e => formDispatch({ type: "setCreateTextArea", value: e.target.value })} className="round-corner text-area" id="createTextArea" name="createTextArea"></textarea>
         <br />
         <br />
       </>

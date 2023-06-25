@@ -140,7 +140,7 @@ function ListRequests(props) {
                 <UserName request={request} />
                 <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
                 <input key={request._id + "ticketIdInput"} type="hidden" name="ticketId" value={request._id} />
-                <input key={request._id + "submit"} type="submit" className="button" value="Küldés" />
+                <input key={request._id + "submit"} type="submit" className="form-submit-input round-corner" value="Küldés" />
               </form>
             </div>
           </div>

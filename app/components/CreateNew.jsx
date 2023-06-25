@@ -154,7 +154,8 @@ function CreateNew() {
           <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} />
           <CreateNewTextarea listOut={false} />
           {formState.isTechnical ? <TechnicalTextarea /> : ""}
-          <input type="hidden" name="csrf-token" value="" />
+          <input className="" type="hidden" name="csrf-token" value="" />
+          <input type="submit" className="form-submit-input round-corner" value="Küldés" />
         </form>
       </div>
     </Page>

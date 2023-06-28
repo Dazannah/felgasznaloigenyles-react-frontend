@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useContext } from "react"
+import DispatchContext from "../DispatchContext.jsx"
 
 function FlashMessagesError(props) {
   return (
@@ -6,7 +7,7 @@ function FlashMessagesError(props) {
       {props.flashMessages.map((msg, index) => {
         return (
           <div key={index} className="alert alert-error text-center floating-alert shadow-sm">
-            {msg} <br />
+            {msg}
           </div>
         )
       })}

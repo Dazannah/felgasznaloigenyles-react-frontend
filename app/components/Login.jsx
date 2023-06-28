@@ -30,7 +30,8 @@ function Login(props) {
 
           setIsLoading(false)
         } else {
-          appDispatch({ type: "flashMessageWarrning", value: response.data })
+          console.log(response.data)
+          appDispatch({ type: "flashMessageWarning", value: response.data })
           setIsLoading(false)
         }
       } catch (err) {
@@ -39,10 +40,10 @@ function Login(props) {
       }
     } else {
       if (username == null || username == "") {
-        appDispatch({ type: "flashMessageWarrning", value: "Felhasználónév megadása kötelező." })
+        appDispatch({ type: "flashMessageWarning", value: "Felhasználónév megadása kötelező." })
       }
       if (password == null || password == "") {
-        appDispatch({ type: "flashMessageWarrning", value: "Jelszó megadása kötelező." })
+        appDispatch({ type: "flashMessageWarning", value: "Jelszó megadása kötelező." })
       }
       setIsLoading(false)
     }

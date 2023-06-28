@@ -38,6 +38,7 @@ function Menu() {
 
   function logout(e) {
     e.preventDefault()
+    appDispatch({ type: "emptyflashMessageWarrning" })
     appDispatch({ type: "logout" })
   }
 

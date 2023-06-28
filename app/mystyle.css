@@ -65,6 +65,7 @@ body {
   font-size: 150%;
   margin-bottom: 10px;
   padding-left: 10px;
+  text-align: center;
 }
 
 .login-input:focus {
@@ -89,6 +90,7 @@ body {
   margin-bottom: 10px;
   background-color: #15808a;
   color: #fff;
+  cursor: pointer;
 }
 
 #login-button:hover {
@@ -523,22 +525,6 @@ input[type="datetime-local"] {
   text-align: center;
   font-size: 1.6em;
   cursor: pointer;
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: white;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 3px;
 }
 
 @keyframes opacitychange {

@@ -61,7 +61,8 @@ function Main() {
     createTextArea: "",
     process: "",
     permission: "",
-    permissionId: ""
+    permissionId: "",
+    userId: ""
   }
 
   function ourReducer(draft, action) {
@@ -142,6 +143,9 @@ function Main() {
         return
       case "setPermissionId":
         draft.permissionId = action.value
+        return
+      case "setUserId":
+        draft.userId = action.value
         return
     }
   }

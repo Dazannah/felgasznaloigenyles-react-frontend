@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 
 import DropdownMenu from "./DropdownMenu.jsx"
 
@@ -13,6 +13,10 @@ function UpperFields(props) {
     props.setUserId([id, process])
   }
 
+  function handleChange(type, value) {
+    formDispatch({ type, value })
+  }
+
   return (
     <div id="upper-fileds-wrapper">
       <div id="row" className="group">
@@ -22,11 +26,40 @@ function UpperFields(props) {
               <span>Név</span>
             </label>{" "}
             <br />
-            <input className="round-corner" onChange={e => formDispatch({ type: "setName", value: e.target.value })} type="text" id="name" name="name" {...(props.listOut ? { defaultValue: `${props.request.personalInformations.name}` } : "")} readOnly={props.readonly} />
+            <input
+              className="round-corner"
+              onChange={e => handleChange("setName", e.target.value)}
+              type="text"
+              id="name"
+              name="name"
+              {...(props.listOut
+                ? {
+                    defaultValue: `${props.request.personalInformations.name}`,
+                    ...useEffect(() => {
+                      handleChange("setName", props.request.personalInformations.name)
+                    }, [])
+                  }
+                : "")}
+              readOnly={props.readonly}
+            />
           </div>
 
           <div className="mini-container">
-            <label htmlFor="isTechnical">Technikai fiók</label> <input onChange={e => formDispatch({ type: "setIsTechnical", value: e.target.checked })} {...(props.listOut ? { defaultChecked: props.request.technical.isTechnical } : "")} disabled={props.readOnly} id="isTechnical" type="checkbox" />
+            <label htmlFor="isTechnical">Technikai fiók</label>{" "}
+            <input
+              onChange={e => handleChange("setIsTechnical", e.target.value)}
+              {...(props.listOut
+                ? {
+                    defaultChecked: props.request.technical.isTechnical,
+                    ...useEffect(() => {
+                      handleChange("setIsTechnical", props.request.technical.isTechnical)
+                    }, [])
+                  }
+                : "")}
+              disabled={props.readOnly}
+              id="isTechnical"
+              type="checkbox"
+            />
             <br />
           </div>
 
@@ -40,7 +73,22 @@ function UpperFields(props) {
         <div id="right-up" className="group">
           <div className="mini-container">
             <label htmlFor="id">Nyilv. szám</label> <br />
-            <input className="round-corner" onChange={e => formDispatch({ type: "setTicketId", value: e.target.value })} type="text" id="id" name="id" {...(props.listOut ? { defaultValue: `${props.request.personalInformations.ticketId}` } : "")} readOnly={props.readonly} />
+            <input
+              className="round-corner"
+              onChange={e => handleChange("setTicketId", e.target.value)}
+              type="text"
+              id="id"
+              name="id"
+              {...(props.listOut
+                ? {
+                    defaultValue: `${props.request.personalInformations.ticketId}`,
+                    ...useEffect(() => {
+                      handleChange("setTicketId", props.request.personalInformations.ticketId)
+                    }, [])
+                  }
+                : "")}
+              readOnly={props.readonly}
+            />
           </div>
           <div id="progress-container">
             {props.listUsers ? (
@@ -69,14 +117,42 @@ function UpperFields(props) {
               Osztályvezető
             </label>
             <br />
-            <input onChange={e => formDispatch({ type: "setClassLeader", value: e.target.value })} type="text" id="classLeader" name="classLeader" {...(props.listOut ? { defaultValue: `${props.request.personalInformations.classLeader}` } : "")} readOnly={props.readonly} />
+            <input
+              onChange={e => handleChange("setClassLeader", e.target.value)}
+              type="text"
+              id="classLeader"
+              name="classLeader"
+              {...(props.listOut
+                ? {
+                    defaultValue: `${props.request.personalInformations.classLeader}`,
+                    ...useEffect(() => {
+                      handleChange("setTicketId", props.request.personalInformations.classLeader)
+                    }, [])
+                  }
+                : "")}
+              readOnly={props.readonly}
+            />
           </div>
           <div className="mini-container">
             <label className="" htmlFor="workPost">
               Beosztás
             </label>
             <br />
-            <input onChange={e => formDispatch({ type: "setWorkPost", value: e.target.value })} type="text" id="workPost" name="workPost" {...(props.listOut ? { defaultValue: `${props.request.personalInformations.workPost}` } : "")} readOnly={props.readonly} />
+            <input
+              onChange={e => handleChange("setWorkPost", e.target.value)}
+              type="text"
+              id="workPost"
+              name="workPost"
+              {...(props.listOut
+                ? {
+                    defaultValue: `${props.request.personalInformations.workPost}`,
+                    ...useEffect(() => {
+                      handleChange("setTicketId", props.request.personalInformations.workPost)
+                    }, [])
+                  }
+                : "")}
+              readOnly={props.readonly}
+            />
           </div>
         </div>
 
@@ -86,7 +162,21 @@ function UpperFields(props) {
               Munkavégzés helye
             </label>
             <br />
-            <input onChange={e => formDispatch({ type: "setWorkLocation", value: e.target.value })} type="text" id="workLocation" name="workLocation" {...(props.listOut ? { defaultValue: `${props.request.personalInformations.workLocation}` } : "")} readOnly={props.readonly} />
+            <input
+              onChange={e => handleChange("setWorkLocation", e.target.value)}
+              type="text"
+              id="workLocation"
+              name="workLocation"
+              {...(props.listOut
+                ? {
+                    defaultValue: `${props.request.personalInformations.workLocation}`,
+                    ...useEffect(() => {
+                      handleChange("setTicketId", props.request.personalInformations.workLocation)
+                    }, [])
+                  }
+                : "")}
+              readOnly={props.readonly}
+            />
           </div>
 
           <div id="dates">
@@ -95,7 +185,7 @@ function UpperFields(props) {
                 Érvényesség kezdete
               </label>
               <br />
-              <input className="date-fields" onChange={e => formDispatch({ type: "setValidFrom", value: e.target.value })} type="datetime-local" id="validFrom" name="validFrom" {...(props.listOut ? { value: `${props.request.personalInformations.validFrom}`, readOnly: true } : "")} />
+              <input className="date-fields" onChange={e => handleChange("setValidFrom", e.target.value)} type="datetime-local" id="validFrom" name="validFrom" {...(props.listOut ? { value: `${props.request.personalInformations.validFrom}`, readOnly: true } : "")} />
               <br />
             </div>
             <div className="date-field-to">
@@ -103,7 +193,21 @@ function UpperFields(props) {
                 Érvényesség vége
               </label>
               <br />
-              <input onChange={e => formDispatch({ type: "setValidTo", value: e.target.value })} type="datetime-local" id="validTo" name="validTo" {...(props.listOut ? { defaultValue: `${props.request.personalInformations.validTo}` } : "")} readOnly={props.readonly} />
+              <input
+                onChange={e => handleChange("setValidTo", e.target.value)}
+                type="datetime-local"
+                id="validTo"
+                name="validTo"
+                {...(props.listOut
+                  ? {
+                      defaultValue: `${props.request.personalInformations.validTo}`,
+                      ...useEffect(() => {
+                        handleChange("setTicketId", props.request.personalInformations.validTo)
+                      }, [])
+                    }
+                  : "")}
+                readOnly={props.readonly}
+              />
               <br />
             </div>
           </div>

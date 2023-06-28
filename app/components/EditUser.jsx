@@ -34,8 +34,13 @@ function EditUser(props) {
         }
       })
 
-      setUser(result.data)
-      appDispatch({ type: "setSiteLocation", value: `${result.data.personalInformations.name}` })
+      if (result.data && Object.keys(result.data).length > 0) {
+        setUser(result.data)
+        appDispatch({ type: "setSiteLocation", value: `${result.data.personalInformations.name}` })
+      } else {
+        setUser(null)
+      }
+
       setIsLoading(false)
     }
 
@@ -111,6 +116,7 @@ function EditUser(props) {
     const userPermissionsRight = getUserPermissions(statesRightCollumn)
 
     const dataToSend = {
+      userId: formState.userId,
       personalInformations,
       userPermissionsLeft,
       userPermissionsMiddle,
@@ -127,10 +133,24 @@ function EditUser(props) {
 
   async function handleSubmit(event) {
     event.preventDefault()
-    const formData = new FormData(event.target)
+    /*const formData = new FormData(event.target)
     const formValues = Object.fromEntries(formData.entries())
-    const dataToSend = serializeDataToSend()
+
     console.log(formValues)
+
+    formDispatch({ type: "setName", value: formValues.name })
+    formDispatch({ type: "setClassId", value: formValues.dbId })
+    formDispatch({ type: "setClassName", value: formValues.className })
+    formDispatch({ type: "setTicketId", value: formValues.ticketId })
+    formDispatch({ type: "setClassLeader", value: formValues.classLeader })
+    formDispatch({ type: "setWorkPost", value: formValues.workPost })
+    formDispatch({ type: "setWorkLocation", value: formValues.workLocation })
+    formDispatch({ type: "setValidFrom", value: formValues.validFrom })
+    formDispatch({ type: "setValidTo", value: formValues.validTo })
+    formDispatch({ type: "setUserId", value: formValues.userId })*/
+
+    const dataToSend = serializeDataToSend()
+    console.log(dataToSend)
   }
 
   if (isLoading)
@@ -143,6 +163,7 @@ function EditUser(props) {
   if (!user) {
     return <Page title="Felhasználó módosítása">Ez a felhasználó ID nem létetik.</Page>
   }
+
   return (
     <Page>
       <div className="create-form">
@@ -155,6 +176,7 @@ function EditUser(props) {
           <UserName request={user} />
           <CreateNewTextarea listOut={false} />
           {formState.isTechnical ? <TechnicalTextarea /> : ""}
+          <input type="hidden" name="userId" value={user._id} />
           <input type="hidden" name="csrf-token" value="" />
           <input type="submit" className="form-submit-input round-corner" value="Küldés" />
         </form>

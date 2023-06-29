@@ -30,7 +30,6 @@ function Login(props) {
 
           setIsLoading(false)
         } else {
-          console.log(response.data)
           appDispatch({ type: "flashMessageWarning", value: response.data })
           setIsLoading(false)
         }

@@ -56,7 +56,7 @@ function UpperFields(props) {
                     }, [])
                   }
                 : "")}
-              disabled={props.readOnly}
+              disabled={props.listOut}
               id="isTechnical"
               type="checkbox"
             />

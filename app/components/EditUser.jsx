@@ -133,6 +133,7 @@ function EditUser(props) {
 
   async function handleSubmit(event) {
     event.preventDefault()
+    console.log(event)
     /*const formData = new FormData(event.target)
     const formValues = Object.fromEntries(formData.entries())
 
@@ -149,8 +150,8 @@ function EditUser(props) {
     formDispatch({ type: "setValidTo", value: formValues.validTo })
     formDispatch({ type: "setUserId", value: formValues.userId })*/
 
-    const dataToSend = serializeDataToSend()
-    console.log(dataToSend)
+    /*const dataToSend = serializeDataToSend()
+    console.log(dataToSend)*/
   }
 
   if (isLoading)

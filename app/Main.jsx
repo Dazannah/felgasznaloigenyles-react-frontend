@@ -80,13 +80,13 @@ function Main() {
         draft.loggedIn = false
         return
       case "flashMessagesSuccess":
-        draft.flashMessagesSuccess = action.value
+        draft.flashMessagesSuccess.push(action.value)
         return
       case "flashMessageError":
-        draft.flashMessageError = action.value
+        draft.flashMessageError.push(action.value)
         return
       case "flashMessageWarning":
-        draft.flashMessageWarrning = action.value
+        draft.flashMessageWarrning.push(action.value)
         return
       case "emptyflashMessageWarrning":
         draft.flashMessageWarrning = []

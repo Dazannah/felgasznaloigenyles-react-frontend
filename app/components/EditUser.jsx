@@ -133,25 +133,28 @@ function EditUser(props) {
 
   async function handleSubmit(event) {
     event.preventDefault()
-    console.log(event)
-    /*const formData = new FormData(event.target)
+    const formData = new FormData(event.target)
     const formValues = Object.fromEntries(formData.entries())
 
-    console.log(formValues)
+    const dataToSend = serializeDataToSend()
+    console.log(dataToSend)
 
-    formDispatch({ type: "setName", value: formValues.name })
-    formDispatch({ type: "setClassId", value: formValues.dbId })
-    formDispatch({ type: "setClassName", value: formValues.className })
-    formDispatch({ type: "setTicketId", value: formValues.ticketId })
-    formDispatch({ type: "setClassLeader", value: formValues.classLeader })
-    formDispatch({ type: "setWorkPost", value: formValues.workPost })
-    formDispatch({ type: "setWorkLocation", value: formValues.workLocation })
-    formDispatch({ type: "setValidFrom", value: formValues.validFrom })
-    formDispatch({ type: "setValidTo", value: formValues.validTo })
-    formDispatch({ type: "setUserId", value: formValues.userId })*/
-
-    /*const dataToSend = serializeDataToSend()
-    console.log(dataToSend)*/
+    try {
+      const response = await Axios.post(
+        `/user/${id}/edit`,
+        {
+          data: formValues
+        },
+        {
+          headers: {
+            authorization: `Bearer ${initialState.user.token}`
+          }
+        }
+      )
+      appDispatch({ type: "flashMessageWarning", value: `${response.data}` })
+    } catch (err) {
+      appDispatch({ type: "flashMessageWarning", value: `${err}` })
+    }
   }
 
   if (isLoading)

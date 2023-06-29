@@ -6,7 +6,6 @@ function FlashMessagesSuccess(props) {
       <div id="warning" className="floating-alerts">
         <div key={"warningSuccess"} className="alert alert-success text-center floating-alert shadow-sm">
           {props.flashMessages.map((msg, index) => {
-            console.log(msg, index)
             return (
               <>
                 {msg} <br />

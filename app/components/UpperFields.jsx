@@ -17,6 +17,13 @@ function UpperFields(props) {
     formDispatch({ type, value })
   }
 
+  useEffect(() => {
+    if (props.listOut) {
+      formDispatch({ type: "setClassName", value: props.request.personalInformations.className })
+      formDispatch({ type: "setClassId", value: props.request.personalInformations.classId })
+    }
+  }, [])
+
   return (
     <div id="upper-fileds-wrapper">
       <div id="row" className="group">
@@ -65,8 +72,8 @@ function UpperFields(props) {
 
           <div className="mini-container">
             {props.classChoosable ? <DropdownMenu /> : "Osztály"} <br />
-            <input className="round-corner" type="text" id="class" name="class" defaultValue={formState.className} readOnly {...(props.listOut ? { defaultValue: `${props.request.personalInformations.className}` } : "")} />
-            <input className="hidden-lable" type="text" id="classDbId" name="dbId" {...(props.listOut ? { defaultValue: `${props.request.personalInformations._id}` } : { value: formState.classId })} readOnly />
+            <input className="round-corner" type="text" id="class" name="class" value={formState.className} readOnly />
+            <input className="hidden-lable" type="text" id="classDbId" name="dbId" value={formState.classId} readOnly />
           </div>
         </div>
 

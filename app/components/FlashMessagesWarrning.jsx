@@ -6,7 +6,6 @@ function FlashMessagesWarning(props) {
       <div id="warning" className="floating-alerts">
         <div key={"waringInsideDiv"} className="alert alert-warning text-center floating-alert shadow-sm">
           {props.flashMessages.map((msg, index) => {
-            console.log(msg, index)
             return (
               <>
                 {msg} <br />

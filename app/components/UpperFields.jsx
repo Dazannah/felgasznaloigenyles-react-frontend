@@ -88,7 +88,7 @@ function UpperFields(props) {
               name="id"
               {...(props.listOut
                 ? {
-                    defaultValue: `${props.request.personalInformations.ticketId}`,
+                    defaultValue: props.request.personalInformations.ticketId,
                     ...useEffect(() => {
                       handleChange("setTicketId", props.request.personalInformations.ticketId)
                     }, [])
@@ -133,7 +133,7 @@ function UpperFields(props) {
                 ? {
                     defaultValue: `${props.request.personalInformations.classLeader}`,
                     ...useEffect(() => {
-                      handleChange("setTicketId", props.request.personalInformations.classLeader)
+                      handleChange("setClassLeader", props.request.personalInformations.classLeader)
                     }, [])
                   }
                 : "")}
@@ -154,7 +154,7 @@ function UpperFields(props) {
                 ? {
                     defaultValue: `${props.request.personalInformations.workPost}`,
                     ...useEffect(() => {
-                      handleChange("setTicketId", props.request.personalInformations.workPost)
+                      handleChange("setWorkPost", props.request.personalInformations.workPost)
                     }, [])
                   }
                 : "")}
@@ -178,7 +178,7 @@ function UpperFields(props) {
                 ? {
                     defaultValue: `${props.request.personalInformations.workLocation}`,
                     ...useEffect(() => {
-                      handleChange("setTicketId", props.request.personalInformations.workLocation)
+                      handleChange("setWorkLocation", props.request.personalInformations.workLocation)
                     }, [])
                   }
                 : "")}

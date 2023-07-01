@@ -3,7 +3,6 @@ import Page from "./Page.jsx"
 import Columns from "./Columns.jsx"
 import Loading from "./Loading.jsx"
 import Axios from "axios"
-import utils from "../utils.jsx"
 
 import CreateNewTextarea from "./CreateNewTextarea.jsx"
 import UpperFields from "./UpperFields.jsx"
@@ -14,6 +13,8 @@ import StateContext from "../StateContext.jsx"
 import FormDispatchContext from "../FormDispatchContext.jsx"
 import FormStateContext from "../FormStateContext.jsx"
 
+import { checkToken, validateRequest, serializeDataToSend, generateState } from "../utils.jsx"
+
 function CreateNew() {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
@@ -21,20 +22,6 @@ function CreateNew() {
   const formDispatch = useContext(FormDispatchContext)
 
   const formRef = useRef(null)
-
-  function generateState(array) {
-    let statesArray = []
-    let counter = 0
-
-    array.forEach(element => {
-      let temp = element.id
-      let temp2 = "set" + element.id
-      statesArray[counter] = [temp, temp2] = useState({ name: element.id, value: false })
-      counter++
-    })
-
-    return statesArray
-  }
 
   useEffect(() => {
     formDispatch({ type: "setProcess", value: "Új felhasználó" })
@@ -44,72 +31,16 @@ function CreateNew() {
   const statesMiddleCollumn = generateState(appState.arrays.middleColumn)
   const statesRightCollumn = generateState(appState.arrays.rightColumn)
 
-  function getUserPermissions(permissionsArray) {
-    let resultPermissionArray = []
-    permissionsArray.forEach((element, index) => {
-      resultPermissionArray[index] = element[0]
-    })
-    return resultPermissionArray
-  }
-
   async function createNewUserRequest(event) {
     event.preventDefault()
-    const errors = validateRequest()
+    const errors = validateRequest(formState)
     if (errors) {
       appDispatch({ type: "flashMessageWarning", value: errors })
       window.scrollTo(0, 0)
     } else {
-      const dataToSend = serializeDataToSend()
+      const dataToSend = serializeDataToSend(formState, statesLeftCollumn, statesMiddleCollumn, statesRightCollumn)
       handleSend(dataToSend)
     }
-  }
-
-  function validateRequest() {
-    let errors = []
-
-    if (!formState.name) errors.push("Név megadása kötelező.")
-    if (!formState.classId) errors.push("Osztály megadása kötelező.")
-    if (!formState.classLeader) errors.push("Osztályvezető megadása kötelező.")
-    if (!formState.workPost) errors.push("Beosztás megadása kötelező.")
-    if (!formState.workLocation) errors.push("Munkavégzés hely megadása kötelező.")
-    if (formState.isTechnical) {
-      if (formState.validTo == "") {
-        errors.push("Technikai fiók esetében érvényesség vége megadása kötelező.")
-      }
-    }
-
-    if (errors.length != 0) return errors
-  }
-
-  function serializeDataToSend() {
-    const personalInformations = {
-      name: formState.name,
-      classId: formState.classId,
-      className: formState.className,
-      ticketId: formState.ticketId,
-      classLeader: formState.classLeader,
-      workPost: formState.workPost,
-      workLocation: formState.workLocation,
-      validFrom: formState.validFrom,
-      validTo: formState.validTo
-    }
-    const userPermissionsLeft = getUserPermissions(statesLeftCollumn)
-    const userPermissionsMiddle = getUserPermissions(statesMiddleCollumn)
-    const userPermissionsRight = getUserPermissions(statesRightCollumn)
-
-    const dataToSend = {
-      personalInformations,
-      userPermissionsLeft,
-      userPermissionsMiddle,
-      userPermissionsRight,
-      createTextArea: formState.createTextArea,
-      technical: {
-        isTechnical: formState.isTechnical,
-        technicalTextArea: formState.technicalTextArea
-      }
-    }
-
-    return dataToSend
   }
 
   async function handleSend(dataToSend) {
@@ -126,8 +57,7 @@ function CreateNew() {
           }
         }
       )
-      console.log(result)
-      const invalidToken = utils(result.data, appDispatch, "checkToken")
+      const invalidToken = checkToken(result.data, appDispatch)
 
       if (invalidToken) {
         appDispatch({ type: "flashMessageWarning", value: "Érvénytelen bejelentkezés." })
@@ -137,7 +67,7 @@ function CreateNew() {
         window.scrollTo(0, 0)
       } else {
         formRef.current.reset()
-        appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
+        appDispatch({ type: "flashMessageSuccess", value: "Kérelem mentése sikeres." })
         formDispatch({ type: "setClassName", value: "" })
         window.scrollTo(0, 0)
       }

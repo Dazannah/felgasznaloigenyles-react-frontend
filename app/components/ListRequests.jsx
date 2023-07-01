@@ -99,9 +99,9 @@ function ListRequests(props) {
             }
           }
         )
-        setGetTickets(true)
 
-        appDispatch({ type: "flashMessagesSuccess", value: "Kérelem mentése sikeres." })
+        appDispatch({ type: "flashMessageSuccess", value: "Kérelem mentése sikeres." }) //ez nem műkszik
+        setGetTickets(true)
         formRef.current.reset()
         window.scrollTo(0, 0)
       } catch (error) {

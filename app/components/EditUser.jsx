@@ -10,6 +10,8 @@ import CreateNewTextarea from "./CreateNewTextarea.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import UserName from "./UserName.jsx"
 
+import { serializeDataToSend, generateState } from "../utils.jsx"
+
 import StateContext from "../StateContext.jsx"
 import DispatchContext from "../DispatchContext.jsx"
 import FormDispatchContext from "../FormDispatchContext.jsx"
@@ -40,7 +42,6 @@ function EditUser(props) {
       } else {
         setUser(null)
       }
-
       setIsLoading(false)
     }
 
@@ -67,22 +68,8 @@ function EditUser(props) {
     }
   }, [user])
 
-  function generateState(array) {
-    let statesArray = []
-    let counter = 0
-
-    array.forEach(element => {
-      let temp = element.id
-      let temp2 = "set" + element.id
-      statesArray[counter] = [temp, temp2] = useState({ name: element.id, value: false })
-      counter++
-    })
-
-    return statesArray
-  }
-
   useEffect(() => {
-    formDispatch({ type: "setProcess", value: "Új felhasználó" })
+    formDispatch({ type: "setProcess", value: "Felhasználó módosítása" })
   }, [])
 
   const statesLeftCollumn = generateState(appState.arrays.leftColumn)
@@ -91,59 +78,17 @@ function EditUser(props) {
 
   const formRef = useRef(null)
 
-  function getUserPermissions(permissionsArray) {
-    let resultPermissionArray = []
-    permissionsArray.forEach((element, index) => {
-      resultPermissionArray[index] = element[0]
-    })
-    return resultPermissionArray
-  }
-
-  function serializeDataToSend() {
-    const personalInformations = {
-      name: formState.name,
-      classId: formState.classId,
-      className: formState.className,
-      ticketId: formState.ticketId,
-      classLeader: formState.classLeader,
-      workPost: formState.workPost,
-      workLocation: formState.workLocation,
-      validFrom: formState.validFrom,
-      validTo: formState.validTo
-    }
-    const userPermissionsLeft = getUserPermissions(statesLeftCollumn)
-    const userPermissionsMiddle = getUserPermissions(statesMiddleCollumn)
-    const userPermissionsRight = getUserPermissions(statesRightCollumn)
-
-    const dataToSend = {
-      userId: formState.userId,
-      personalInformations,
-      userPermissionsLeft,
-      userPermissionsMiddle,
-      userPermissionsRight,
-      createTextArea: formState.createTextArea,
-      technical: {
-        isTechnical: formState.isTechnical,
-        technicalTextArea: formState.technicalTextArea
-      }
-    }
-
-    return dataToSend
-  }
-
   async function handleSubmit(event) {
     event.preventDefault()
-    const formData = new FormData(event.target)
-    const formValues = Object.fromEntries(formData.entries())
-
-    const dataToSend = serializeDataToSend()
-    console.log(dataToSend)
+    const dataToSend = serializeDataToSend(formState, statesLeftCollumn, statesMiddleCollumn, statesRightCollumn)
+    dataToSend.userId = user._id
 
     try {
       const response = await Axios.post(
         `/user/${id}/edit`,
         {
-          data: formValues
+          dataToSend,
+          process: formState.process
         },
         {
           headers: {
@@ -151,7 +96,15 @@ function EditUser(props) {
           }
         }
       )
-      appDispatch({ type: "flashMessageWarning", value: `${response.data}` })
+
+      console.log(response.data.errors)
+      if (response.data.acknowledged) {
+        appDispatch({ type: "flashMessageSuccess", value: "Módosítási igény sikeresen mentve" })
+      } else if (response.data.errors) {
+        appDispatch({ type: "flashMessageWarning", value: response.data.errors })
+      } else {
+        appDispatch({ type: "flashMessageWarning", value: `Valami hiba történt: ${response.data}` })
+      }
     } catch (err) {
       appDispatch({ type: "flashMessageWarning", value: `${err}` })
     }

@@ -6,7 +6,7 @@ import Axios from "axios"
 
 Axios.defaults.baseURL = process.env.BACKENDURL
 
-import utils from "./utils.jsx"
+import { checkToken } from "./utils.jsx"
 
 //components
 import Login from "./components/Login.jsx"
@@ -34,7 +34,7 @@ import AllowedRequests from "./components/AllowedRequests.jsx"
 function Main() {
   const initialState = {
     loggedIn: Boolean(localStorage.getItem("jwt")),
-    flashMessagesSuccess: [],
+    flashMessageSuccess: [],
     flashMessageError: [],
     flashMessageWarrning: [],
     flashMessageUsed: false,
@@ -79,8 +79,8 @@ function Main() {
       case "logout":
         draft.loggedIn = false
         return
-      case "flashMessagesSuccess":
-        draft.flashMessagesSuccess.push(action.value)
+      case "flashMessageSuccess":
+        draft.flashMessageSuccess.push(action.value)
         return
       case "flashMessageError":
         draft.flashMessageError.push(action.value)
@@ -161,7 +161,7 @@ function Main() {
             authorization: `Bearer ${state.user.token}`
           }
         })
-        utils(result.data, dispatch, "checkToken")
+        checkToken(result.data, dispatch, "checkToken")
       } catch (err) {
         console.log(err)
       }
@@ -205,10 +205,11 @@ function Main() {
           <StateContext.Provider value={state}>
             <DispatchContext.Provider value={dispatch}>
               <BrowserRouter>
-                <FlashMessagesSuccess flashMessages={state.flashMessagesSuccess} />
+                <FlashMessagesSuccess flashMessages={state.flashMessageSuccess} />
                 <FlashMessagesError flashMessages={state.flashMessageError} />
                 <FlashMessagesWarning flashMessages={state.flashMessageWarrning} />
                 <Menu />
+
                 <Routes>
                   <Route path="/" element={<CreateNew />} />
                   <Route path="/list-users" element={<ListUsers />}></Route>
@@ -229,7 +230,7 @@ function Main() {
       <StateContext.Provider value={state}>
         <DispatchContext.Provider value={dispatch}>
           <BrowserRouter>
-            <FlashMessagesSuccess flashMessages={state.flashMessagesSuccess} />
+            <FlashMessagesSuccess flashMessages={state.flashMessageSuccess} />
             <FlashMessagesError flashMessages={state.flashMessageError} />
             <FlashMessagesWarning flashMessages={state.flashMessageWarrning} />
             <Routes>

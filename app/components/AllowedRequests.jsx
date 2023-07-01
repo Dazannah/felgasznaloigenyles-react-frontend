@@ -113,7 +113,7 @@ function AllowedRequests(props) {
           }
         }
       )
-      appDispatch({ type: "flashMessagesSuccess", value: "Felhasználó létrehozása sikeres." })
+      appDispatch({ type: "flashMessageSuccess", value: "Felhasználó létrehozása sikeres." })
       setRequests(true)
     } catch (err) {
       appDispatch({ type: "flashMessageWarning", value: err.message })

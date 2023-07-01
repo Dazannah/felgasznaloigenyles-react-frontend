@@ -108,7 +108,7 @@ function ListUsers() {
             <TableBody request={request} columns={columns} index={index} />
             <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
               <form>
-                <UpperFields listOut={true} request={request} listUsers={true} setUserId={setUserId} />
+                <UpperFields listOut={true} request={request} listUsers={true} setUserId={setUserId} readonly={true} />
 
                 <Columns listOut={true} request={request} />
                 <CreateNewTextarea listOut={true} request={request} />

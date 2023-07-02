@@ -96,6 +96,9 @@ function Main() {
       case "setArrays":
         draft.arrays = action.value
         return
+      case "setClasses":
+        draft.classes = action.value
+        return
     }
   }
 
@@ -187,7 +190,19 @@ function Main() {
             upperFields: requests.data[0].upperFields
           })
         )
+        dispatch({
+          type: "setArrays",
+          value: {
+            leftColumn: requests.data[0].leftColumn,
+            middleColumn: requests.data[0].middleColumn,
+            rightColumn: requests.data[0].rightColumn,
+            upperFields: requests.data[0].upperFields
+          }
+        })
+
         localStorage.setItem("classes", JSON.stringify(requests.data[1]))
+
+        dispatch({ type: "setClasses", value: requests.data[1] })
       } catch (err) {
         showError(err, dispatch)
       }
@@ -214,7 +229,6 @@ function Main() {
                 <FlashMessagesError flashMessages={state.flashMessageError} />
                 <FlashMessagesWarning flashMessages={state.flashMessageWarrning} />
                 <Menu />
-
                 <Routes>
                   <Route path="/" element={<CreateNew />} />
                   <Route path="/list-users" element={<ListUsers />}></Route>

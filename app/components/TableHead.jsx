@@ -10,15 +10,31 @@ function TableHead(props) {
     setOrder(sortOrder)
     handleSorting(accessor, sortOrder)
   }
+
+  function giveBackSplitTmpValue(request, splitSortField) {
+    if (request[splitSortField[0]]) {
+      if (request[splitSortField[0]][splitSortField[1]]) {
+        return request[splitSortField[0]][splitSortField[1]]
+      } else {
+        return "——"
+      }
+    } else {
+      return "——"
+    }
+
+    /*a[splitSortField[0]][splitSortField[1]] ? a[splitSortField[0]][splitSortField[1]] : "——"
+    b[splitSortField[0]][splitSortField[1]] ? b[splitSortField[0]][splitSortField[1]] : "——"*/
+  }
   // "——"
+
   function handleSorting(sortField, sortOrder) {
     let sorted
     if (sortField) {
       const splitSortField = sortField.split(".")
       if (splitSortField.length > 1) {
         sorted = [...props.requests].sort((a, b) => {
-          let aTmp = a[splitSortField[0]] ? a[splitSortField[0]][splitSortField[1]] : "——"
-          let bTmp = b[splitSortField[0]] ? b[splitSortField[0]][splitSortField[1]] : "——"
+          let aTmp = giveBackSplitTmpValue(a, splitSortField)
+          let bTmp = giveBackSplitTmpValue(b, splitSortField)
 
           return (
             aTmp.toString().localeCompare(bTmp.toString(), "hu", {

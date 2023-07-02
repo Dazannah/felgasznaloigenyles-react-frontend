@@ -86,7 +86,7 @@ function Main() {
         draft.flashMessageError.push(action.value)
         return
       case "flashMessageWarning":
-        draft.flashMessageWarrning.push(action.value)
+        draft.flashMessageWarrning.push([action.value])
         return
       case "emptyflashMessageWarrning":
         draft.flashMessageWarrning = []

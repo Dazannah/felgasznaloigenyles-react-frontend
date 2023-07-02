@@ -2,6 +2,7 @@ import React from "react"
 
 function TableBody(props) {
   function openContent(e) {
+    console.log(e)
     const button = document.getElementById(e)
     if (button.style.display === "block") {
       button.style.display = "none"
@@ -32,7 +33,11 @@ function TableBody(props) {
           let tData
           if (isNestedProperty) {
             const nestedProperty = props.request[splitAccessor[0]]
-            tData = nestedProperty[splitAccessor[1]] ? nestedProperty[splitAccessor[1]] : "——"
+            if (nestedProperty) {
+              tData = nestedProperty[splitAccessor[1]] ? nestedProperty[splitAccessor[1]] : "——"
+            } else {
+              tData = "——"
+            }
           } else {
             tData = props.request[accessor] ? props.request[accessor] : "——"
           }

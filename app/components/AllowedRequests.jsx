@@ -162,7 +162,6 @@ function AllowedRequests(props) {
           }
         }
       )
-      console.log(result)
       appDispatch({ type: "flashMessagesSuccess", value: result.data })
       setRequests(true)
     } catch (err) {

@@ -11,6 +11,7 @@ import CreateNewTextarea from "./CreateNewTextarea.jsx"
 import UserName from "./UserName.jsx"
 import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
+import ListUserRequests from "./ListUserRequests.jsx"
 
 import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
@@ -115,6 +116,8 @@ function ListUsers() {
                 <TechnicalTextarea listOut={true} request={request} listUser={true} />
 
                 <UserName listOut={true} request={request} />
+
+                <ListUserRequests userId={request._id} />
               </form>
             </div>
           </div>

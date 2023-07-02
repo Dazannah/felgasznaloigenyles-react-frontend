@@ -89,7 +89,6 @@ function EditUser(props) {
     dataToSend.userNames = {}
 
     for (const property in values) {
-      console.log(dataToSend.userNames[property])
       appState.arrays.leftColumn.forEach(element => {
         if (element.name === property) {
           dataToSend.userNames[property] = values[property]
@@ -111,16 +110,18 @@ function EditUser(props) {
         }
       )
 
-      console.log(response.data.errors)
       if (response.data.acknowledged) {
         appDispatch({ type: "flashMessageSuccess", value: "Módosítási igény sikeresen mentve" })
+        scroll(0, 0)
       } else if (response.data.errors) {
         appDispatch({ type: "flashMessageWarning", value: response.data.errors })
       } else {
         appDispatch({ type: "flashMessageWarning", value: `Valami hiba történt: ${response.data}` })
+        scroll(0, 0)
       }
     } catch (err) {
       appDispatch({ type: "flashMessageWarning", value: `${err}` })
+      scroll(0, 0)
     }
   }
 

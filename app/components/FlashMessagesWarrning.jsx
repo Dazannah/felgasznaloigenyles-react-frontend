@@ -1,21 +1,26 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext } from "react"
+import StateContext from "../StateContext.jsx"
 
 function FlashMessagesWarning(props) {
-  if (props.flashMessages.length > 0) {
-    return (
-      <div id="warning" className="floating-alerts">
-        <div key={"waringInsideDiv"} className="alert alert-warning text-center floating-alert shadow-sm">
-          {props.flashMessages.map((msg, index) => {
-            return (
-              <>
-                {msg} <br />
-              </>
-            )
-          })}
-        </div>
-      </div>
-    )
-  }
+  const appState = useContext(StateContext)
+
+  return (
+    <div id="warning" className="floating-alerts">
+      {appState.flashMessageWarrning.map((msg, index) => {
+        return (
+          <div key={`waringInsideDiv${index}`} className="alert alert-warning text-center floating-alert shadow-sm">
+            {msg.map(element => {
+              return (
+                <>
+                  {element} <br />
+                </>
+              )
+            })}
+          </div>
+        )
+      })}
+    </div>
+  )
 }
 
 export default FlashMessagesWarning

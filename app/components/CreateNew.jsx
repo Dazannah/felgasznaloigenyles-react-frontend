@@ -35,6 +35,7 @@ function CreateNew() {
     event.preventDefault()
     const errors = validateRequest(formState)
     if (errors) {
+      console.log(errors)
       appDispatch({ type: "flashMessageWarning", value: errors })
       window.scrollTo(0, 0)
     } else {
@@ -58,12 +59,11 @@ function CreateNew() {
         }
       )
       const invalidToken = checkToken(result.data, appDispatch)
-      console.log(result)
       if (invalidToken) {
         appDispatch({ type: "flashMessageWarning", value: "Érvénytelen bejelentkezés." })
         window.scrollTo(0, 0)
       } else if (result.data.errors) {
-        appDispatch({ type: "flashMessageWarning", value: result.data.errors })
+        appDispatch({ type: "flashMessageWarning", value: "Valami hiba történt." })
         window.scrollTo(0, 0)
       } else {
         formRef.current.reset()

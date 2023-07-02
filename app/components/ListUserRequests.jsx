@@ -12,6 +12,8 @@ import AllowTextarea from "./AllowTextarea.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import IsDone from "./IsDone.jsx"
 
+import { showError } from "../utils.jsx"
+
 import StateContext from "../StateContext.jsx"
 import DispatchContext from "../DispatchContext.jsx"
 
@@ -42,7 +44,7 @@ function ListUserRequests(props) {
         setUserRequests(allRequest.data)
         setIsLoading(false)
       } catch (err) {
-        appDispatch({ type: "flashMessageWarning", value: `Hiba történt: ${err}` })
+        showError(err, appDispatch)
       }
     }
     getUserAllRequest()

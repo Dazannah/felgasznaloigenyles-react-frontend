@@ -9,13 +9,7 @@ function FlashMessagesWarning(props) {
       {appState.flashMessageWarrning.map((msg, index) => {
         return (
           <div key={`waringInsideDiv${index}`} className="alert alert-warning text-center floating-alert shadow-sm">
-            {msg.map(element => {
-              return (
-                <>
-                  {element} <br />
-                </>
-              )
-            })}
+            {msg}
           </div>
         )
       })}

@@ -12,6 +12,8 @@ import TableBody from "./TableBody.jsx"
 import TableHead from "./TableHead.jsx"
 import UserName from "./UserName.jsx"
 
+import { showError } from "../utils.jsx"
+
 import StateContext from "../StateContext.jsx"
 import DispatchContext from "../DispatchContext.jsx"
 
@@ -47,7 +49,7 @@ function ListRequests(props) {
           setRequests(incomingRequests.data)
           setIsLoading(false)
         } catch (err) {
-          console.log(err)
+          showError(err, appDispatch)
         }
       }
       getRequests()
@@ -103,8 +105,8 @@ function ListRequests(props) {
         setGetTickets(true)
         formRef.current.reset()
         window.scrollTo(0, 0)
-      } catch (error) {
-        console.log(error)
+      } catch (err) {
+        showError(err, appDispatch)
       }
     }
   }

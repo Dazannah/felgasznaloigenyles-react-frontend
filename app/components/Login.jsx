@@ -5,6 +5,8 @@ import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
 import Loading from "./Loading.jsx"
 
+import { showError } from "../utils.jsx"
+
 function Login(props) {
   const appDispatch = useContext(DispatchContext)
   const appState = useContext(StateContext)
@@ -34,7 +36,7 @@ function Login(props) {
           setIsLoading(false)
         }
       } catch (err) {
-        appDispatch({ type: "flashMessageError", value: err.message })
+        showError(err, appDispatch)
         setIsLoading(false)
       }
     } else {

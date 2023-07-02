@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import Axios from "axios"
 
 import Page from "./Page.jsx"
@@ -10,7 +10,7 @@ import CreateNewTextarea from "./CreateNewTextarea.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import UserName from "./UserName.jsx"
 
-import { serializeDataToSend, generateState } from "../utils.jsx"
+import { serializeDataToSend, generateState, showError } from "../utils.jsx"
 
 import StateContext from "../StateContext.jsx"
 import DispatchContext from "../DispatchContext.jsx"
@@ -24,6 +24,7 @@ function EditUser(props) {
   const [isLoading, setIsLoading] = useState(true)
   const [user, setUser] = useState()
   const { id } = useParams()
+  const navigate = useNavigate()
 
   const formState = useContext(FormStateContext)
   const formDispatch = useContext(FormDispatchContext)
@@ -84,7 +85,7 @@ function EditUser(props) {
     const formData = new FormData(event.target)
     const values = Object.fromEntries(formData.entries())
 
-    const dataToSend = serializeDataToSend(formState, statesLeftCollumn, statesMiddleCollumn, statesRightCollumn) //userNames-t bele tenni
+    const dataToSend = serializeDataToSend(formState, statesLeftCollumn, statesMiddleCollumn, statesRightCollumn)
     dataToSend.userId = user._id
     dataToSend.userNames = {}
 
@@ -111,9 +112,9 @@ function EditUser(props) {
       )
 
       if (response.data.acknowledged) {
-        appDispatch({ type: "flashMessageSuccess", value: "Módosítási igény sikeresen mentve" })
+        appDispatch({ type: "flashMessageSuccess", value: "Módosítási igény sikeresen mentve." })
+        navigate("/list-users")
         formDispatch({ type: "reset" })
-        scroll(0, 0)
       } else if (response.data.errors) {
         appDispatch({ type: "flashMessageWarning", value: response.data.errors })
       } else {
@@ -121,8 +122,7 @@ function EditUser(props) {
         scroll(0, 0)
       }
     } catch (err) {
-      appDispatch({ type: "flashMessageWarning", value: `${err}` })
-      scroll(0, 0)
+      showError(err, appDispatch)
     }
   }
 

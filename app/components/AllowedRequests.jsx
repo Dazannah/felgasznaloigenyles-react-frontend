@@ -13,6 +13,8 @@ import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import IsDone from "./IsDone.jsx"
 
+import { showError } from "../utils.jsx"
+
 import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
 
@@ -125,7 +127,7 @@ function AllowedRequests(props) {
       appDispatch({ type: "flashMessageSuccess", value: "Felhasználó létrehozása sikeres." })
       setRequests(true)
     } catch (err) {
-      appDispatch({ type: "flashMessageWarning", value: err.message })
+      showError(err, appDispatch)
     }
   }
 
@@ -145,7 +147,7 @@ function AllowedRequests(props) {
       appDispatch({ type: "flashMessagesSuccess", value: result.data })
       setRequests(true)
     } catch (err) {
-      appDispatch({ type: "flashMessageWarning", value: err.message })
+      showError(err, appDispatch)
     }
   }
 
@@ -165,7 +167,7 @@ function AllowedRequests(props) {
       appDispatch({ type: "flashMessagesSuccess", value: result.data })
       setRequests(true)
     } catch (err) {
-      appDispatch({ type: "flashMessageWarning", value: err.message })
+      showError(err, appDispatch)
     }
   }
 

@@ -23,6 +23,7 @@ import FlashMessagesSuccess from "./components/FlashMessagesSuccess.jsx"
 import FlashMessagesWarning from "./components/FlashMessagesWarrning.jsx"
 import FlashMessagesError from "./components/FlashMessagesError.jsx"
 
+import { showError } from "./utils.jsx"
 import NoFound from "./components/NoFound.jsx"
 
 //contexts
@@ -87,7 +88,7 @@ function Main() {
         draft.flashMessageError.push(action.value)
         return
       case "flashMessageWarning":
-        draft.flashMessageWarrning.push([action.value])
+        draft.flashMessageWarrning.push(action.value)
         return
       case "emptyflashMessageWarrning":
         draft.flashMessageWarrning = []
@@ -166,7 +167,7 @@ function Main() {
         })
         checkToken(result.data, dispatch, "checkToken")
       } catch (err) {
-        dispatch({ type: "flashMessageWarning", value: `${err.message}` })
+        showError(err, dispatch)
         dispatch({ type: "logout" })
       }
     }
@@ -188,7 +189,7 @@ function Main() {
         )
         localStorage.setItem("classes", JSON.stringify(requests.data[1]))
       } catch (err) {
-        console.log(err)
+        showError(err, dispatch)
       }
     }
     getStartData()

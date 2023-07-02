@@ -13,6 +13,8 @@ import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import ListUserRequests from "./ListUserRequests.jsx"
 
+import { showError } from "../utils.jsx"
+
 import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
 
@@ -72,7 +74,7 @@ function ListUsers() {
         appDispatch({ type: "flashMessagesSuccess", value: "Törlési kérelem sikeresen mentve." })
       }
     } catch (err) {
-      appDispatch({ type: "flashMessageWarning", value: err.message })
+      showError(err, appDispatch)
     }
   }
 

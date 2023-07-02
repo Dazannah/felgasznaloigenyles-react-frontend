@@ -13,7 +13,7 @@ import StateContext from "../StateContext.jsx"
 import FormDispatchContext from "../FormDispatchContext.jsx"
 import FormStateContext from "../FormStateContext.jsx"
 
-import { checkToken, validateRequest, serializeDataToSend, generateState } from "../utils.jsx"
+import { checkToken, validateRequest, serializeDataToSend, generateState, showError } from "../utils.jsx"
 
 function CreateNew() {
   const appState = useContext(StateContext)
@@ -24,6 +24,7 @@ function CreateNew() {
   const formRef = useRef(null)
 
   useEffect(() => {
+    formDispatch({ type: "reset" })
     formDispatch({ type: "setProcess", value: "Új felhasználó" })
   }, [])
 
@@ -35,7 +36,6 @@ function CreateNew() {
     event.preventDefault()
     const errors = validateRequest(formState)
     if (errors) {
-      console.log(errors)
       appDispatch({ type: "flashMessageWarning", value: errors })
       window.scrollTo(0, 0)
     } else {
@@ -73,7 +73,7 @@ function CreateNew() {
         window.scrollTo(0, 0)
       }
     } catch (err) {
-      console.log(err)
+      showError(err, appDispatch)
     }
   }
 

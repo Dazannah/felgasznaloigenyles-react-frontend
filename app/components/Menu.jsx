@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react"
-import { Link, redirect, Navigate } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
 

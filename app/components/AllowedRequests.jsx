@@ -65,7 +65,6 @@ function AllowedRequests(props) {
         const { errors, dataToSend, userNames } = handleFields(values)
 
         if (errors.length > 0) {
-          console.log(errors)
           appDispatch({ type: "flashMessageWarning", value: errors })
         } else {
           dataToSend.userNames = userNames
@@ -163,6 +162,7 @@ function AllowedRequests(props) {
           }
         }
       )
+      console.log(result)
       appDispatch({ type: "flashMessagesSuccess", value: result.data })
       setRequests(true)
     } catch (err) {

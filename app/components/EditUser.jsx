@@ -80,8 +80,22 @@ function EditUser(props) {
 
   async function handleSubmit(event) {
     event.preventDefault()
-    const dataToSend = serializeDataToSend(formState, statesLeftCollumn, statesMiddleCollumn, statesRightCollumn)
+
+    const formData = new FormData(event.target)
+    const values = Object.fromEntries(formData.entries())
+
+    const dataToSend = serializeDataToSend(formState, statesLeftCollumn, statesMiddleCollumn, statesRightCollumn) //userNames-t bele tenni
     dataToSend.userId = user._id
+    dataToSend.userNames = {}
+
+    for (const property in values) {
+      console.log(dataToSend.userNames[property])
+      appState.arrays.leftColumn.forEach(element => {
+        if (element.name === property) {
+          dataToSend.userNames[property] = values[property]
+        }
+      })
+    }
 
     try {
       const response = await Axios.post(

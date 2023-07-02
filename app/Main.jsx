@@ -16,6 +16,7 @@ import ListUsers from "./components/ListUsers.jsx"
 import ListRequests from "./components/ListRequests.jsx"
 import CompletedTickets from "./components/CompletedTickets.jsx"
 import EditUser from "./components/EditUser.jsx"
+import JumptToTop from "./components/JumptToTop.jsx"
 
 //flash message
 import FlashMessagesSuccess from "./components/FlashMessagesSuccess.jsx"
@@ -221,6 +222,7 @@ function Main() {
                   <Route path="/*" element={<NoFound />} />
                 </Routes>
               </BrowserRouter>
+              <JumptToTop />
             </DispatchContext.Provider>
           </StateContext.Provider>
         </FormDispatchContext.Provider>

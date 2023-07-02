@@ -158,6 +158,7 @@ nav a:hover {
 /* Main Content */
 
 #main-content-wrapper {
+  width: 100%;
   margin-top: 20px;
 }
 
@@ -236,8 +237,8 @@ nav a:hover {
   color: white;
   cursor: pointer;
   padding: 18px;
-  margin: 3px;
-  width: 100%;
+  margin: 3px auto;
+  width: 99.5%;
   border: none;
   min-height: 8%;
   outline: none;
@@ -296,6 +297,24 @@ input[type="datetime-local"] {
   background-color: #e3a420;
   color: #fff;
 }
+
+/* Jump-to-top-arrow */
+#jump-to-top-arrow-div {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.jump-to-top-arrow-span {
+  font-size: 500%;
+  color: #000;
+}
+
+#jump-to-top-arrow-div:hover {
+  cursor: pointer;
+}
+
+/* jump-to-top-arrow End*/
 
 /* Loading Dots */
 
@@ -365,6 +384,16 @@ input[type="datetime-local"] {
 }
 
 /* Cleare Class End */
+
+.no-request-div {
+  width: fit-content;
+  margin: 50px auto;
+}
+
+.no-request-span {
+  font-size: 150%;
+  font-weight: bold;
+}
 
 /* Old css*/
 #login {
@@ -625,7 +654,6 @@ input[type="datetime-local"] {
 /* The search field */
 #myInput {
   box-sizing: border-box;
-
   height: 5%;
   min-width: 450px;
   text-align: left;

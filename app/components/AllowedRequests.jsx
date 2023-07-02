@@ -180,7 +180,9 @@ function AllowedRequests(props) {
     return (
       <Page title="Engedélyezett kérelmek listázása">
         <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} />
-        Nincs engedélyezett kérelmek.
+        <div className="no-request-div">
+          <span className="no-request-span">Nincsennek engedélyezett kérelmek.</span>
+        </div>
       </Page>
     )
   }

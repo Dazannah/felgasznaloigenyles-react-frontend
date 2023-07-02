@@ -26,6 +26,7 @@ function ListUserRequests(props) {
     { label: "Művelet", accessor: "process" },
     { label: "Engedélyezve", accessor: "permission.allowed" },
     { label: "Engedélyező", accessor: "permission.authorizedBy" },
+    { label: "Igénylés ideje", accessor: "ticketCreation.createTime" },
     { label: "Lezárt", accessor: "completed.time" }
   ]
 

@@ -2,7 +2,6 @@ import React from "react"
 
 function TableBody(props) {
   function openContent(e) {
-    console.log(e)
     const button = document.getElementById(e)
     if (button.style.display === "block") {
       button.style.display = "none"

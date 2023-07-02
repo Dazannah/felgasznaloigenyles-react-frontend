@@ -10,23 +10,29 @@ function TableHead(props) {
     setOrder(sortOrder)
     handleSorting(accessor, sortOrder)
   }
-
+  // "——"
   function handleSorting(sortField, sortOrder) {
     let sorted
     if (sortField) {
       const splitSortField = sortField.split(".")
       if (splitSortField.length > 1) {
         sorted = [...props.requests].sort((a, b) => {
+          let aTmp = a[splitSortField[0]] ? a[splitSortField[0]][splitSortField[1]] : "——"
+          let bTmp = b[splitSortField[0]] ? b[splitSortField[0]][splitSortField[1]] : "——"
+
           return (
-            a[splitSortField[0]][splitSortField[1]].toString().localeCompare(b[splitSortField[0]][splitSortField[1]].toString(), "hu", {
+            aTmp.toString().localeCompare(bTmp.toString(), "hu", {
               numeric: true
             }) * (sortOrder === "asc" ? 1 : -1)
           )
         })
       } else {
         sorted = [...props.requests].sort((a, b) => {
+          let aTmp = a[splitSortField[0]] ? a[splitSortField[0]] : "——"
+          let bTmp = b[splitSortField[0]] ? b[splitSortField[0]] : "——"
+
           return (
-            a[splitSortField[0]].toString().localeCompare(b[splitSortField[0]].toString(), "hu", {
+            aTmp.toString().localeCompare(bTmp.toString(), "hu", {
               numeric: true
             }) * (sortOrder === "asc" ? 1 : -1)
           )

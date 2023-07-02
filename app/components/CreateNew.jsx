@@ -58,7 +58,7 @@ function CreateNew() {
         }
       )
       const invalidToken = checkToken(result.data, appDispatch)
-
+      console.log(result)
       if (invalidToken) {
         appDispatch({ type: "flashMessageWarning", value: "Érvénytelen bejelentkezés." })
         window.scrollTo(0, 0)

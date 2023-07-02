@@ -61,6 +61,16 @@ function AllowedRequests(props) {
     } else {
       if (values.process === "Felhasználó törlése") {
         sendDeleteRequest(values)
+      } else if (values.process === "Felhasználó módosítása") {
+        const { errors, dataToSend, userNames } = handleFields(values)
+
+        if (errors.length > 0) {
+          console.log(errors)
+          appDispatch({ type: "flashMessageWarning", value: errors })
+        } else {
+          dataToSend.userNames = userNames
+          sendEditRequest(dataToSend)
+        }
       } else {
         const { errors, dataToSend, userNames } = handleFields(values)
 
@@ -126,6 +136,26 @@ function AllowedRequests(props) {
         "/close-delete-user-request",
         {
           values
+        },
+        {
+          headers: {
+            authorization: `Bearer ${initialState.user.token}`
+          }
+        }
+      )
+      appDispatch({ type: "flashMessagesSuccess", value: result.data })
+      setRequests(true)
+    } catch (err) {
+      appDispatch({ type: "flashMessageWarning", value: err.message })
+    }
+  }
+
+  async function sendEditRequest(dataToSend) {
+    try {
+      const result = await Axios.post(
+        "/close-edit-user-request",
+        {
+          dataToSend
         },
         {
           headers: {

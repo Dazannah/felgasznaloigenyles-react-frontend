@@ -163,7 +163,8 @@ function Main() {
         })
         checkToken(result.data, dispatch, "checkToken")
       } catch (err) {
-        console.log(err)
+        dispatch({ type: "flashMessageWarning", value: `${err.message}` })
+        dispatch({ type: "logout" })
       }
     }
     validateSession()

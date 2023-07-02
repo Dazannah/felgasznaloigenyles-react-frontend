@@ -60,7 +60,9 @@ function CompletedTickets(props) {
     return (
       <Page title="Lezárt kérelmek">
         <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} />
-        Nincs elkészült kérelmek.
+        <div className="no-request-div">
+          <span className="no-request-span"> Nincs lezárt kérelem.</span>
+        </div>
       </Page>
     )
   }

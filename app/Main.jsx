@@ -148,6 +148,8 @@ function Main() {
       case "setUserId":
         draft.userId = action.value
         return
+      case "reset":
+        return formInitialState
     }
   }
 

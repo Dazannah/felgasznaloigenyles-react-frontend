@@ -69,7 +69,7 @@ function CreateNew() {
       } else {
         formRef.current.reset()
         appDispatch({ type: "flashMessageSuccess", value: "Kérelem mentése sikeres." })
-        formDispatch({ type: "setClassName", value: "" })
+        formDispatch({ type: "reset" })
         window.scrollTo(0, 0)
       }
     } catch (err) {

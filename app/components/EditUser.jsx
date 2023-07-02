@@ -112,6 +112,7 @@ function EditUser(props) {
 
       if (response.data.acknowledged) {
         appDispatch({ type: "flashMessageSuccess", value: "Módosítási igény sikeresen mentve" })
+        formDispatch({ type: "reset" })
         scroll(0, 0)
       } else if (response.data.errors) {
         appDispatch({ type: "flashMessageWarning", value: response.data.errors })

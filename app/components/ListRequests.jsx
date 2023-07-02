@@ -120,7 +120,9 @@ function ListRequests(props) {
     return (
       <Page title="Kérelmek listázása">
         <TableHead columns={columns} setRequests={setRequests} requests={requests} />
-        Nincs engedélyezésre váró kérelem.
+        <div className="no-request-div">
+          <span className="no-request-span"> Nincs engedélyezésre váró kérelem.</span>
+        </div>
       </Page>
     )
   return (

@@ -181,7 +181,7 @@ function AllowedRequests(props) {
       <Page title="Engedélyezett kérelmek listázása">
         <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} />
         <div className="no-request-div">
-          <span className="no-request-span">Nincsennek engedélyezett kérelmek.</span>
+          <span className="no-request-span">Nincs engedélyezett kérelem.</span>
         </div>
       </Page>
     )

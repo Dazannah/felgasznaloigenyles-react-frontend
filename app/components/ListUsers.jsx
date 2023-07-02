@@ -95,7 +95,9 @@ function ListUsers() {
     return (
       <Page title="Felhasználók listázása">
         <TableHead columns={columns} setRequests={setUsers} requests={users} />
-        Nincsennek felhasználók.
+        <div className="no-request-div">
+          <span className="no-request-span"> Nincsennek felhasználók.</span>
+        </div>
       </Page>
     )
   }

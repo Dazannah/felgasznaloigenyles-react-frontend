@@ -12,6 +12,7 @@ import UserName from "./UserName.jsx"
 import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import ListUserRequests from "./ListUserRequests.jsx"
+import ToggleSwitch from "./utils/ToggleSwitch.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -25,23 +26,29 @@ function ListUsers() {
 
   const [isLoading, setIsLoading] = useState(true)
   const [users, setUsers] = useState()
-  const [getRequests, setGetRequests] = useState(true)
   const [userId, setUserId] = useState()
   const [isInitialLoad, setIsInitialLoad] = useState(true)
 
+  const [toggleSwitchValue, setToggleSwitchValue] = useState(false)
+  const [isRequestLoading, setIsRequestLoading] = useState(false)
+
   useEffect(() => {
     async function getUsers() {
-      const response = await Axios.get("/list-users", {
+      let url
+
+      isInitialLoad ? "" : setIsRequestLoading(true)
+
+      toggleSwitchValue ? (url = "/list-deleted-users") : (url = "/list-active-users")
+      const response = await Axios.get(`${url}`, {
         headers: {
           authorization: `Bearer ${initialState.user.token}`
         }
       })
       setUsers(response.data)
-      setIsLoading(false)
-      setGetRequests(false)
+      isInitialLoad ? setIsLoading(false) : setIsRequestLoading(false)
     }
     getUsers()
-  }, [])
+  }, [toggleSwitchValue])
 
   useEffect(() => {
     async function handleUserId() {
@@ -106,27 +113,32 @@ function ListUsers() {
 
   return (
     <Page title="Felhasználók listázása">
+      <ToggleSwitch setToggleSwitchValue={setToggleSwitchValue} toggleSwitchTexts={{ title: "Felhasználók státusza", left: "Aktív", right: "Törölt" }} />
       <TableHead columns={columns} setRequests={setUsers} requests={users} />
-      {users.map(function (request, index) {
-        return (
-          <div key={request._id + "DivKey"} id={index + "Div"} className="request">
-            <TableBody request={request} columns={columns} index={index} />
-            <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
-              <form>
-                <UpperFields listOut={true} request={request} listUsers={true} setUserId={setUserId} readonly={true} />
+      {isRequestLoading ? (
+        <Loading />
+      ) : (
+        users.map(function (request, index) {
+          return (
+            <div key={request._id + "DivKey"} id={index + "Div"} className="request">
+              <TableBody request={request} columns={columns} index={index} />
+              <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
+                <form>
+                  <UpperFields listOut={true} request={request} listUsers={true} setUserId={setUserId} readonly={true} />
 
-                <Columns listOut={true} request={request} />
-                <CreateNewTextarea listOut={true} request={request} />
-                <TechnicalTextarea listOut={true} request={request} listUser={true} />
+                  <Columns listOut={true} request={request} />
+                  <CreateNewTextarea listOut={true} request={request} />
+                  <TechnicalTextarea listOut={true} request={request} listUser={true} />
 
-                <UserName listOut={true} request={request} />
+                  <UserName listOut={true} request={request} />
 
-                <ListUserRequests userId={request._id} />
-              </form>
+                  <ListUserRequests userId={request._id} />
+                </form>
+              </div>
             </div>
-          </div>
-        )
-      })}
+          )
+        })
+      )}
     </Page>
   )
 }

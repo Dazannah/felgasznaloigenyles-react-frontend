@@ -100,13 +100,19 @@ function UpperFields(props) {
           <div id="progress-container">
             {props.listUsers ? (
               <>
-                <button onClick={() => handleProcessStart(props.request._id, "edit")} className="userEdit roundCorner btn" type="button" id={props.request._id}>
-                  Felhasználó jogosultság módosítása
-                </button>
+                {props.request.status === "active" ? (
+                  <>
+                    <button onClick={() => handleProcessStart(props.request._id, "edit")} className="userEdit roundCorner btn" type="button" id={props.request._id}>
+                      Felhasználó jogosultság módosítása
+                    </button>
 
-                <button onClick={() => handleProcessStart(props.request._id, "delete")} className="userDelete roundCorner btn" type="button" id={props.request._id}>
-                  Felhasználó törlése
-                </button>
+                    <button onClick={() => handleProcessStart(props.request._id, "delete")} className="userDelete roundCorner btn" type="button" id={props.request._id}>
+                      Felhasználó törlése
+                    </button>
+                  </>
+                ) : (
+                  ""
+                )}
               </>
             ) : (
               <form>

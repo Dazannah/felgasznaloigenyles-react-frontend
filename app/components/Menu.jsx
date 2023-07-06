@@ -78,7 +78,7 @@ function Menu() {
           </li>
           <li>
             {" "}
-            <Link id="distributinListBtn" onClick={e => setAcctiveBtn(e.target.id)} key="distributinListBtn" to="/asdasd">
+            <Link id="distributinListBtn" onClick={e => setAcctiveBtn(e.target.id)} key="distributinListBtn" to="/create-distribution-list">
               Terjesztési lista igénylés
             </Link>
           </li>

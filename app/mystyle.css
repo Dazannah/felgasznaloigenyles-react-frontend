@@ -260,15 +260,32 @@ nav a:hover {
 
 /* Main Content End */
 
+/* Create Distribution List*/
+
+#create-distribution-list-div {
+  width: 98%;
+  background-color: #f1f1f1;
+  margin: 10px auto;
+  padding: 10px 25px;
+}
+
+#create-distribution-list-upper-buttons {
+  margin: 10px;
+}
+
+/* Create Distribution List End */
+
 input[type="checkbox"] {
   accent-color: #e3a420;
 }
 
 input[type="text"],
+input[type="number"],
 input[type="datetime-local"] {
   border-radius: 5px;
   border: 1px solid #15808a;
   padding: 2px 5px;
+  margin-bottom: 2px;
 }
 
 .button {

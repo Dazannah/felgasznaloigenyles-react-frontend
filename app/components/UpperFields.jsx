@@ -105,6 +105,7 @@ function UpperFields(props) {
                     <button onClick={() => handleProcessStart(props.request._id, "edit")} className="userEdit roundCorner btn" type="button" id={props.request._id}>
                       Felhasználó jogosultság módosítása
                     </button>
+                    <br />
 
                     <button onClick={() => handleProcessStart(props.request._id, "delete")} className="userDelete roundCorner btn" type="button" id={props.request._id}>
                       Felhasználó törlése

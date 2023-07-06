@@ -16,6 +16,7 @@ import ListUsers from "./components/ListUsers.jsx"
 import ListRequests from "./components/ListRequests.jsx"
 import CompletedTickets from "./components/CompletedTickets.jsx"
 import EditUser from "./components/EditUser.jsx"
+import CreateDistributionList from "./components/CreateDistributionList.jsx"
 import JumptToTop from "./components/JumptToTop.jsx"
 
 //flash message
@@ -236,6 +237,8 @@ function Main() {
                   <Route path="/list-allowed-requests" element={<AllowedRequests />} />
                   <Route path="/list-completed-requests" element={<CompletedTickets />} />
                   <Route path="/user/:id/edit" element={<EditUser />} />
+                  <Route path="/create-distribution-list" element={<CreateDistributionList />} />
+
                   <Route path="/*" element={<NoFound />} />
                 </Routes>
               </BrowserRouter>

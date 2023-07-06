@@ -19,9 +19,9 @@ import EditUser from "./components/EditUser.jsx"
 import JumptToTop from "./components/JumptToTop.jsx"
 
 //flash message
-import FlashMessagesSuccess from "./components/FlashMessagesSuccess.jsx"
-import FlashMessagesWarning from "./components/FlashMessagesWarrning.jsx"
-import FlashMessagesError from "./components/FlashMessagesError.jsx"
+import FlashMessagesSuccess from "./components/flashMessages/FlashMessagesSuccess.jsx"
+import FlashMessagesWarning from "./components/flashMessages/FlashMessagesWarrning.jsx"
+import FlashMessagesError from "./components/flashMessages/FlashMessagesError.jsx"
 
 import { showError } from "./utils.jsx"
 import NoFound from "./components/NoFound.jsx"

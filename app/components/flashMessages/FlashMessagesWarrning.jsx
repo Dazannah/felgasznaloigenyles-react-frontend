@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import StateContext from "../StateContext.jsx"
+import StateContext from "../../StateContext.jsx"
 
 function FlashMessagesWarning(props) {
   const appState = useContext(StateContext)

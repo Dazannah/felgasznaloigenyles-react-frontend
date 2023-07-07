@@ -11,6 +11,7 @@ import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import TableBody from "./TableBody.jsx"
 import TableHead from "./TableHead.jsx"
 import UserName from "./UserName.jsx"
+import DistributionListFields from "./DistributionListFields.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -101,7 +102,7 @@ function ListRequests(props) {
           }
         )
 
-        appDispatch({ type: "flashMessageSuccess", value: "Kérelem mentése sikeres." }) //ez nem műkszik
+        appDispatch({ type: "flashMessageSuccess", value: "Kérelem mentése sikeres." })
         setGetTickets(true)
         formRef.current.reset()
         window.scrollTo(0, 0)
@@ -111,7 +112,7 @@ function ListRequests(props) {
     }
   }
 
-  function generateUserRequest(request, index){
+  function generateUserRequest(request, index) {
     return (
       <div key={request._id + "DivKey"} id={index + "Div"} className="request">
         <TableBody request={request} columns={columns} index={index} />
@@ -131,14 +132,15 @@ function ListRequests(props) {
     )
   }
 
-  function generateDistributionList(request, index){
+  const [generateInputFieldsNow, setGenerateInputFieldsNow] = useState(true)
+
+  function generateDistributionList(request, index) {
     return (
       <div key={request._id + "DivKey"} id={index + "Div"} className="request">
         <TableBody request={request} columns={columns} index={index} />
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
-
+          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.adresses.length} />
           <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>
-
             <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
             <input key={request._id + "ticketIdInput"} type="hidden" name="ticketId" value={request._id} />
             <input key={request._id + "submit"} type="submit" className="form-submit-input round-corner" value="Küldés" />
@@ -168,7 +170,7 @@ function ListRequests(props) {
     <Page title="Kérelmek listázása">
       <TableHead columns={columns} setRequests={setRequests} requests={requests} />
       {requests.map(function (request, index) {
-       return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
+        return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
       })}
     </Page>
   )

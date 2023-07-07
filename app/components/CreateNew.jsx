@@ -67,9 +67,9 @@ function CreateNew() {
         appDispatch({ type: "flashMessageWarning", value: "Valami hiba történt." })
         window.scrollTo(0, 0)
       } else {
-        formRef.current.reset()
         appDispatch({ type: "flashMessageSuccess", value: "Kérelem mentése sikeres." })
         formDispatch({ type: "reset" })
+        formRef.current.reset()
         window.scrollTo(0, 0)
       }
     } catch (err) {

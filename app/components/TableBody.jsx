@@ -38,14 +38,13 @@ function TableBody(props) {
             const nestedProperty = props.request[splitAccessor[0]]
             if (nestedProperty) {
               tData = nestedProperty[splitAccessor[1]] ? nestedProperty[splitAccessor[1]] : "——"
-            } else if(props.request.mainAddress && splitAccessor[1] === "name"){
-              console.log(splitAccessor)
+            } else if (props.request.mainAddress && splitAccessor[1] === "name") {
               tData = props.request.mainAddress + appState.emailDomain
             } else {
               tData = "——"
             }
           } else {
-              tData = props.request[accessor] ? props.request[accessor] : "——"
+            tData = props.request[accessor] ? props.request[accessor] : "——"
           }
 
           let statusClassName

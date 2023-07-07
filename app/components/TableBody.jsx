@@ -1,6 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
+
+import StateContext from "../StateContext.jsx"
 
 function TableBody(props) {
+  const appState = useContext(StateContext)
+
   function openContent(e) {
     const button = document.getElementById(e)
     if (button.style.display === "block") {
@@ -34,11 +38,14 @@ function TableBody(props) {
             const nestedProperty = props.request[splitAccessor[0]]
             if (nestedProperty) {
               tData = nestedProperty[splitAccessor[1]] ? nestedProperty[splitAccessor[1]] : "——"
+            } else if(props.request.mainAddress && splitAccessor[1] === "name"){
+              console.log(splitAccessor)
+              tData = props.request.mainAddress + appState.emailDomain
             } else {
               tData = "——"
             }
           } else {
-            tData = props.request[accessor] ? props.request[accessor] : "——"
+              tData = props.request[accessor] ? props.request[accessor] : "——"
           }
 
           let statusClassName

@@ -46,7 +46,8 @@ function Main() {
     },
     siteLocation: "",
     arrays: JSON.parse(localStorage.getItem("arrays")),
-    classes: JSON.parse(localStorage.getItem("classes"))
+    classes: JSON.parse(localStorage.getItem("classes")),
+    emailDomain: process.env.EMAILDOMAIN
   }
 
   const formInitialState = {

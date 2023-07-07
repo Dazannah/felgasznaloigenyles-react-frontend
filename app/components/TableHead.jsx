@@ -21,11 +21,7 @@ function TableHead(props) {
     } else {
       return "——"
     }
-
-    /*a[splitSortField[0]][splitSortField[1]] ? a[splitSortField[0]][splitSortField[1]] : "——"
-    b[splitSortField[0]][splitSortField[1]] ? b[splitSortField[0]][splitSortField[1]] : "——"*/
   }
-  // "——"
 
   function handleSorting(sortField, sortOrder) {
     let sorted

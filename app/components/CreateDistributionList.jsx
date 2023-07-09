@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext, useRef } from "react"
 import Axios from "axios"
 
 import DistributionListFields from "./DistributionListFields.jsx"
+import Page from "./Page.jsx"
 
 import StateContext from "../StateContext.jsx"
 import DispatchContext from "../DispatchContext.jsx"
@@ -100,23 +101,25 @@ function CreateDistributionList(props) {
   }
 
   return (
-    <div id="create-distribution-list-div">
-      <div id="create-distribution-list-upper-buttons">
-        <input defaultValue={fieldToAdd} onChange={e => setFieldToAdd(e.target.value)} type="number" /> <br />
-        <button className="form-submit-input round-corner" type="button" id="addElement" onClick={addField}>
-          Hozzáadás
-        </button>{" "}
-        <button className="form-submit-input round-corner" type="button" id="addElement" onClick={deleteField}>
-          Törlés
-        </button>
+    <Page title="Terjesztési lista igénylés">
+      <div id="create-distribution-list-div">
+        <div id="create-distribution-list-upper-buttons">
+          <input defaultValue={fieldToAdd} onChange={e => setFieldToAdd(e.target.value)} type="number" /> <br />
+          <button className="form-submit-input round-corner" type="button" id="addElement" onClick={addField}>
+            Hozzáadás
+          </button>{" "}
+          <button className="form-submit-input round-corner" type="button" id="addElement" onClick={deleteField}>
+            Törlés
+          </button>
+        </div>
+        <form onSubmit={e => submitHandler(e)} ref={formRef}>
+          <DistributionListFields generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={inputFieldNumber} />
+          <button className="form-submit-input round-corner" type="submit" value="Küldés">
+            Küldés
+          </button>
+        </form>
       </div>
-      <form onSubmit={e => submitHandler(e)} ref={formRef}>
-        <DistributionListFields generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={inputFieldNumber} />
-        <button className="form-submit-input round-corner" type="submit" value="Küldés">
-          Küldés
-        </button>
-      </form>
-    </div>
+    </Page>
   )
 }
 

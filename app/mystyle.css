@@ -117,7 +117,7 @@ nav li {
   width: fit-content;
 }
 
-nav li:nth-child(7) {
+nav li:nth-child(8) {
   float: right;
 }
 
@@ -502,6 +502,10 @@ input:checked + .slider:before {
 /* Device Size Dependent */
 
 @media (min-width: 1900px) {
+  html {
+    font-size: 125%;
+  }
+
   .main-content-wrapper {
     max-width: 1860px;
   }
@@ -509,7 +513,7 @@ input:checked + .slider:before {
 
 @media (min-width: 2500px) {
   html {
-    font-size: 150%;
+    font-size: 125%;
   }
 
   .main-content-wrapper {

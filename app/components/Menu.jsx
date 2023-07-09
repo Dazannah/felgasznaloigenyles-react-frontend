@@ -50,25 +50,25 @@ function Menu() {
             <li>
               {" "}
               <Link id="createNewBtn" onClick={e => setAcctiveBtn(e.target.id)} key="createNewBtn" to="/">
-                Új felvétel
+                Új felhasználó
               </Link>
             </li>
             <li>
               {" "}
-              <Link id="listUsersBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listUsersBtn" to="/list-users">
-                Felhasználók listázása
+              <Link id="distributinListBtn" onClick={e => setAcctiveBtn(e.target.id)} key="distributinListBtn" to="/create-distribution-list">
+                Új terjesztési lista
               </Link>
             </li>
             <li>
               {" "}
               <Link id="listRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listRequestsBtn" to="/list-requests">
-                Kérelmek listázása
+                Kérelmek engedéjezése
               </Link>
             </li>
             <li>
               {" "}
               <Link id="allowedRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="allowedRequestsBtn" to="/list-allowed-requests">
-                Engedélyezett kérelmek listázása
+                Engedélyezett kérelmek
               </Link>
             </li>
             <li>
@@ -79,8 +79,14 @@ function Menu() {
             </li>
             <li>
               {" "}
-              <Link id="distributinListBtn" onClick={e => setAcctiveBtn(e.target.id)} key="distributinListBtn" to="/create-distribution-list">
-                Terjesztési lista igénylés
+              <Link id="listUsersBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listUsersBtn" to="/list-users">
+                Felhasználók
+              </Link>
+            </li>
+            <li>
+              {" "}
+              <Link id="listUsersBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listUsersBtn" to="/distribution-lists">
+                Terjesztési listák
               </Link>
             </li>
             <li>

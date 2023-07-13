@@ -12,6 +12,7 @@ import AllowTextarea from "./AllowTextarea.jsx"
 import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import IsDone from "./IsDone.jsx"
+import DistributionListFields from "./DistributionListFields.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -77,6 +78,8 @@ function AllowedRequests(props) {
 
         if (errors.length > 0) {
           appDispatch({ type: "flashMessageWarning", value: errors })
+        } else if (dataToSend.ticketType === "distributionList") {
+          distributionListRequest(dataToSend)
         } else {
           dataToSend.userNames = userNames
           sendRequestWithFields(dataToSend)
@@ -171,6 +174,68 @@ function AllowedRequests(props) {
     }
   }
 
+  async function distributionListRequest(dataToSend) {
+    try {
+      const result = await Axios.post(
+        "/close-distribution-list-create-request",
+        {
+          dataToSend
+        },
+        {
+          headers: {
+            authorization: `Bearer ${initialState.user.token}`
+          }
+        }
+      )
+      appDispatch({ type: "flashMessagesSuccess", value: result.data })
+      setRequests(true)
+    } catch (err) {
+      showError(err.message ? err.message : err, appDispatch)
+    }
+  }
+
+  function generateUserRequest(request, index) {
+    return (
+      <div key={request._id + "DivKey"} id={index + "Div"} className="request">
+        <TableBody request={request} columns={columns} index={index} />
+        <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
+          <UpperFields listOut={true} request={request} />
+          <Columns listOut={true} request={request} />
+          <CreateNewTextarea listOut={true} request={request} />
+          <TechnicalTextarea listOut={true} request={request} />
+          <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>
+            <UserName request={request} />
+            <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
+            <IsDone request={request} />
+            <input key={request._id + "ticketIdInput"} type="hidden" name="ticketId" value={request._id} />
+            <input key={request._id + "process"} type="hidden" name="process" value={request.process} />
+            <input key={request._id + "submit"} type="submit" className="form-submit-input round-corner" value="Küldés" />
+          </form>
+        </div>
+      </div>
+    )
+  }
+
+  const [generateInputFieldsNow, setGenerateInputFieldsNow] = useState(true)
+
+  function generateDistributionList(request, index) {
+    return (
+      <div key={request._id + "DivKey"} id={index + "Div"} className="request">
+        <TableBody request={request} columns={columns} index={index} />
+        <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
+          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.adresses.length} />
+          <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>
+            <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
+            <IsDone request={request} />
+            <input key={request._id + "ticketType"} type="hidden" name="ticketType" value="distributionList" />
+            <input key={request._id + "ticketIdInput"} type="hidden" name="ticketId" value={request._id} />
+            <input key={request._id + "submit"} type="submit" className="form-submit-input round-corner" value="Küldés" />
+          </form>
+        </div>
+      </div>
+    )
+  }
+
   if (isLoading)
     return (
       <Page title="Engedélyezett kérelmek listázása">
@@ -192,25 +257,7 @@ function AllowedRequests(props) {
     <Page title="Engedélyezett kérelmek listázása">
       <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} />
       {allowedRequests.map(function (request, index) {
-        return (
-          <div key={request._id + "DivKey"} id={index + "Div"} className="request">
-            <TableBody request={request} columns={columns} index={index} />
-            <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
-              <UpperFields listOut={true} request={request} />
-              <Columns listOut={true} request={request} />
-              <CreateNewTextarea listOut={true} request={request} />
-              <TechnicalTextarea listOut={true} request={request} />
-              <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>
-                <UserName request={request} />
-                <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
-                <IsDone request={request} />
-                <input key={request._id + "ticketIdInput"} type="hidden" name="ticketId" value={request._id} />
-                <input key={request._id + "process"} type="hidden" name="process" value={request.process} />
-                <input key={request._id + "submit"} type="submit" className="form-submit-input round-corner" value="Küldés" />
-              </form>
-            </div>
-          </div>
-        )
+        return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
       })}
     </Page>
   )

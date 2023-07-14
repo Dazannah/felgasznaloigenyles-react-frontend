@@ -87,7 +87,10 @@ function ListRequests(props) {
         })
       })
 
-      dataToSend.userNames = userNames
+
+      if(!values.type){
+        dataToSend.userNames = userNames
+      }
 
       try {
         await Axios.post(
@@ -142,6 +145,7 @@ function ListRequests(props) {
           <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.adresses.length} />
           <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>
             <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
+            <input key={request._id + "distributionListIdInput"} type="hidden" name="type" value="distributionList" />
             <input key={request._id + "ticketIdInput"} type="hidden" name="ticketId" value={request._id} />
             <input key={request._id + "submit"} type="submit" className="form-submit-input round-corner" value="Küldés" />
           </form>

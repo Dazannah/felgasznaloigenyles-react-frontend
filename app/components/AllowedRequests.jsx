@@ -147,7 +147,7 @@ function AllowedRequests(props) {
           }
         }
       )
-      appDispatch({ type: "flashMessagesSuccess", value: result.data })
+      appDispatch({ type: "flashMessageSuccess", value: result.data })
       setRequests(true)
     } catch (err) {
       showError(err, appDispatch)
@@ -167,7 +167,7 @@ function AllowedRequests(props) {
           }
         }
       )
-      appDispatch({ type: "flashMessagesSuccess", value: result.data })
+      appDispatch({ type: "flashMessageSuccess", value: result.data })
       setRequests(true)
     } catch (err) {
       showError(err, appDispatch)
@@ -187,7 +187,8 @@ function AllowedRequests(props) {
           }
         }
       )
-      appDispatch({ type: "flashMessagesSuccess", value: result.data })
+
+      appDispatch({ type: "flashMessageSuccess", value: result.data })
       setRequests(true)
     } catch (err) {
       showError(err.message ? err.message : err, appDispatch)
@@ -223,7 +224,7 @@ function AllowedRequests(props) {
       <div key={request._id + "DivKey"} id={index + "Div"} className="request">
         <TableBody request={request} columns={columns} index={index} />
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
-          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.adresses.length} />
+          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.addresses.length} />
           <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>
             <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
             <IsDone request={request} />

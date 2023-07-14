@@ -9,7 +9,7 @@ function DistributionListFields(props) {
       for (let i = 0; i < props.inputFieldNumber; i++) {
         inputFieldsTemp.push(
           <>
-            <input id={i} {...(props.request ? { value: props.request.adresses[i], readOnly: true } : "")} name={`email${i}`} key={`${i}input`} type="text" />
+            <input id={i} {...(props.request ? { value: props.request.addresses[i], readOnly: true } : "")} name={`email${i}`} key={`${i}input`} type="text" />
             <br />
           </>
         )
@@ -23,18 +23,26 @@ function DistributionListFields(props) {
 
   return (
     <>
-      <label for="distribution-list">Terjesztési lista címe:</label>
-      <br />
-      <input id="distribution-list-addy" {...(props.request ? { value: props.request.mainAddress, readOnly: true } : "")} name="distributionListAddy" type="text" />
-      <br />
-      <br />
-      <label for="distribution-list-emails">E-mail cím:</label>
-      <br />
-      {inputFields.map(field => {
-        return field
-      })}
+    <div className="distribution-list-wrapper">
+      <div>
+        <label for="distribution-list">Terjesztési lista címe:</label>
+        <br />
+        <input id="distribution-list-addy" {...(props.request ? { value: props.request.mainAddress, readOnly: true } : "")} name="distributionListAddy" type="text" />
+        <br />
+        <br />
+        <label for="distribution-list-emails">E-mail cím:</label>
+        <br />
+        {inputFields.map(field => {
+          return field
+        })}
+        <br />
+      </div>
 
-      <br />
+      <div>
+        <input type="text" name="process" {...props.request ? {defaultValue: props.request.process, readOnly:true} : "Új terjesztési lista"}/>
+      </div>
+    </div>
+    <br />
     </>
   )
 }

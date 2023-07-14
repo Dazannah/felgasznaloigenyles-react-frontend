@@ -24,6 +24,10 @@ function TableBody(props) {
       "Felhasználó törlése": "redColor",
       "Felhasználó módosítása": "orangeColor"
     },
+    status: {
+      Aktív: "greenColor",
+      Törölt: "redColor"
+    },
     default: " sortText"
   }
 

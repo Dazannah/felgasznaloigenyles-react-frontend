@@ -103,9 +103,10 @@ function ListUsers() {
   if (users.length == 0) {
     return (
       <Page title="Felhasználók listázása">
+        <ToggleSwitch setToggleSwitchValue={setToggleSwitchValue} toggleSwitchTexts={{ title: "Felhasználók státusza", left: "Aktív", right: "Törölt" }} />
         <TableHead columns={columns} setRequests={setUsers} requests={users} />
         <div className="no-request-div">
-          <span className="no-request-span"> Nincsennek felhasználók.</span>
+          <span className="no-request-span">{toggleSwitchValue ? "Nincsennek törölt felhasználók." : "Nincsennek felhasználók."}</span>
         </div>
       </Page>
     )

@@ -85,7 +85,7 @@ function Menu() {
             </li>
             <li>
               {" "}
-              <Link id="listUsersBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listUsersBtn" to="/distribution-lists">
+              <Link id="distributionLists" onClick={e => setAcctiveBtn(e.target.id)} key="distributionLists" to="/distribution-lists">
                 Terjesztési listák
               </Link>
             </li>

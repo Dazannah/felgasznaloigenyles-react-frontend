@@ -18,6 +18,7 @@ import CompletedTickets from "./components/CompletedTickets.jsx"
 import EditUser from "./components/EditUser.jsx"
 import CreateDistributionList from "./components/CreateDistributionList.jsx"
 import JumptToTop from "./components/JumptToTop.jsx"
+import DistributionLists from "./components/DistributionLists.jsx"
 
 //flash message
 import FlashMessagesSuccess from "./components/flashMessages/FlashMessagesSuccess.jsx"
@@ -239,6 +240,7 @@ function Main() {
                   <Route path="/list-completed-requests" element={<CompletedTickets />} />
                   <Route path="/user/:id/edit" element={<EditUser />} />
                   <Route path="/create-distribution-list" element={<CreateDistributionList />} />
+                  <Route path="/distribution-lists" element={<DistributionLists />} />
 
                   <Route path="/*" element={<NoFound />} />
                 </Routes>

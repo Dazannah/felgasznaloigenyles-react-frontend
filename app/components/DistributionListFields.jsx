@@ -23,26 +23,27 @@ function DistributionListFields(props) {
 
   return (
     <>
-    <div className="distribution-list-wrapper">
-      <div>
-        <label for="distribution-list">Terjesztési lista címe:</label>
-        <br />
-        <input id="distribution-list-addy" {...(props.request ? { value: props.request.mainAddress, readOnly: true } : "")} name="distributionListAddy" type="text" />
-        <br />
-        <br />
-        <label for="distribution-list-emails">E-mail cím:</label>
-        <br />
-        {inputFields.map(field => {
-          return field
-        })}
-        <br />
-      </div>
+      <div className="distribution-list-wrapper">
+        <div>
+          <label for="distribution-list">Terjesztési lista címe:</label>
+          <br />
+          <input id="distribution-list-addy" {...(props.request ? { value: props.request.mainAddress, readOnly: true } : "")} name="distributionListAddy" type="text" />
+          <br />
+          <br />
+          <label for="distribution-list-emails">E-mail cím:</label>
+          <br />
+          {inputFields.map(field => {
+            return field
+          })}
+          <br />
+        </div>
 
-      <div>
-        <input type="text" name="process" {...props.request ? {defaultValue: props.request.process, readOnly:true} : "Új terjesztési lista"}/>
+        <div>
+          <input id="process" type="radio" name="process" disabled="true" checked="true" {...(props.request ? { defaultValue: props.request.process } : { defaultValue: "Új terjesztési lista" })} />
+          <label htmlFor="process">{props.request ? props.request.process : "Új terjesztési lista"}</label>
+        </div>
       </div>
-    </div>
-    <br />
+      <br />
     </>
   )
 }

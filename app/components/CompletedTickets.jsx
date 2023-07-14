@@ -11,6 +11,7 @@ import UserName from "./UserName.jsx"
 import AllowTextarea from "./AllowTextarea.jsx"
 import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
+import DistributionListFields from "./DistributionListFields.jsx"
 import IsDone from "./IsDone.jsx"
 
 import StateContext from "../StateContext.jsx"
@@ -49,6 +50,36 @@ function CompletedTickets(props) {
     { label: "Lezárt", accessor: "completed.time" }
   ]
 
+  function generateUserRequest(request, index) {
+    return (
+      <div key={request._id + "DivKey"} id={index + "Div"} className="request">
+        <TableBody request={request} columns={columns} index={index} />
+        <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
+          <UpperFields listOut={true} request={request} />
+          <Columns listOut={true} request={request} />
+          <CreateNewTextarea listOut={true} request={request} />
+          <TechnicalTextarea listOut={true} request={request} />
+          <UserName request={request} />
+          <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
+        </div>
+      </div>
+    )
+  }
+
+  const [generateInputFieldsNow, setGenerateInputFieldsNow] = useState(true)
+
+  function generateDistributionList(request, index) {
+    return (
+      <div key={request._id + "DivKey"} id={index + "Div"} className="request">
+        <TableBody request={request} columns={columns} index={index} />
+        <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
+          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.addresses.length} />
+          <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
+        </div>
+      </div>
+    )
+  }
+
   if (isLoading)
     return (
       <Page title="Lezárt kérelmek">
@@ -71,22 +102,7 @@ function CompletedTickets(props) {
     <Page title="Lezárt kérelmek">
       <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} />
       {completedRequests.map(function (request, index) {
-        return (
-          <div key={request._id + "DivKey"} id={index + "Div"} className="request">
-            <TableBody request={request} columns={columns} index={index} />
-            <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
-              <UpperFields listOut={true} request={request} />
-
-              <Columns listOut={true} request={request} />
-              <CreateNewTextarea listOut={true} request={request} />
-              <TechnicalTextarea listOut={true} request={request} />
-
-              <UserName listOut={true} request={request} />
-              <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
-              <IsDone listOut={true} request={request} />
-            </div>
-          </div>
-        )
+        return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
       })}
     </Page>
   )

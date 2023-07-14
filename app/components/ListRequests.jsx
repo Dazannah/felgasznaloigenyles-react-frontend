@@ -87,8 +87,7 @@ function ListRequests(props) {
         })
       })
 
-
-      if(!values.type){
+      if (!values.type) {
         dataToSend.userNames = userNames
       }
 
@@ -142,7 +141,7 @@ function ListRequests(props) {
       <div key={request._id + "DivKey"} id={index + "Div"} className="request">
         <TableBody request={request} columns={columns} index={index} />
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
-          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.adresses.length} />
+          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.addresses.length} />
           <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>
             <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
             <input key={request._id + "distributionListIdInput"} type="hidden" name="type" value="distributionList" />

@@ -44,7 +44,7 @@ function DistributionLists(props) {
   }, [getRequests])
 
   const columns = [
-    { label: "Fő cím", accessor: "mainAddress" },
+    { label: "Terjesztési lista címe", accessor: "mainAddress" },
     { label: "Státusz", accessor: "status" },
     { label: "Létrehozva", accessor: "createTime" }
   ]

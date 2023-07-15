@@ -133,10 +133,12 @@ nav a {
 nav a:hover {
   background-color: #e3a420;
   color: white;
+  box-shadow: 0 5px 5px black;
 }
 
 .active-main-menu-btn {
   background-color: #fff;
+  box-shadow: inset 0 5px 5px black;
   color: #000;
 }
 
@@ -224,7 +226,7 @@ nav a:hover {
   color: white;
   cursor: pointer;
   padding: 18px;
-  margin: 3px auto;
+  margin: 5px auto;
   width: 99.5%;
   border: none;
   min-height: 8%;
@@ -235,6 +237,7 @@ nav a:hover {
 .active,
 .collapsible:hover {
   background-color: #e3a420;
+  box-shadow: 0 3px 3px black;
 }
 
 .collapsibleContent {
@@ -249,7 +252,7 @@ nav a:hover {
 
 /* Create Distribution List*/
 
-.distribution-list-wrapper{
+.distribution-list-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -314,6 +317,7 @@ input[type="datetime-local"]:focus {
 .form-submit-input:hover {
   background-color: #e3a420;
   color: #fff;
+  box-shadow: 0 3px 3px black;
 }
 
 /* Jump-to-top-arrow */
@@ -388,33 +392,50 @@ input[type="datetime-local"]:focus {
 /* Toggle Switch */
 
 #toggle-switch-div {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 2fr;
   width: fit-content;
   margin-left: 20px;
   margin-bottom: 20px;
 }
 
 #toggle-switch-title {
+  grid-column: 1/-1;
+  grid-row: 1/2;
   font-size: 110%;
+  margin-bottom: 5px;
   font-weight: bold;
+  justify-self: center;
+  align-self: center;
 }
 
 #toggle-switch-a {
-  float: left;
+  grid-column: 1/2;
+  grid-row: 2/3;
+  justify-self: center;
+  align-self: center;
 }
 
 #toggle-switch-b {
-  float: right;
+  grid-column: 3/4;
+  grid-row: 2/3;
+  justify-self: center;
+  align-self: center;
 }
 
 #toggle-switch-slider {
   width: 30%;
-  float: left;
+  grid-column: 2/3;
+  grid-row: 2/3;
+  width: fit-content;
+  justify-self: center;
+  align-self: center;
 }
 
 .toggle-switch {
   position: relative;
   display: inline-block;
-  left: 15px;
   width: 49px;
   height: 20px;
 }
@@ -513,6 +534,7 @@ input:checked + .slider:before {
 
   .main-content-wrapper {
     max-width: 1860px;
+    margin-bottom: 10px;
   }
 }
 
@@ -523,6 +545,7 @@ input:checked + .slider:before {
 
   .main-content-wrapper {
     max-width: 2440px;
+    margin-bottom: 10px;
   }
 }
 

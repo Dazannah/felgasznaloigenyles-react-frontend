@@ -90,7 +90,7 @@ function CompletedTickets(props) {
   if (completedRequests.length == 0) {
     return (
       <Page title="Lezárt kérelmek">
-        <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} />
+        <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"requests"} />
         <div className="no-request-div">
           <span className="no-request-span"> Nincs lezárt kérelem.</span>
         </div>
@@ -100,7 +100,7 @@ function CompletedTickets(props) {
 
   return (
     <Page title="Lezárt kérelmek">
-      <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} />
+      <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"requests"} />
       {completedRequests.map(function (request, index) {
         return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
       })}

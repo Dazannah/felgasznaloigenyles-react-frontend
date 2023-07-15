@@ -225,13 +225,16 @@ nav a:hover {
   background-color: #15808a;
   color: white;
   cursor: pointer;
-  padding: 18px;
-  margin: 5px auto;
-  width: 99.5%;
+  justify-self: center;
+  align-self: center;
+  margin: auto;
+  width: 100%;
   border: none;
   min-height: 8%;
   outline: none;
   font-size: 100%;
+  margin-bottom: 5px;
+  margin-top: 3px;
 }
 
 .active,
@@ -319,6 +322,46 @@ input[type="datetime-local"]:focus {
   color: #fff;
   box-shadow: 0 3px 3px black;
 }
+
+/* Sort Head */
+
+#sort-head {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.sort-element-wrapper {
+  display: grid;
+  grid-template-columns: 0.5fr 4fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.sort-arrows {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  align-self: center;
+  padding: auto;
+  width: 10px;
+}
+
+.sort-text {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  align-self: center;
+  justify-self: center;
+}
+
+#sort-head input[type="text"] {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  justify-self: center;
+  align-self: stretch;
+  margin-top: 2px;
+  width: 100%;
+}
+
+/* Sort Head End */
 
 /* Jump-to-top-arrow */
 #jump-to-top-arrow-div {
@@ -487,6 +530,7 @@ input:checked + .slider:before {
 }
 
 /* Rounded sliders */
+
 .slider.round {
   border-radius: 34px;
 }
@@ -853,17 +897,15 @@ input:checked + .slider:before {
 
 .upArrow {
   background-image: url("./imgs/up_arrow.png");
-  float: right;
+  background-repeat: no-repeat;
 }
 
 .downArrow {
   background-image: url("./imgs/down_arrow.png");
-  float: right;
 }
 
 .defaultArrow {
   background-image: url("./imgs/default_arrow.png");
-  float: right;
 }
 
 .upArrow,
@@ -873,23 +915,17 @@ input:checked + .slider:before {
   font-weight: bold;
   cursor: pointer;
   background-repeat: no-repeat;
-  background-position: center left;
+  background-position: center right;
   padding: 10px;
-  padding-left: 20px;
-}
-
-#sortHead {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  text-align: left;
+  padding-right: 5px;
 }
 
 #sortTextWrapper {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
-  text-align: left;
+  align-items: center;
+  margin: auto;
 }
 
 .sortText {

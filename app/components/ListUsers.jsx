@@ -115,7 +115,7 @@ function ListUsers() {
   return (
     <Page title="Felhasználók listázása">
       <ToggleSwitch setToggleSwitchValue={setToggleSwitchValue} toggleSwitchTexts={{ title: "Felhasználók státusza", left: "Aktív", right: "Törölt" }} />
-      <TableHead columns={columns} setRequests={setUsers} requests={users} />
+      <TableHead columns={columns} setRequests={setUsers} requests={users} collection={"users"} />
       {isRequestLoading ? (
         <Loading />
       ) : (

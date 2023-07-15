@@ -1,8 +1,17 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
+import Axios from "axios"
+import { showError } from "../utils.jsx"
+
+import StateContext from "../StateContext.jsx"
+import DispatchContext from "../DispatchContext.jsx"
 
 function TableHead(props) {
+  const appState = useContext(StateContext)
+  const appDispatch = useContext(DispatchContext)
+
   const [sortField, setSortField] = useState()
   const [order, setOrder] = useState("asc")
+  const [timeoutId, setTimeoutId] = useState()
 
   function handleSortingChange(accessor) {
     const sortOrder = accessor === sortField && order === "asc" ? "desc" : "asc"
@@ -55,6 +64,39 @@ function TableHead(props) {
     }
   }
 
+  async function search(value, accessor) {
+    const timeout = setTimeout(async () => {
+      sendData(value, accessor)
+    }, 750)
+    clearTimeout(timeoutId)
+    setTimeoutId(timeout)
+  }
+
+  async function sendData(value, accessor) {
+    try {
+      const response = await Axios.post(
+        "/table-head-search",
+        {
+          value,
+          accessor,
+          collection: props.collection
+        },
+        {
+          headers: {
+            authorization: `Bearer ${appState.user.token}`
+          }
+        }
+      )
+      if (Array.isArray(response.data)) {
+        props.setRequests(response.data)
+      } else {
+        showError("Valami hiba tötént.", appDispatch)
+      }
+    } catch (err) {
+      showError(err, appDispatch)
+    }
+  }
+
   useEffect(() => {
     function addStyckiClass() {
       let div = document.getElementById("sortHead")
@@ -79,13 +121,15 @@ function TableHead(props) {
   }, [])
 
   return (
-    <div id="sortHead" className="">
+    <div id="sort-head" className="">
       {props.columns.map(({ label, accessor }) => {
         const cl = sortField === accessor && order === "asc" ? "upArrow" : sortField === accessor && order === "desc" ? "downArrow" : "defaultArrow"
         return (
-          <span key={accessor} onClick={() => handleSortingChange(accessor)} className={cl}>
-            {label}
-          </span>
+          <div className="sort-element-wrapper">
+            <span key={accessor} onClick={() => handleSortingChange(accessor)} className={cl + " sort-arrows"}></span>
+            <span className="sort-text">{label}</span>
+            <input type="text" placeholder={`Keresés`} name={"sort" + cl} className="sort-input" onChange={e => search(e.target.value, accessor)} />
+          </div>
         )
       })}
     </div>

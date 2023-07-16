@@ -75,10 +75,10 @@ function ListUsers() {
   async function submitRequest(id, process) {
     try {
       const result = await Axios.post(`/user/${id}/${process}`, {}, { headers: { authorization: `Bearer ${initialState.user.token}` } })
-      if (result.data === "A felhasználónak van folyamatban lévő törlési kérelme.") {
-        appDispatch({ type: "flashMessageWarning", value: result.data })
-      } else if (result.data.acknowledged) {
+      if (result.data.acknowledged) {
         appDispatch({ type: "flashMessageSuccess", value: "Törlési kérelem sikeresen mentve." })
+      } else {
+        appDispatch({ type: "flashMessageWarning", value: result.data })
       }
     } catch (err) {
       showError(err, appDispatch)

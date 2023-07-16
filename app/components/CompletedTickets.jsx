@@ -31,9 +31,9 @@ function CompletedTickets(props) {
             authorization: `Bearer ${initialState.user.token}`
           }
         })
+        setGetRequests(false)
         setCompletedRequests(response.data)
         setIsLoading(false)
-        setGetRequests(false)
       }
 
       getCompletedRequests()
@@ -55,12 +55,14 @@ function CompletedTickets(props) {
       <div key={request._id + "DivKey"} id={index + "Div"} className="request">
         <TableBody request={request} columns={columns} index={index} />
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
-          <UpperFields listOut={true} request={request} />
-          <Columns listOut={true} request={request} />
-          <CreateNewTextarea listOut={true} request={request} />
-          <TechnicalTextarea listOut={true} request={request} />
-          <UserName request={request} />
-          <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
+          <form autoComplete="off" key={request._id + "wrapperForBecouseOfRadioButtons"}>
+            <UpperFields listOut={true} request={request} />
+            <Columns listOut={true} request={request} />
+            <CreateNewTextarea listOut={true} request={request} />
+            <TechnicalTextarea listOut={true} request={request} />
+            <UserName request={request} />
+            <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
+          </form>
         </div>
       </div>
     )
@@ -101,9 +103,10 @@ function CompletedTickets(props) {
   return (
     <Page title="Lezárt kérelmek">
       <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"requests"} />
-      {completedRequests.map(function (request, index) {
-        return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
-      })}
+      {completedRequests /*.slice(0, 10)*/
+        .map((request, index) => {
+          return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
+        })}
     </Page>
   )
 }

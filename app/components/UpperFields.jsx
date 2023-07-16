@@ -34,6 +34,7 @@ function UpperFields(props) {
             </label>{" "}
             <br />
             <input
+              autoComplete="off"
               className="round-corner"
               onChange={e => handleChange("setName", e.target.value)}
               type="text"
@@ -54,6 +55,7 @@ function UpperFields(props) {
           <div className="mini-container">
             <label htmlFor="isTechnical">Technikai fiók</label>{" "}
             <input
+              autoComplete="off"
               onChange={e => handleChange("setIsTechnical", e.target.value)}
               {...(props.listOut
                 ? {
@@ -72,8 +74,8 @@ function UpperFields(props) {
 
           <div className="mini-container">
             {props.classChoosable ? <DropdownMenu /> : "Osztály"} <br />
-            <input className="round-corner" type="text" id="class" name="class" value={formState.className} readOnly />
-            <input className="hidden-lable" type="text" id="classDbId" name="dbId" value={formState.classId} readOnly />
+            <input autoComplete="off" className="round-corner" type="text" id="class" name="class" value={formState.className} readOnly />
+            <input autoComplete="off" className="hidden-lable" type="text" id="classDbId" name="dbId" value={formState.classId} readOnly />
           </div>
         </div>
 
@@ -81,6 +83,7 @@ function UpperFields(props) {
           <div className="mini-container">
             <label htmlFor="id">Nyilv. szám</label> <br />
             <input
+              autoComplete="off"
               className="round-corner"
               onChange={e => handleChange("setTicketId", e.target.value)}
               type="text"
@@ -116,8 +119,8 @@ function UpperFields(props) {
                 )}
               </>
             ) : (
-              <form>
-                <input type="radio" id="newUser" name="process" value="Új felhasználó" checked disabled />
+              <form autoComplete="off" key={props.request ? props.request + "radioButtonFormField" : "radioButtonFormField"}>
+                <input autoComplete="off" type="radio" id="newUser" name="process" value="Új felhasználó" checked disabled />
                 <label htmlFor="newUser">{props.request ? props.request.process || "Felhasználó módosítása" : "Új felhasználó"}</label>
               </form>
             )}
@@ -132,6 +135,7 @@ function UpperFields(props) {
             </label>
             <br />
             <input
+              autoComplete="off"
               onChange={e => handleChange("setClassLeader", e.target.value)}
               type="text"
               id="classLeader"
@@ -153,6 +157,7 @@ function UpperFields(props) {
             </label>
             <br />
             <input
+              autoComplete="off"
               onChange={e => handleChange("setWorkPost", e.target.value)}
               type="text"
               id="workPost"
@@ -177,6 +182,7 @@ function UpperFields(props) {
             </label>
             <br />
             <input
+              autoComplete="off"
               onChange={e => handleChange("setWorkLocation", e.target.value)}
               type="text"
               id="workLocation"
@@ -199,7 +205,7 @@ function UpperFields(props) {
                 Érvényesség kezdete
               </label>
               <br />
-              <input className="date-fields" onChange={e => handleChange("setValidFrom", e.target.value)} type="datetime-local" id="validFrom" name="validFrom" {...(props.listOut ? { value: `${props.request.personalInformations.validFrom}`, readOnly: true } : "")} />
+              <input autoComplete="off" className="date-fields" onChange={e => handleChange("setValidFrom", e.target.value)} type="datetime-local" id="validFrom" name="validFrom" {...(props.listOut ? { value: `${props.request.personalInformations.validFrom}`, readOnly: true } : "")} />
               <br />
             </div>
             <div className="date-field-to">
@@ -208,6 +214,7 @@ function UpperFields(props) {
               </label>
               <br />
               <input
+                autoComplete="off"
                 onChange={e => handleChange("setValidTo", e.target.value)}
                 type="datetime-local"
                 id="validTo"

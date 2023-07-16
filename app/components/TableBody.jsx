@@ -23,6 +23,7 @@ function TableBody(props) {
       "Új felhasználó": "greenColor",
       "Felhasználó törlése": "redColor",
       "Felhasználó módosítása": "orangeColor",
+      "Felhasználó jog módosítás": "orangeColor",
       "Új terjesztési lista": "greenColor"
     },
     status: {

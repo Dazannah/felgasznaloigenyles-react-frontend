@@ -47,7 +47,7 @@ function ListRequests(props) {
               authorization: `Bearer ${initialState.user.token}`
             }
           })
-
+          setGetTickets(false)
           setRequests(incomingRequests.data)
           setIsLoading(false)
         } catch (err) {
@@ -55,7 +55,6 @@ function ListRequests(props) {
         }
       }
       getRequests()
-      setGetTickets(false)
     }
   }, [getTickets])
 

@@ -39,7 +39,7 @@ function DistributionListFields(props) {
         </div>
 
         <div>
-          <form key={props.request._id + "dLID"}>
+          <form key={props.request ? props.request._id + "dLID" : "dLID"}>
             <input id="process" type="radio" name="process" disabled="true" checked="true" />
             <label htmlFor="process">{props.request ? props.request.process : "Új terjesztési lista"}</label>
           </form>

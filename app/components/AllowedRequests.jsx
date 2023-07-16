@@ -47,9 +47,9 @@ function AllowedRequests(props) {
             authorization: `Bearer ${initialState.user.token}`
           }
         })
+        setRequests(false)
         setAllowedRequests(allowedRequests.data)
         setIsloading(false)
-        setRequests(false)
       }
       getAllowedRequests()
     }

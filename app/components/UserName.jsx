@@ -14,7 +14,7 @@ function UserName(props) {
                 {element.value}
               </label>
               <br key={props.request._id + element.name + "br2"} />
-              <input readOnly={props.listOut ? true : false} key={props.request._id + element.name + "input"} id={props.request._id + element.name} defaultValue={props.request.userNames ? props.request.userNames[element.name] : ""} className="content roundCorner shorterTextField" type="text" name={element.name} />
+              <input autoComplete="off" readOnly={props.listOut ? true : false} key={props.request._id + element.name + "input"} id={props.request._id + element.name} defaultValue={props.request.userNames ? props.request.userNames[element.name] : ""} className="content roundCorner shorterTextField" type="text" name={element.name} />
             </div>
           )
         }

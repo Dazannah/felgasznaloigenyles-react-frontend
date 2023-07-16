@@ -59,10 +59,12 @@ function EditRequestTable(props) {
     return dataToRender
   }
 
-  if (props.request.change.add.length == 0 && props.request.change.delete.length == 0 && props.request.change.edit.length == 0) {
-    return ""
-  } else {
-    return generateTable()
+  if (props.request.change) {
+    if (props.request.change.add.length == 0 && props.request.change.delete.length == 0 && props.request.change.edit.length == 0) {
+      return ""
+    } else {
+      return generateTable()
+    }
   }
 }
 

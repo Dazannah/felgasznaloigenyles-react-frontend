@@ -67,7 +67,7 @@ function TableHead(props) {
   async function search(value, accessor) {
     const timeout = setTimeout(async () => {
       sendData(value, accessor)
-    }, 750)
+    }, 400)
     clearTimeout(timeoutId)
     setTimeoutId(timeout)
   }

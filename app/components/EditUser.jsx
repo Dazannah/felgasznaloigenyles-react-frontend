@@ -142,7 +142,7 @@ function EditUser(props) {
       <div className="create-form">
         <form id="editForm" onSubmit={handleSubmit} ref={formRef}>
           <UpperFields request={user} classChoosable={true} listOut={true} />
-          <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} request={user} />
+          <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} request={user} fillValue={true} />
           <CreateNewTextarea request={user} />
           <TechnicalTextarea request={user} />
 

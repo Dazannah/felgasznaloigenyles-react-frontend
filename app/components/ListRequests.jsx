@@ -12,6 +12,7 @@ import TableBody from "./TableBody.jsx"
 import TableHead from "./TableHead.jsx"
 import UserName from "./UserName.jsx"
 import DistributionListFields from "./DistributionListFields.jsx"
+import EditRequestTable from "./EditRequestTable.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -121,6 +122,7 @@ function ListRequests(props) {
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
           <UpperFields listOut={true} request={request} />
           <Columns listOut={true} request={request} />
+          <EditRequestTable request={request} />
           <CreateNewTextarea listOut={true} request={request} />
           <TechnicalTextarea listOut={true} request={request} />
           <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>

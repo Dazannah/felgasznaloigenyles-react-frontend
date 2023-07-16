@@ -13,6 +13,7 @@ import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import IsDone from "./IsDone.jsx"
 import DistributionListFields from "./DistributionListFields.jsx"
+import EditRequestTable from "./EditRequestTable.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -167,6 +168,7 @@ function AllowedRequests(props) {
           }
         }
       )
+      console.log(result.data)
       appDispatch({ type: "flashMessageSuccess", value: result.data })
       setRequests(true)
     } catch (err) {
@@ -202,6 +204,7 @@ function AllowedRequests(props) {
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
           <UpperFields listOut={true} request={request} />
           <Columns listOut={true} request={request} />
+          <EditRequestTable request={request} />
           <CreateNewTextarea listOut={true} request={request} />
           <TechnicalTextarea listOut={true} request={request} />
           <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>

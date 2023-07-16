@@ -92,10 +92,15 @@ function EditUser(props) {
     for (const property in values) {
       appState.arrays.leftColumn.forEach(element => {
         if (element.name === property) {
-          dataToSend.userNames[property] = values[property]
+          if (values[property] == "on") {
+            dataToSend.userNames[property] = ""
+          } else {
+            dataToSend.userNames[property] = values[property]
+          }
         }
       })
     }
+    console.log(dataToSend.userNames)
 
     try {
       const response = await Axios.post(

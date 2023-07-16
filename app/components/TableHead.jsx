@@ -121,11 +121,11 @@ function TableHead(props) {
   }, [])
 
   return (
-    <div id="sort-head" className="">
+    <div id="sort-head">
       {props.columns.map(({ label, accessor }) => {
         const cl = sortField === accessor && order === "asc" ? "upArrow" : sortField === accessor && order === "desc" ? "downArrow" : "defaultArrow"
         return (
-          <div className="sort-element-wrapper">
+          <div key={label + accessor + "div"} className="sort-element-wrapper">
             <span key={accessor} onClick={() => handleSortingChange(accessor)} className={cl + " sort-arrows"}></span>
             <span className="sort-text">{label}</span>
             <input type="text" placeholder={`Keresés`} name={"sort" + cl} className="sort-input" onChange={e => search(e.target.value, accessor)} />

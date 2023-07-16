@@ -11,6 +11,7 @@ import UserName from "./UserName.jsx"
 import AllowTextarea from "./AllowTextarea.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import IsDone from "./IsDone.jsx"
+import EditRequestTable from "./EditRequestTable.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -63,8 +64,8 @@ function ListUserRequests(props) {
             <TableBody request={request} columns={columns} index={request._id + index} />
             <div key={request._id + "contentKey"} id={request._id + index + "content"} className="collapsibleContent ">
               <UpperFields listOut={true} request={request} readonly={true} />
-
               <Columns listOut={true} request={request} readonly={true} />
+              <EditRequestTable request={request} />
               <CreateNewTextarea listOut={true} request={request} readonly={true} />
               <TechnicalTextarea listOut={true} request={request} readonly={true} />
 

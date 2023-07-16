@@ -22,7 +22,8 @@ function TableBody(props) {
     process: {
       "Új felhasználó": "greenColor",
       "Felhasználó törlése": "redColor",
-      "Felhasználó módosítása": "orangeColor"
+      "Felhasználó módosítása": "orangeColor",
+      "Új terjesztési lista": "greenColor"
     },
     status: {
       Aktív: "greenColor",

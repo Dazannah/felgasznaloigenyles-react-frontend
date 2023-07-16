@@ -126,13 +126,10 @@ function ListUsers() {
               <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
                 <form>
                   <UpperFields listOut={true} request={request} listUsers={true} setUserId={setUserId} readonly={true} />
-
                   <Columns listOut={true} request={request} />
                   <CreateNewTextarea listOut={true} request={request} />
                   <TechnicalTextarea listOut={true} request={request} listUser={true} />
-
                   <UserName listOut={true} request={request} />
-
                   <ListUserRequests userId={request._id} />
                 </form>
               </div>

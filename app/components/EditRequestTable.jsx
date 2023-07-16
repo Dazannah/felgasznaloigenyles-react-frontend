@@ -25,7 +25,7 @@ function EditRequestTable(props) {
   }
 
   function getColor(process) {
-    if (process == "Hozzáadása") return "greenColor"
+    if (process == "Hozzáadás") return "greenColor"
     if (process == "Törlés") return "redColor"
     if (process == "Módosítás") return "orangeColor"
   }
@@ -43,7 +43,7 @@ function EditRequestTable(props) {
     changeKeys.forEach(key => {
       let processToShow
 
-      if (key === "add") processToShow = "Hozzáadása"
+      if (key === "add") processToShow = "Hozzáadás"
       if (key === "delete") processToShow = "Törlés"
       if (key === "edit") processToShow = "Módosítás"
 

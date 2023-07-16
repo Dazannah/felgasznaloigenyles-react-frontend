@@ -25,12 +25,12 @@ function DistributionListFields(props) {
     <>
       <div className="distribution-list-wrapper">
         <div>
-          <label for="distribution-list">Terjesztési lista címe:</label>
+          <label htmlFor="distribution-list">Terjesztési lista címe:</label>
           <br />
           <input id="distribution-list-addy" {...(props.request ? { value: props.request.mainAddress, readOnly: true } : "")} name="distributionListAddy" type="text" />
           <br />
           <br />
-          <label for="distribution-list-emails">E-mail cím:</label>
+          <label htmlFor="distribution-list-emails">E-mail cím:</label>
           <br />
           {inputFields.map(field => {
             return field
@@ -39,8 +39,10 @@ function DistributionListFields(props) {
         </div>
 
         <div>
-          <input id="process" type="radio" name="process" disabled="true" checked="true" />
-          <label htmlFor="process">{props.request ? props.request.process : "Új terjesztési lista"}</label>
+          <form key={props.request._id + "dLID"}>
+            <input id="process" type="radio" name="process" disabled="true" checked="true" />
+            <label htmlFor="process">{props.request ? props.request.process : "Új terjesztési lista"}</label>
+          </form>
         </div>
       </div>
       <br />

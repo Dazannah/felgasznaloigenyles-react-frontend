@@ -64,7 +64,7 @@ function Main() {
     validFrom: "",
     validTo: "",
     createTextArea: "",
-    process: "",
+    process: "Új felhasználó",
     permission: "",
     permissionId: "",
     userId: ""

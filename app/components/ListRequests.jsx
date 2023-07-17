@@ -27,8 +27,6 @@ function ListRequests(props) {
   const [requests, setRequests] = useState()
   const [getTickets, setGetTickets] = useState(true)
 
-  const formRef = useRef(null)
-
   const columns = [
     { label: "Név", accessor: "personalInformations.name" },
     { label: "Osztály", accessor: "personalInformations.className" },
@@ -106,9 +104,9 @@ function ListRequests(props) {
 
         appDispatch({ type: "flashMessageSuccess", value: "Kérelem mentése sikeres." })
         setGetTickets(true)
-        formRef.current.reset()
         window.scrollTo(0, 0)
       } catch (err) {
+        console.log(err)
         showError(err, appDispatch)
       }
     }
@@ -124,7 +122,7 @@ function ListRequests(props) {
           <EditRequestTable request={request} />
           <CreateNewTextarea listOut={true} request={request} />
           <TechnicalTextarea listOut={true} request={request} />
-          <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>
+          <form key={request._id + "form"} onSubmit={submitHandle}>
             <UserName request={request} />
             <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
             <input key={request._id + "ticketIdInput"} type="hidden" name="ticketId" value={request._id} />
@@ -143,7 +141,7 @@ function ListRequests(props) {
         <TableBody request={request} columns={columns} index={index} />
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
           <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.addresses.length} />
-          <form key={request._id + "form"} onSubmit={submitHandle} ref={formRef}>
+          <form key={request._id + "form"} onSubmit={submitHandle}>
             <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
             <input key={request._id + "distributionListIdInput"} type="hidden" name="type" value="distributionList" />
             <input key={request._id + "ticketIdInput"} type="hidden" name="ticketId" value={request._id} />

@@ -45,6 +45,8 @@ function CreateNew() {
   }
 
   async function handleSend(dataToSend) {
+    //props.states[index][1]({ ...props.states[index][0], value: e.target.checked }) form state check box value reset
+    //statesLeftCollumn[0][1]({ ...statesLeftCollumn[0][0].name, value: false })
     try {
       const result = await Axios.post(
         "/create-new-ticket",
@@ -65,7 +67,7 @@ function CreateNew() {
         appDispatch({ type: "flashMessageWarning", value: "Érvénytelen bejelentkezés." })
         window.scrollTo(0, 0)
       } else if (result.data.errors) {
-        appDispatch({ type: "flashMessageWarning", value: "Valami hiba történt." })
+        appDispatch({ type: "flashMessageWarning", value: `Hiba történt: ${result.data.errors}` })
         window.scrollTo(0, 0)
       } else {
         appDispatch({ type: "flashMessageSuccess", value: "Kérelem mentése sikeres." })

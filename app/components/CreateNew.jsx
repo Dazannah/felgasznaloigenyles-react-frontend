@@ -58,6 +58,7 @@ function CreateNew() {
           }
         }
       )
+
       const invalidToken = checkToken(result.data, appDispatch)
 
       if (invalidToken) {

@@ -56,11 +56,11 @@ function CompletedTickets(props) {
         <TableBody request={request} columns={columns} index={index} />
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
           <form autoComplete="off" key={request._id + "wrapperForBecouseOfRadioButtons"}>
-            <UpperFields listOut={true} request={request} />
+            <UpperFields listOut={true} request={request} readonly={true} />
             <Columns listOut={true} request={request} />
             <CreateNewTextarea listOut={true} request={request} />
             <TechnicalTextarea listOut={true} request={request} />
-            <UserName request={request} />
+            <UserName listOut={true} request={request} />
             <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
           </form>
         </div>

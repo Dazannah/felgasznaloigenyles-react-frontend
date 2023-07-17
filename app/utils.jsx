@@ -80,7 +80,7 @@ function getUserPermissions(permissionsArray) {
 }
 
 function showError(err, appDispatch) {
-  appDispatch({ type: "flashMessageError", value: `A szerver nem érhető el: ${err}` })
+  appDispatch({ type: "flashMessageError", value: `${err}` })
 }
 
 export { checkToken, validateRequest, serializeDataToSend, generateState, getUserPermissions, showError }

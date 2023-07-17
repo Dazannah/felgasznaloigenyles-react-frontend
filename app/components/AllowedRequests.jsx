@@ -202,7 +202,7 @@ function AllowedRequests(props) {
       <div key={request._id + "DivKey"} id={index + "Div"} className="request">
         <TableBody request={request} columns={columns} index={index} />
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
-          <UpperFields listOut={true} request={request} />
+          <UpperFields listOut={true} request={request} readonly={true} />
           <Columns listOut={true} request={request} />
           <EditRequestTable request={request} />
           <CreateNewTextarea listOut={true} request={request} />

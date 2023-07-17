@@ -105,12 +105,12 @@ function UpperFields(props) {
               <>
                 {props.request.status === "active" ? (
                   <>
-                    <button onClick={() => handleProcessStart(props.request._id, "edit")} className="userEdit roundCorner btn" type="button" id={props.request._id}>
+                    <button onClick={() => handleProcessStart(props.request._id, "edit")} className="user-edit-button roundCorner" type="button" id={props.request._id}>
                       Felhasználó jogosultság módosítása
                     </button>
                     <br />
 
-                    <button onClick={() => handleProcessStart(props.request._id, "delete")} className="userDelete roundCorner btn" type="button" id={props.request._id}>
+                    <button onClick={() => handleProcessStart(props.request._id, "delete")} className="user-delete-button roundCorner" type="button" id={props.request._id}>
                       Felhasználó törlése
                     </button>
                   </>

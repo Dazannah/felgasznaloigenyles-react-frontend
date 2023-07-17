@@ -15,7 +15,7 @@ function Classes(props) {
     <>
       {appState.classes.map((element, index) => {
         return (
-          <button className="btn classBtn" key={index} type="button" id={element._id} onClick={e => handleClassClick(e)}>
+          <button className="button round-corner classBtn" key={index} type="button" id={element._id} onClick={e => handleClassClick(e)}>
             {element.id ? `${element.id} | ${element.name}` : element.name}
           </button>
         )

@@ -244,7 +244,7 @@ nav a:hover {
 }
 
 .collapsibleContent {
-  padding: 0 18px;
+  padding: 5px 18px;
   margin: 10px;
   display: none;
   overflow: hidden;
@@ -261,14 +261,34 @@ nav a:hover {
 }
 
 #create-distribution-list-div {
-  width: 98%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.25fr 1fr;
+  max-width: 100%;
   background-color: #f1f1f1;
-  margin: 10px auto;
-  padding: 10px 25px;
+  margin: 5px;
+  padding: 10px;
+}
+
+#create-distribution-list-div input[type="number"] {
+  width: 205px;
+  text-align: center;
+}
+#create-distribution-list-div input[type="text"] {
+  width: 205px;
 }
 
 #create-distribution-list-upper-buttons {
-  margin: 10px;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  align-self: center;
+  padding-bottom: 25px;
+}
+
+#create-distribution-list-div form {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  align-self: center;
 }
 
 /* Create Distribution List End */
@@ -305,6 +325,7 @@ input[type="datetime-local"]:focus {
 .button:hover {
   background-color: #e3a420;
   color: #fff;
+  box-shadow: 0 3px 3px black;
 }
 
 .form-submit-input {
@@ -321,6 +342,34 @@ input[type="datetime-local"]:focus {
   background-color: #e3a420;
   color: #fff;
   box-shadow: 0 3px 3px black;
+}
+
+#progress-container button {
+  padding: 8px;
+  color: white;
+}
+
+#progress-container button:hover {
+  cursor: pointer;
+  color: black;
+  box-shadow: 0 3px 3px black;
+}
+
+.user-edit-button {
+  background-color: orange;
+  margin-bottom: 5px;
+}
+
+.user-delete-button {
+  background-color: red;
+}
+
+.user-edit-button:hover {
+  background-color: rgb(255, 209, 122);
+}
+
+.user-delete-button:hover {
+  background-color: rgb(255, 116, 116);
 }
 
 /* Sort Head */
@@ -693,34 +742,6 @@ input:checked + .slider:before {
   background-color: white;
 }
 
-.btn {
-  min-width: 70px;
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  border: none;
-  border-radius: 3px;
-  padding: 5px;
-  margin: 1px;
-  text-decoration: none;
-}
-
-.btn:hover {
-  background-color: #555;
-}
-
-.btn:active {
-  background-color: #555;
-}
-
-.activeMenuButton {
-  background-color: #333333;
-}
-
-.stayLeft {
-  float: left;
-}
-
 .text-center {
   text-align: center;
   margin: auto;
@@ -879,7 +900,7 @@ input:checked + .slider:before {
 #myInput {
   box-sizing: border-box;
   height: 5%;
-  min-width: 450px;
+  max-width: 100%;
   text-align: left;
 }
 
@@ -898,8 +919,7 @@ input:checked + .slider:before {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f6f6f6;
-  border: 1px solid #ddd;
+  background-color: white;
   z-index: 1;
   overflow: auto;
   width: 460px;
@@ -911,7 +931,7 @@ input:checked + .slider:before {
   text-align: left;
   text-decoration: none;
   display: block;
-  width: 99%;
+  width: 99.6%;
 }
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
@@ -967,20 +987,4 @@ input:checked + .slider:before {
   display: block;
   width: 30%;
   line-break: normal;
-}
-
-.userEdit {
-  background-color: orange;
-}
-
-.userEdit:hover {
-  background-color: rgb(255, 209, 122);
-}
-
-.userDelete {
-  background-color: red;
-}
-
-.userDelete:hover {
-  background-color: rgb(255, 116, 116);
 }

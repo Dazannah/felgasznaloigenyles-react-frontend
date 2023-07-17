@@ -34,6 +34,9 @@ function CreateNew() {
 
   async function createNewUserRequest(event) {
     event.preventDefault()
+    /*statesLeftCollumn[0][1]({ name: statesLeftCollumn[0][0], value: false })
+    console.log(statesLeftCollumn[0])*/
+
     const errors = validateRequest(formState)
     if (errors) {
       appDispatch({ type: "flashMessageWarning", value: errors })
@@ -45,8 +48,7 @@ function CreateNew() {
   }
 
   async function handleSend(dataToSend) {
-    //props.states[index][1]({ ...props.states[index][0], value: e.target.checked }) form state check box value reset
-    //statesLeftCollumn[0][1]({ ...statesLeftCollumn[0][0].name, value: false })
+    statesLeftCollumn[0][1]({ ...statesLeftCollumn[0][0], value: false })
     try {
       const result = await Axios.post(
         "/create-new-ticket",
@@ -71,12 +73,21 @@ function CreateNew() {
         window.scrollTo(0, 0)
       } else {
         appDispatch({ type: "flashMessageSuccess", value: "Kérelem mentése sikeres." })
+        resetCollumnStates({ statesLeftCollumn, statesMiddleCollumn, statesRightCollumn })
         formDispatch({ type: "reset" })
         formRef.current.reset()
         window.scrollTo(0, 0)
       }
     } catch (err) {
       showError(err, appDispatch)
+    }
+  }
+
+  function resetCollumnStates(collumnStates) {
+    for (const collumn in collumnStates) {
+      collumnStates[collumn].forEach(state => {
+        state[1]({ name: state[0], value: false })
+      })
     }
   }
 

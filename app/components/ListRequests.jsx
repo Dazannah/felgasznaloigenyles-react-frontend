@@ -106,7 +106,6 @@ function ListRequests(props) {
         setGetTickets(true)
         window.scrollTo(0, 0)
       } catch (err) {
-        console.log(err)
         showError(err, appDispatch)
       }
     }
@@ -170,7 +169,7 @@ function ListRequests(props) {
     )
   return (
     <Page title="Kérelmek listázása">
-      <TableHead columns={columns} setRequests={setRequests} requests={requests}  collection={"requests"} status={"requestForPermission"}/>
+      <TableHead columns={columns} setRequests={setRequests} requests={requests} collection={"requests"} status={"requestForPermission"}/>
       {requests.map(function (request, index) {
         return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
       })}

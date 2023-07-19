@@ -100,7 +100,6 @@ function EditUser(props) {
         }
       })
     }
-    console.log(dataToSend.userNames)
 
     try {
       const response = await Axios.post(

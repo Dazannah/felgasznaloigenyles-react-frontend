@@ -34,8 +34,6 @@ function CreateNew() {
 
   async function createNewUserRequest(event) {
     event.preventDefault()
-    /*statesLeftCollumn[0][1]({ name: statesLeftCollumn[0][0], value: false })
-    console.log(statesLeftCollumn[0])*/
 
     const errors = validateRequest(formState)
     if (errors) {

@@ -111,7 +111,7 @@ function ListUsers() {
       </Page>
     )
   }
-  console.log(toggleSwitchValue)
+
   return (
     <Page title="Felhasználók listázása">
       <ToggleSwitch setToggleSwitchValue={setToggleSwitchValue} toggleSwitchTexts={{ title: "Felhasználók státusza", left: "Aktív", right: "Törölt" }} />

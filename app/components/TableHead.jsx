@@ -65,14 +65,22 @@ function TableHead(props) {
   }
 
   async function search(value, accessor, status) {
+    const inputFields = document.getElementsByClassName("sort-input")
+
+    const userId = props.userId
+
+    /*for(let i = 0; i<inputFields.length; i++){
+      console.log(inputFields[i])
+    }*/
+
     const timeout = setTimeout(async () => {
-      sendData(value, accessor, status)
+      sendData(value, accessor, status, userId)
     }, 400)
     clearTimeout(timeoutId)
     setTimeoutId(timeout)
   }
 
-  async function sendData(value, accessor, status) {
+  async function sendData(value, accessor, status, userId) {
     try {
       const response = await Axios.post(
         "/table-head-search",
@@ -80,7 +88,8 @@ function TableHead(props) {
           value,
           accessor,
           status,
-          collection: props.collection
+          collection: props.collection,
+          userId
         },
         {
           headers: {
@@ -91,6 +100,7 @@ function TableHead(props) {
       if (Array.isArray(response.data)) {
         props.setRequests(response.data)
       } else {
+        console.log(response)
         showError("Valami hiba tötént.", appDispatch)
       }
     } catch (err) {
@@ -129,7 +139,7 @@ function TableHead(props) {
           <div key={label + accessor + "div"} className="sort-element-wrapper">
             <span key={accessor} onClick={() => handleSortingChange(accessor)} className={cl + " sort-arrows"}></span>
             <span className="sort-text">{label}</span>
-            <input type="text" placeholder={`Keresés`} name={"sort" + cl} className="sort-input" onChange={e => search(e.target.value, accessor, props.status)} />
+            <input key={"sort-" + accessor} type="text" placeholder={`Keresés`} name={"sort-" + accessor} className="sort-input" onChange={e => search(e.target.value, accessor, props.status)} />
           </div>
         )
       })}

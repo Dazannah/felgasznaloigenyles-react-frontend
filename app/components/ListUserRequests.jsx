@@ -57,7 +57,7 @@ function ListUserRequests(props) {
 
   return (
     <>
-      <TableHead columns={columns} setRequests={setUserRequests} requests={userRequests} />
+      <TableHead columns={columns} setRequests={setUserRequests} requests={userRequests} userId={props.userId ? {...props.userId} : false} collection={"requests"} status={"all"}/>
       {userRequests.map(function (request, index) {
         return (
           <div key={request._id + "DivKey"} id={request._id + index + "Div"} className="request">

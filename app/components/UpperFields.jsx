@@ -94,7 +94,7 @@ function UpperFields(props) {
           <div id="progress-container">
             {props.listUsers ? (
               <>
-                {props.request.status === "active" ? (
+                {props.request.status === "Aktív" ? (
                   <>
                     <button onClick={() => handleProcessStart(props.request._id, "edit")} className="user-edit-button roundCorner" type="button" id={props.request._id}>
                       Felhasználó jogosultság módosítása

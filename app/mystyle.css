@@ -83,6 +83,7 @@ body {
 #login-button:hover {
   background-color: #e3a420;
   color: #000;
+  box-shadow: 0 3px 3px black;
 }
 
 .hidden-lable {

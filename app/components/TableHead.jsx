@@ -64,21 +64,22 @@ function TableHead(props) {
     }
   }
 
-  async function search(value, accessor) {
+  async function search(value, accessor, status) {
     const timeout = setTimeout(async () => {
-      sendData(value, accessor)
+      sendData(value, accessor, status)
     }, 400)
     clearTimeout(timeoutId)
     setTimeoutId(timeout)
   }
 
-  async function sendData(value, accessor) {
+  async function sendData(value, accessor, status) {
     try {
       const response = await Axios.post(
         "/table-head-search",
         {
           value,
           accessor,
+          status,
           collection: props.collection
         },
         {
@@ -128,7 +129,7 @@ function TableHead(props) {
           <div key={label + accessor + "div"} className="sort-element-wrapper">
             <span key={accessor} onClick={() => handleSortingChange(accessor)} className={cl + " sort-arrows"}></span>
             <span className="sort-text">{label}</span>
-            <input type="text" placeholder={`Keresés`} name={"sort" + cl} className="sort-input" onChange={e => search(e.target.value, accessor)} />
+            <input type="text" placeholder={`Keresés`} name={"sort" + cl} className="sort-input" onChange={e => search(e.target.value, accessor, props.status)} />
           </div>
         )
       })}

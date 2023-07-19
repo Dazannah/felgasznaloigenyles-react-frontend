@@ -162,7 +162,7 @@ function ListRequests(props) {
   if (requests.length == 0)
     return (
       <Page title="Kérelmek listázása">
-        <TableHead columns={columns} setRequests={setRequests} requests={requests} />
+        <TableHead columns={columns} setRequests={setRequests} requests={requests} collection={"requests"} status={"requestForPermission"}/>
         <div className="no-request-div">
           <span className="no-request-span"> Nincs engedélyezésre váró kérelem.</span>
         </div>
@@ -170,7 +170,7 @@ function ListRequests(props) {
     )
   return (
     <Page title="Kérelmek listázása">
-      <TableHead columns={columns} setRequests={setRequests} requests={requests} />
+      <TableHead columns={columns} setRequests={setRequests} requests={requests}  collection={"requests"} status={"requestForPermission"}/>
       {requests.map(function (request, index) {
         return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
       })}

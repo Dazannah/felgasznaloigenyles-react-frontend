@@ -250,7 +250,7 @@ function AllowedRequests(props) {
   if (allowedRequests.length == 0) {
     return (
       <Page title="Engedélyezett kérelmek listázása">
-        <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} />
+        <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} collection={"requests"} status={"allowedRequests"}/>
         <div className="no-request-div">
           <span className="no-request-span">Nincs engedélyezett kérelem.</span>
         </div>
@@ -259,7 +259,7 @@ function AllowedRequests(props) {
   }
   return (
     <Page title="Engedélyezett kérelmek listázása">
-      <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} />
+      <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} collection={"requests"} status={"allowedRequests"}/>
       {allowedRequests.map(function (request, index) {
         return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
       })}

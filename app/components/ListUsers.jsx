@@ -104,18 +104,18 @@ function ListUsers() {
     return (
       <Page title="Felhasználók listázása">
         <ToggleSwitch setToggleSwitchValue={setToggleSwitchValue} toggleSwitchTexts={{ title: "Felhasználók státusza", left: "Aktív", right: "Törölt" }} />
-        <TableHead columns={columns} setRequests={setUsers} requests={users} />
+        <TableHead columns={columns} setRequests={setUsers} requests={users} collection={"users"} status={toggleSwitchValue ? "deleted" : "active"}/>
         <div className="no-request-div">
           <span className="no-request-span">{toggleSwitchValue ? "Nincsennek törölt felhasználók." : "Nincsennek felhasználók."}</span>
         </div>
       </Page>
     )
   }
-
+  console.log(toggleSwitchValue)
   return (
     <Page title="Felhasználók listázása">
       <ToggleSwitch setToggleSwitchValue={setToggleSwitchValue} toggleSwitchTexts={{ title: "Felhasználók státusza", left: "Aktív", right: "Törölt" }} />
-      <TableHead columns={columns} setRequests={setUsers} requests={users} collection={"users"} />
+      <TableHead columns={columns} setRequests={setUsers} requests={users} collection={"users"} status={toggleSwitchValue ? "deleted" : "active"}/>
       {isRequestLoading ? (
         <Loading />
       ) : (

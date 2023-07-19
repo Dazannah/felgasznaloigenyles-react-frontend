@@ -70,7 +70,7 @@ function DistributionLists(props) {
   if (completedRequests.length == 0)
     return (
       <Page title="Terjesztési listák">
-        <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} />
+        <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"distributionLists"} status={"active"}/>
         <div className="no-request-div">
           <span className="no-request-span">Nincsennek terjesztési listák.</span>
         </div>
@@ -79,7 +79,7 @@ function DistributionLists(props) {
 
   return (
     <Page title="Terjesztési listák">
-      <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} />
+      <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"distributionLists"} status={"active"}/>
       {completedRequests.map(function (request, index) {
         return generateDistributionList(request, index)
       })}

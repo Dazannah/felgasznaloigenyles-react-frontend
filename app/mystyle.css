@@ -381,6 +381,14 @@ input[type="datetime-local"]:focus {
   justify-content: space-evenly;
 }
 
+.sticky-div {
+  position: fixed;
+  max-width: 1300px;
+  top: 0;
+  background: rgba(255, 255, 255, 0.5);
+  transition: 500ms;
+}
+
 .sort-element-wrapper {
   display: grid;
   grid-template-columns: 0.5fr 4fr;
@@ -654,6 +662,10 @@ input:checked + .slider:before {
     max-width: 1860px;
     margin-bottom: 10px;
   }
+
+  .sticky-div{
+    max-width: 1860px;
+  }
 }
 
 @media (min-width: 2500px) {
@@ -664,6 +676,10 @@ input:checked + .slider:before {
   .main-content-wrapper {
     max-width: 2440px;
     margin-bottom: 10px;
+  }
+
+  .sticky-div{
+    max-width: 2440px;
   }
 }
 
@@ -935,7 +951,7 @@ input:checked + .slider:before {
   width: 99.6%;
 }
 
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+/* Show the dropdown menu */
 .show {
   display: block;
 }
@@ -975,13 +991,6 @@ input:checked + .slider:before {
 
 .sortText {
   width: 16.66666666666667%;
-}
-
-.stickyDiv {
-  position: fixed;
-  top: 0;
-  background: rgba(241, 241, 241, 0.5);
-  transition: 500ms;
 }
 
 .shorterTextField {

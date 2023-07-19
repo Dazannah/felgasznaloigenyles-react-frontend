@@ -100,16 +100,16 @@ function TableHead(props) {
 
   useEffect(() => {
     function addStyckiClass() {
-      let div = document.getElementById("sortHead")
+      let div = document.getElementById("sort-head")
       if (div) {
         let divOffset = div.offsetTop
         let windowOfset = window.pageYOffset
 
         if (windowOfset > divOffset) {
-          div.classList.add("stickyDiv")
+          div.classList.add("sticky-div")
         }
         if (windowOfset < 176) {
-          div.classList.remove("stickyDiv")
+          div.classList.remove("sticky-div")
         }
       }
     }

@@ -53,11 +53,17 @@ function ListUserRequests(props) {
 
   if (isLoading) return <Loading />
 
-  if (userRequests.length == 0) return "Nincs ehez a felhasználóhoz tartozó kérelem."
+  if (userRequests.length == 0)
+    return (
+      <>
+        <TableHead columns={columns} setRequests={setUserRequests} requests={userRequests} userId={props.userId ? props.userId : false} collection={"requests"} status={"all"} />
+        <span className="no-request-span">Nincs a feltételeknek megfelelő kérelem.</span>
+      </>
+    )
 
   return (
     <>
-      <TableHead columns={columns} setRequests={setUserRequests} requests={userRequests} userId={props.userId ? {...props.userId} : false} collection={"requests"} status={"all"}/>
+      <TableHead columns={columns} setRequests={setUserRequests} requests={userRequests} userId={props.userId ? props.userId : false} collection={"requests"} status={"all"} />
       {userRequests.map(function (request, index) {
         return (
           <div key={request._id + "DivKey"} id={request._id + index + "Div"} className="request">

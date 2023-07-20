@@ -4,7 +4,7 @@ import { useImmerReducer } from "use-immer"
 import { BrowserRouter, Routes, Route, Router } from "react-router-dom"
 import Axios from "axios"
 
-Axios.defaults.baseURL = process.env.BACKENDURL
+Axios.defaults.baseURL = "/api"
 
 import { checkToken } from "./utils.jsx"
 

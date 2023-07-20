@@ -80,8 +80,12 @@ function getUserPermissions(permissionsArray) {
 }
 
 function showError(err, appDispatch) {
-  if(err.request.status === 403){
-    appDispatch({ type: "flashMessageWarning", value: "Nincs jogosultságod a menüponthoz." })
+  if(err.request){
+    if(err.request.status === 403){
+      appDispatch({ type: "flashMessageWarning", value: "Nincs jogosultságod a menüponthoz." })
+    }else{
+      appDispatch({ type: "flashMessageError", value: `${err}` })
+    }
   }else{
     appDispatch({ type: "flashMessageError", value: `${err}` })
   }

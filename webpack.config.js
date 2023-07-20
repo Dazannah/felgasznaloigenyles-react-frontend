@@ -89,7 +89,7 @@ if (currentTask == "build") {
   config.plugins.push(new CleanWebpackPlugin(), new RunAfterCompile())
   config.mode = "production"
   config.output = {
-    publicPath: "../felgasznaloigenyles-react-backend-api/public",
+    publicPath: "/",
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[chunkhash].js",
     chunkFilename: "[name].[chunkhash].js"

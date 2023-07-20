@@ -16,6 +16,8 @@ class RunAfterCompile {
     compiler.hooks.done.tap("Copy files", function () {
       fse.copySync("./app/mystyle.css", "./dist/mystyle.css")
       fse.copySync("./app/imgs", "./dist/imgs")
+      fse.copySync("./app/mystyle.css", "../felgasznaloigenyles-react-backend-api/dist/mystyle.css")
+      fse.copySync("./app/imgs", "../felgasznaloigenyles-react-backend-api/dist/imgs")
 
       /*
         If you needed to copy another file or folder
@@ -90,7 +92,7 @@ if (currentTask == "build") {
   config.mode = "production"
   config.output = {
     publicPath: "/",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "../felgasznaloigenyles-react-backend-api/dist"),
     filename: "[name].[chunkhash].js",
     chunkFilename: "[name].[chunkhash].js"
   }

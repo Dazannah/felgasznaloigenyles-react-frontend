@@ -162,7 +162,6 @@ function Main() {
     async function validateSession() {
       try {
         const result = await Axios.get("/validate-token")
-        console.log(result)
         checkToken(result.data, dispatch, "checkToken")
       } catch (err) {
         showError(err, dispatch)

@@ -31,11 +31,7 @@ function EditUser(props) {
 
   useEffect(() => {
     async function getUser() {
-      const result = await Axios.get(`/user/${id}/edit`, {
-        headers: {
-          authorization: `Bearer ${initialState.user.token}`
-        }
-      })
+      const result = await Axios.get(`/user/${id}/edit`)
 
       if (result.data && Object.keys(result.data).length > 0) {
         setUser(result.data)
@@ -102,18 +98,10 @@ function EditUser(props) {
     }
 
     try {
-      const response = await Axios.post(
-        `/user/${id}/edit`,
-        {
-          dataToSend,
-          process: formState.process
-        },
-        {
-          headers: {
-            authorization: `Bearer ${initialState.user.token}`
-          }
-        }
-      )
+      const response = await Axios.post(`/user/${id}/edit`, {
+        dataToSend,
+        process: formState.process
+      })
 
       if (response.data.acknowledged) {
         appDispatch({ type: "flashMessageSuccess", value: "Módosítási igény sikeresen mentve." })

@@ -42,16 +42,12 @@ function AllowedRequests(props) {
   useEffect(() => {
     if (requests) {
       async function getAllowedRequests() {
-        try{
-          const allowedRequests = await Axios.get("/get-allowed-tickets", {
-            headers: {
-              authorization: `Bearer ${initialState.user.token}`
-            }
-          })
+        try {
+          const allowedRequests = await Axios.get("/get-allowed-tickets")
           setRequests(false)
           setAllowedRequests(allowedRequests.data)
           setIsloading(false)
-        }catch(err){
+        } catch (err) {
           showError(err, appDispatch)
         }
       }
@@ -121,17 +117,9 @@ function AllowedRequests(props) {
 
   async function sendRequestWithFields(dataToSend) {
     try {
-      const result = await Axios.post(
-        "/close-new-user-ticket",
-        {
-          dataToSend
-        },
-        {
-          headers: {
-            authorization: `Bearer ${initialState.user.token}`
-          }
-        }
-      )
+      const result = await Axios.post("/close-new-user-ticket", {
+        dataToSend
+      })
       appDispatch({ type: "flashMessageSuccess", value: "Felhasználó létrehozása sikeres." })
       setRequests(true)
     } catch (err) {
@@ -141,17 +129,9 @@ function AllowedRequests(props) {
 
   async function sendDeleteRequest(values) {
     try {
-      const result = await Axios.post(
-        "/close-delete-user-request",
-        {
-          values
-        },
-        {
-          headers: {
-            authorization: `Bearer ${initialState.user.token}`
-          }
-        }
-      )
+      const result = await Axios.post("/close-delete-user-request", {
+        values
+      })
       appDispatch({ type: "flashMessageSuccess", value: result.data })
       setRequests(true)
     } catch (err) {
@@ -161,17 +141,7 @@ function AllowedRequests(props) {
 
   async function sendEditRequest(dataToSend) {
     try {
-      const result = await Axios.post(
-        "/close-edit-user-request",
-        {
-          dataToSend
-        },
-        {
-          headers: {
-            authorization: `Bearer ${initialState.user.token}`
-          }
-        }
-      )
+      const result = await Axios.post("/close-edit-user-request", { dataToSend })
       appDispatch({ type: "flashMessageSuccess", value: result.data })
       setRequests(true)
     } catch (err) {
@@ -181,17 +151,9 @@ function AllowedRequests(props) {
 
   async function distributionListRequest(dataToSend) {
     try {
-      const result = await Axios.post(
-        "/close-distribution-list-create-request",
-        {
-          dataToSend
-        },
-        {
-          headers: {
-            authorization: `Bearer ${initialState.user.token}`
-          }
-        }
-      )
+      const result = await Axios.post("/close-distribution-list-create-request", {
+        dataToSend
+      })
 
       appDispatch({ type: "flashMessageSuccess", value: result.data })
       setRequests(true)
@@ -253,7 +215,7 @@ function AllowedRequests(props) {
   if (allowedRequests.length == 0) {
     return (
       <Page title="Engedélyezett kérelmek listázása">
-        <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} collection={"requests"} status={"allowedRequests"}/>
+        <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} collection={"requests"} status={"allowedRequests"} />
         <div className="no-request-div">
           <span className="no-request-span">Nincs engedélyezett kérelem.</span>
         </div>
@@ -262,7 +224,7 @@ function AllowedRequests(props) {
   }
   return (
     <Page title="Engedélyezett kérelmek listázása">
-      <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} collection={"requests"} status={"allowedRequests"}/>
+      <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} collection={"requests"} status={"allowedRequests"} />
       {allowedRequests.map(function (request, index) {
         return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
       })}

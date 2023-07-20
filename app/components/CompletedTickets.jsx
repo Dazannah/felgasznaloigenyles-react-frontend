@@ -30,16 +30,12 @@ function CompletedTickets(props) {
   useEffect(() => {
     if (getRequests) {
       async function getCompletedRequests() {
-        try{
-          const response = await Axios.get("/get-completed-tickets", {
-            headers: {
-              authorization: `Bearer ${initialState.user.token}`
-            }
-          })
+        try {
+          const response = await Axios.get("/get-completed-tickets")
           setGetRequests(false)
           setCompletedRequests(response.data)
           setIsLoading(false)
-        }catch(err){
+        } catch (err) {
           showError(err, appDispatch)
         }
       }

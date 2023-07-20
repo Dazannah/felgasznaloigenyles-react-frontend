@@ -37,14 +37,11 @@ import AllowedRequests from "./components/AllowedRequests.jsx"
 
 function Main() {
   const initialState = {
-    loggedIn: Boolean(localStorage.getItem("jwt")),
+    loggedIn: Boolean(localStorage.getItem("isLoggedIn")),
     flashMessageSuccess: [],
     flashMessageError: [],
     flashMessageWarrning: [],
     flashMessageUsed: false,
-    user: {
-      token: localStorage.getItem("jwt")
-    },
     siteLocation: "",
     arrays: JSON.parse(localStorage.getItem("arrays")),
     classes: JSON.parse(localStorage.getItem("classes")),
@@ -75,14 +72,12 @@ function Main() {
       case "login":
         draft.loggedIn = true
         return
-      case "setJWT":
-        draft.user.token = action.value
-        return
       case "setSiteLocation":
         draft.siteLocation = action.value
         return
       case "logout":
         draft.loggedIn = false
+        localStorage.removeItem("isLoggedIn")
         return
       case "flashMessageSuccess":
         draft.flashMessageSuccess.push(action.value)
@@ -166,11 +161,8 @@ function Main() {
   useEffect(() => {
     async function validateSession() {
       try {
-        const result = await Axios.get("/validate-token", {
-          headers: {
-            authorization: `Bearer ${state.user.token}`
-          }
-        })
+        const result = await Axios.get("/validate-token")
+        console.log(result)
         checkToken(result.data, dispatch, "checkToken")
       } catch (err) {
         showError(err, dispatch)
@@ -215,9 +207,9 @@ function Main() {
 
   useEffect(() => {
     if (state.loggedIn) {
-      localStorage.setItem("jwt", state.user.token)
+      localStorage.setItem("isLoggedIn", true)
     } else {
-      localStorage.removeItem("jwt")
+      localStorage.removeItem("isLoggedIn")
     }
   }, [state.loggedIn])
 

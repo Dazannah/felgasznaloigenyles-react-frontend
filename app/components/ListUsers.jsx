@@ -39,11 +39,8 @@ function ListUsers() {
       isInitialLoad ? "" : setIsRequestLoading(true)
 
       toggleSwitchValue ? (url = "/list-deleted-users") : (url = "/list-active-users")
-      const response = await Axios.get(`${url}`, {
-        headers: {
-          authorization: `Bearer ${initialState.user.token}`
-        }
-      })
+      const response = await Axios.get(`${url}`)
+
       setUsers(response.data)
       isInitialLoad ? setIsLoading(false) : setIsRequestLoading(false)
     }
@@ -74,7 +71,7 @@ function ListUsers() {
 
   async function submitRequest(id, process) {
     try {
-      const result = await Axios.post(`/user/${id}/${process}`, {}, { headers: { authorization: `Bearer ${initialState.user.token}` } })
+      const result = await Axios.post(`/user/${id}/${process}`, {})
       if (result.data.acknowledged) {
         appDispatch({ type: "flashMessageSuccess", value: "Törlési kérelem sikeresen mentve." })
       } else {
@@ -104,7 +101,7 @@ function ListUsers() {
     return (
       <Page title="Felhasználók listázása">
         <ToggleSwitch setToggleSwitchValue={setToggleSwitchValue} toggleSwitchTexts={{ title: "Felhasználók státusza", left: "Aktív", right: "Törölt" }} />
-        <TableHead columns={columns} setRequests={setUsers} requests={users} collection={toggleSwitchValue ? "deletedUsers" : "users"} status={toggleSwitchValue ? "deleted" : "active"}/>
+        <TableHead columns={columns} setRequests={setUsers} requests={users} collection={toggleSwitchValue ? "deletedUsers" : "users"} status={toggleSwitchValue ? "deleted" : "active"} />
         <div className="no-request-div">
           <span className="no-request-span">{toggleSwitchValue ? "Nincsennek törölt felhasználók." : "Nincsennek felhasználók."}</span>
         </div>
@@ -115,7 +112,7 @@ function ListUsers() {
   return (
     <Page title="Felhasználók listázása">
       <ToggleSwitch setToggleSwitchValue={setToggleSwitchValue} toggleSwitchTexts={{ title: "Felhasználók státusza", left: "Aktív", right: "Törölt" }} />
-      <TableHead columns={columns} setRequests={setUsers} requests={users} collection={toggleSwitchValue ? "deletedUsers" : "users"} status={toggleSwitchValue ? "deleted" : "active"}/>
+      <TableHead columns={columns} setRequests={setUsers} requests={users} collection={toggleSwitchValue ? "deletedUsers" : "users"} status={toggleSwitchValue ? "deleted" : "active"} />
       {isRequestLoading ? (
         <Loading />
       ) : (

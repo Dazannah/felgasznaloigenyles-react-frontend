@@ -26,11 +26,7 @@ function DistributionLists(props) {
     if (getRequests) {
       async function getCompletedRequests() {
         try {
-          const response = await Axios.get("/get-distribution-lists", {
-            headers: {
-              authorization: `Bearer ${initialState.user.token}`
-            }
-          })
+          const response = await Axios.get("/get-distribution-lists")
           setCompletedRequests(response.data)
           setIsLoading(false)
           setGetRequests(false)
@@ -70,7 +66,7 @@ function DistributionLists(props) {
   if (completedRequests.length == 0)
     return (
       <Page title="Terjesztési listák">
-        <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"distributionLists"} status={"active"}/>
+        <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"distributionLists"} status={"active"} />
         <div className="no-request-div">
           <span className="no-request-span">Nincsennek terjesztési listák.</span>
         </div>
@@ -79,7 +75,7 @@ function DistributionLists(props) {
 
   return (
     <Page title="Terjesztési listák">
-      <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"distributionLists"} status={"active"}/>
+      <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"distributionLists"} status={"active"} />
       {completedRequests.map(function (request, index) {
         return generateDistributionList(request, index)
       })}

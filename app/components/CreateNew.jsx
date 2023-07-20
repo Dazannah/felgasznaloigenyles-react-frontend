@@ -48,18 +48,10 @@ function CreateNew() {
   async function handleSend(dataToSend) {
     statesLeftCollumn[0][1]({ ...statesLeftCollumn[0][0], value: false })
     try {
-      const result = await Axios.post(
-        "/create-new-ticket",
-        {
-          dataToSend,
-          process: formState.process
-        },
-        {
-          headers: {
-            authorization: `Bearer ${appState.user.token}`
-          }
-        }
-      )
+      const result = await Axios.post("/create-new-ticket", {
+        dataToSend,
+        process: formState.process
+      })
 
       const invalidToken = checkToken(result.data, appDispatch)
 

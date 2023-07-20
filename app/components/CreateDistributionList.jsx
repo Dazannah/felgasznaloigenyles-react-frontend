@@ -64,18 +64,10 @@ function CreateDistributionList(props) {
 
   async function sendData(dataToSend) {
     try {
-      const response = await Axios.post(
-        "/create-new-distribution-list",
-        {
-          dataToSend,
-          eMailFieldNumber: inputFieldNumber
-        },
-        {
-          headers: {
-            authorization: `Bearer ${appState.user.token}`
-          }
-        }
-      )
+      const response = await Axios.post("/create-new-distribution-list", {
+        dataToSend,
+        eMailFieldNumber: inputFieldNumber
+      })
 
       return response
     } catch (err) {

@@ -40,11 +40,7 @@ function ListRequests(props) {
     if (getTickets) {
       async function getRequests() {
         try {
-          const incomingRequests = await Axios.get("/requests-list-all", {
-            headers: {
-              authorization: `Bearer ${initialState.user.token}`
-            }
-          })
+          const incomingRequests = await Axios.get("/requests-list-all")
           setGetTickets(false)
           setRequests(incomingRequests.data)
           setIsLoading(false)
@@ -90,17 +86,9 @@ function ListRequests(props) {
       }
 
       try {
-        await Axios.post(
-          "/request-update",
-          {
-            dataToSend
-          },
-          {
-            headers: {
-              authorization: `Bearer ${initialState.user.token}`
-            }
-          }
-        )
+        await Axios.post("/request-update", {
+          dataToSend
+        })
 
         appDispatch({ type: "flashMessageSuccess", value: "Kérelem mentése sikeres." })
         setGetTickets(true)
@@ -161,7 +149,7 @@ function ListRequests(props) {
   if (requests.length == 0)
     return (
       <Page title="Kérelmek listázása">
-        <TableHead columns={columns} setRequests={setRequests} requests={requests} collection={"requests"} status={"requestForPermission"}/>
+        <TableHead columns={columns} setRequests={setRequests} requests={requests} collection={"requests"} status={"requestForPermission"} />
         <div className="no-request-div">
           <span className="no-request-span"> Nincs engedélyezésre váró kérelem.</span>
         </div>
@@ -169,7 +157,7 @@ function ListRequests(props) {
     )
   return (
     <Page title="Kérelmek listázása">
-      <TableHead columns={columns} setRequests={setRequests} requests={requests} collection={"requests"} status={"requestForPermission"}/>
+      <TableHead columns={columns} setRequests={setRequests} requests={requests} collection={"requests"} status={"requestForPermission"} />
       {requests.map(function (request, index) {
         return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
       })}

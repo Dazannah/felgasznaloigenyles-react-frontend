@@ -82,25 +82,16 @@ function TableHead(props) {
 
   async function sendData(value, accessor, status, userId) {
     try {
-      const response = await Axios.post(
-        "/table-head-search",
-        {
-          value,
-          accessor,
-          status,
-          collection: props.collection,
-          userId
-        },
-        {
-          headers: {
-            authorization: `Bearer ${appState.user.token}`
-          }
-        }
-      )
+      const response = await Axios.post("/table-head-search", {
+        value,
+        accessor,
+        status,
+        collection: props.collection,
+        userId
+      })
       if (Array.isArray(response.data)) {
         props.setRequests(response.data)
       } else {
-        console.log(response)
         showError("Valami hiba tötént.", appDispatch)
       }
     } catch (err) {

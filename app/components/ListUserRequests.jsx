@@ -36,11 +36,7 @@ function ListUserRequests(props) {
   useEffect(() => {
     async function getUserAllRequest() {
       try {
-        const allRequest = await Axios.get(`/user/${props.userId}/requests`, {
-          headers: {
-            authorization: `Bearer ${initialState.user.token}`
-          }
-        })
+        const allRequest = await Axios.get(`/user/${props.userId}/requests`)
 
         setUserRequests(allRequest.data)
         setIsLoading(false)

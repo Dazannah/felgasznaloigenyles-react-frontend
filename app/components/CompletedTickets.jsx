@@ -14,10 +14,14 @@ import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import DistributionListFields from "./DistributionListFields.jsx"
 import IsDone from "./IsDone.jsx"
 
+import { showError } from "../utils.jsx"
+
+import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
 
 function CompletedTickets(props) {
   const initialState = useContext(StateContext)
+  const appDispatch = useContext(DispatchContext)
 
   const [isLoading, setIsLoading] = useState(true)
   const [completedRequests, setCompletedRequests] = useState()
@@ -26,14 +30,18 @@ function CompletedTickets(props) {
   useEffect(() => {
     if (getRequests) {
       async function getCompletedRequests() {
-        const response = await Axios.get("/get-completed-tickets", {
-          headers: {
-            authorization: `Bearer ${initialState.user.token}`
-          }
-        })
-        setGetRequests(false)
-        setCompletedRequests(response.data)
-        setIsLoading(false)
+        try{
+          const response = await Axios.get("/get-completed-tickets", {
+            headers: {
+              authorization: `Bearer ${initialState.user.token}`
+            }
+          })
+          setGetRequests(false)
+          setCompletedRequests(response.data)
+          setIsLoading(false)
+        }catch(err){
+          showError(err, appDispatch)
+        }
       }
 
       getCompletedRequests()

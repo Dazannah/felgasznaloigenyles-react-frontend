@@ -42,14 +42,18 @@ function AllowedRequests(props) {
   useEffect(() => {
     if (requests) {
       async function getAllowedRequests() {
-        const allowedRequests = await Axios.get("/get-allowed-tickets", {
-          headers: {
-            authorization: `Bearer ${initialState.user.token}`
-          }
-        })
-        setRequests(false)
-        setAllowedRequests(allowedRequests.data)
-        setIsloading(false)
+        try{
+          const allowedRequests = await Axios.get("/get-allowed-tickets", {
+            headers: {
+              authorization: `Bearer ${initialState.user.token}`
+            }
+          })
+          setRequests(false)
+          setAllowedRequests(allowedRequests.data)
+          setIsloading(false)
+        }catch(err){
+          showError(err, appDispatch)
+        }
       }
       getAllowedRequests()
     }
@@ -192,7 +196,7 @@ function AllowedRequests(props) {
       appDispatch({ type: "flashMessageSuccess", value: result.data })
       setRequests(true)
     } catch (err) {
-      showError(err.message ? err.message : err, appDispatch)
+      showError(err, appDispatch)
     }
   }
 

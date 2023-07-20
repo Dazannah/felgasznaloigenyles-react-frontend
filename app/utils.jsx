@@ -80,7 +80,11 @@ function getUserPermissions(permissionsArray) {
 }
 
 function showError(err, appDispatch) {
-  appDispatch({ type: "flashMessageError", value: `${err}` })
+  if(err.request.status === 403){
+    appDispatch({ type: "flashMessageWarning", value: "Nincs jogosultságod a menüponthoz." })
+  }else{
+    appDispatch({ type: "flashMessageError", value: `${err}` })
+  }
 }
 
 export { checkToken, validateRequest, serializeDataToSend, generateState, getUserPermissions, showError }

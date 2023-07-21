@@ -13,7 +13,7 @@ import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import DistributionListFields from "./DistributionListFields.jsx"
 import RequestDetails from "./RequestDetails.jsx"
-import IsDone from "./IsDone.jsx"
+import Pages from "./Pages.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -27,6 +27,9 @@ function CompletedTickets(props) {
   const [isLoading, setIsLoading] = useState(true)
   const [completedRequests, setCompletedRequests] = useState()
   const [getRequests, setGetRequests] = useState(true)
+
+  const [from, setFrom] = useState(0)
+  const [displayNumber, setDisplayNumber] = useState(10)
 
   useEffect(() => {
     if (getRequests) {
@@ -66,7 +69,7 @@ function CompletedTickets(props) {
             <CreateNewTextarea listOut={true} request={request} />
             <TechnicalTextarea listOut={true} request={request} />
             <UserName listOut={true} request={request} />
-            <RequestDetails request={request}/>
+            <RequestDetails request={request} />
             <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
           </form>
         </div>
@@ -82,7 +85,7 @@ function CompletedTickets(props) {
         <TableBody request={request} columns={columns} index={index} />
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
           <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.addresses.length} />
-          <RequestDetails request={request}/>
+          <RequestDetails request={request} />
           <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
         </div>
       </div>
@@ -110,10 +113,10 @@ function CompletedTickets(props) {
   return (
     <Page title="Lezárt kérelmek">
       <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"requests"} status={"closed"} />
-      {completedRequests /*.slice(0, 10)*/
-        .map((request, index) => {
-          return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
-        })}
+      {completedRequests.slice(from, from + displayNumber).map((request, index) => {
+        return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
+      })}
+      <Pages from={from} setFrom={setFrom} displayNumber={displayNumber} setDisplayNumber={setDisplayNumber} arrayLength={completedRequests.length} />
     </Page>
   )
 }

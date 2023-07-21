@@ -66,8 +66,8 @@ function CompletedTickets(props) {
             <CreateNewTextarea listOut={true} request={request} />
             <TechnicalTextarea listOut={true} request={request} />
             <UserName listOut={true} request={request} />
-            <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
             <RequestDetails request={request}/>
+            <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
           </form>
         </div>
       </div>
@@ -82,8 +82,8 @@ function CompletedTickets(props) {
         <TableBody request={request} columns={columns} index={index} />
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
           <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.addresses.length} />
-          <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
           <RequestDetails request={request}/>
+          <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
         </div>
       </div>
     )

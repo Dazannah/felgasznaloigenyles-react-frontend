@@ -12,6 +12,7 @@ import AllowTextarea from "./AllowTextarea.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import IsDone from "./IsDone.jsx"
 import EditRequestTable from "./EditRequestTable.jsx"
+import RequestDetails from "./RequestDetails.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -70,8 +71,8 @@ function ListUserRequests(props) {
               <EditRequestTable request={request} />
               <CreateNewTextarea listOut={true} request={request} readonly={true} />
               <TechnicalTextarea listOut={true} request={request} readonly={true} />
-
               <UserName listOut={true} request={request} />
+              <RequestDetails request={request}/>
               <AllowTextarea request={request} ticketContentId={`${index}contentKey`} readonly={true} />
               <IsDone listOut={true} request={request} readonly={true} />
             </div>

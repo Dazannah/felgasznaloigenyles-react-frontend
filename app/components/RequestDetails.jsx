@@ -3,28 +3,32 @@ import React from "react"
 function RequestDetails(props){
     return(
         <>
+            <br />
+            Kérelem részletei
             <table className="edit-table group round-corner">
                 <tr>
                     <th></th>
-                    <th>Álltal</th>
-                    <th>Ekkor</th>
+                    <th>Felhasználó</th>
+                    <th>Időpont</th>
                 </tr>
                 <tr>
-                    <td>Kérvényezve:</td>
+                    <td>Kérvényezte:</td>
                     <td>{props.request.ticketCreation.userName}</td>
                     <td>{props.request.ticketCreation.createTime}</td>
                 </tr>
+                
                 <tr>
-                    <td>Engedélyezve:</td>
-                    <td>{props.request.permission.authorizedBy}</td>
-                    <td>{props.request.permission.permissionTime}</td>
+                    <td>Felülbírálta:</td>
+                    <td>{props.request.permission ? props.request.permission.authorizedBy : "——" }</td>
+                    <td>{props.request.permission ? props.request.permission.permissionTime : "——" }</td>
                 </tr>
                 <tr>
-                    <td>Létrehozva:</td>
-                    <td>{props.request.completed.userName}</td>
-                    <td>{props.request.completed.createTime}</td>
+                    <td>Lezárta:</td>
+                    <td>{props.request.completed ? props.request.completed.userName : "——" }</td>
+                    <td>{props.request.completed ? props.request.completed.createTime  : "——" }</td>
                 </tr>
             </table>
+            <br />
         </>
     )
 }

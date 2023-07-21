@@ -31,7 +31,7 @@ function ListUserRequests(props) {
     { label: "Engedélyezve", accessor: "permission.allowed" },
     { label: "Engedélyező", accessor: "permission.authorizedBy" },
     { label: "Igénylés ideje", accessor: "ticketCreation.createTime" },
-    { label: "Lezárt", accessor: "completed.time" }
+    { label: "Lezárt", accessor: "completed.createTime" }
   ]
 
   useEffect(() => {

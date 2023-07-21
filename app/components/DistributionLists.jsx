@@ -6,6 +6,7 @@ import TableHead from "./TableHead.jsx"
 import TableBody from "./TableBody.jsx"
 import DistributionListFields from "./DistributionListFields.jsx"
 import Loading from "./Loading.jsx"
+import ListDistributionListRequests from "./ListDistributionListRequests.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -51,6 +52,7 @@ function DistributionLists(props) {
         <TableBody request={request} columns={columns} index={index} />
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
           <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.addresses.length} />
+          <ListDistributionListRequests userId={request._id}/>
         </div>
       </div>
     )

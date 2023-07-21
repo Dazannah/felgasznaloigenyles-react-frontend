@@ -13,6 +13,7 @@ import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import ListUserRequests from "./ListUserRequests.jsx"
 import ToggleSwitch from "./utils/ToggleSwitch.jsx"
+import Pages from "./Pages.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -31,6 +32,9 @@ function ListUsers() {
 
   const [toggleSwitchValue, setToggleSwitchValue] = useState(false)
   const [isRequestLoading, setIsRequestLoading] = useState(false)
+
+  const [from, setFrom] = useState(0)
+  const [displayNumber, setDisplayNumber] = useState(10)
 
   useEffect(() => {
     async function getUsers() {
@@ -116,7 +120,7 @@ function ListUsers() {
       {isRequestLoading ? (
         <Loading />
       ) : (
-        users.map(function (request, index) {
+        users.slice(from, from + displayNumber).map(function (request, index) {
           return (
             <div key={request._id + "DivKey"} id={index + "Div"} className="request">
               <TableBody request={request} columns={columns} index={index} />
@@ -134,6 +138,7 @@ function ListUsers() {
           )
         })
       )}
+      <Pages from={from} setFrom={setFrom} displayNumber={displayNumber} setDisplayNumber={setDisplayNumber} arrayLength={users.length} />
     </Page>
   )
 }

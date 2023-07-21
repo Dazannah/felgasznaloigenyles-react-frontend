@@ -99,29 +99,6 @@ function TableHead(props) {
     }
   }
 
-  useEffect(() => {
-    function addStyckiClass() {
-      let div = document.getElementById("sort-head")
-      if (div) {
-        let divOffset = div.offsetTop
-        let windowOfset = window.pageYOffset
-
-        if (windowOfset > divOffset) {
-          div.classList.add("sticky-div")
-        }
-        if (windowOfset < 176) {
-          div.classList.remove("sticky-div")
-        }
-      }
-    }
-
-    window.addEventListener("scroll", addStyckiClass)
-
-    return () => {
-      window.removeEventListener("scroll", addStyckiClass)
-    }
-  }, [])
-
   return (
     <div id="sort-head">
       {props.columns.map(({ label, accessor }) => {

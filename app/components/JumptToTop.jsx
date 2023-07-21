@@ -7,7 +7,7 @@ function JumptToTop(props) {
 
   return (
     <div id="jump-to-top-arrow-div" onClick={jumpToTop}>
-      <span className="jump-to-top-arrow-span">&#8679;</span>
+      <i className="arrow up"></i>
     </div>
   )
 }

@@ -42,7 +42,10 @@ function UpperFields(props) {
               name="name"
               {...(props.listOut
                 ? {
-                    defaultValue: `${props.request.personalInformations.name}`
+                    defaultValue: `${props.request.personalInformations.name}`,
+                    ...useEffect(() => {
+                      handleChange("setName", props.request.personalInformations.name)
+                    }, [])
                   }
                 : "")}
               readOnly={props.readonly}
@@ -56,7 +59,10 @@ function UpperFields(props) {
               onChange={e => handleChange("setIsTechnical", e.target.value)}
               {...(props.listOut
                 ? {
-                    defaultChecked: props.request.technical.isTechnical
+                    defaultChecked: props.request.technical.isTechnical,
+                    ...useEffect(() => {
+                      handleChange("setIsTechnical", props.request.technical.isTechnical)
+                    }, [])
                   }
                 : "")}
               disabled={props.listOut}
@@ -85,7 +91,10 @@ function UpperFields(props) {
               name="id"
               {...(props.listOut
                 ? {
-                    defaultValue: props.request.personalInformations.ticketId
+                    defaultValue: props.request.personalInformations.ticketId,
+                    ...useEffect(() => {
+                      handleChange("setTicketId", props.request.personalInformations.ticketId)
+                    }, [])
                   }
                 : "")}
               readOnly={props.readonly}
@@ -133,7 +142,10 @@ function UpperFields(props) {
               name="classLeader"
               {...(props.listOut
                 ? {
-                    defaultValue: `${props.request.personalInformations.classLeader}`
+                    defaultValue: `${props.request.personalInformations.classLeader}`,
+                    ...useEffect(() => {
+                      handleChange("setClassLeader", props.request.personalInformations.classLeader)
+                    }, [])
                   }
                 : "")}
               readOnly={props.readonly}
@@ -152,7 +164,10 @@ function UpperFields(props) {
               name="workPost"
               {...(props.listOut
                 ? {
-                    defaultValue: `${props.request.personalInformations.workPost}`
+                    defaultValue: `${props.request.personalInformations.workPost}`,
+                    ...useEffect(() => {
+                      handleChange("setWorkPost", props.request.personalInformations.workPost)
+                    }, [])
                   }
                 : "")}
               readOnly={props.readonly}
@@ -174,7 +189,10 @@ function UpperFields(props) {
               name="workLocation"
               {...(props.listOut
                 ? {
-                    defaultValue: `${props.request.personalInformations.workLocation}`
+                    defaultValue: `${props.request.personalInformations.workLocation}`,
+                    ...useEffect(() => {
+                      handleChange("setWorkLocation", props.request.personalInformations.workLocation)
+                    }, [])
                   }
                 : "")}
               readOnly={props.readonly}
@@ -203,7 +221,10 @@ function UpperFields(props) {
                 name="validTo"
                 {...(props.listOut
                   ? {
-                      defaultValue: `${props.request.personalInformations.validTo}`
+                      defaultValue: `${props.request.personalInformations.validTo}`,
+                      ...useEffect(() => {
+                        handleChange("setTicketId", props.request.personalInformations.validTo)
+                      }, [])
                     }
                   : "")}
                 readOnly={props.readonly}

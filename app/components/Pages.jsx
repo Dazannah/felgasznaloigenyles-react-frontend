@@ -25,14 +25,16 @@ function Pages(props) {
   return (
     <div id="pages">
       {" "}
-      <button name="decrease" onClick={e => handleClick(e.target.name)}>
+      <button className="button round-corner" name="decrease" onClick={e => handleClick(e.target.name)}>
         &#8249;
       </button>
-      {props.from + 1} - {props.from + props.displayNumber}
-      <button name="increase" onClick={e => handleClick(e.target.name)}>
+      <span>
+        {props.from + 1} - {props.from + props.displayNumber}
+      </span>
+      <button className="button round-corner" name="increase" onClick={e => handleClick(e.target.name)}>
         &#8250;
       </button>
-      <select onChange={e => handleSelect(e.target.value)}>
+      <select className="round-corner" onChange={e => handleSelect(e.target.value)}>
         <option value="10">10</option>
         <option value="15">15</option>
         <option value="20">20</option>

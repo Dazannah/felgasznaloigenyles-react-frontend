@@ -45,7 +45,7 @@ function Menu() {
   return (
     <>
       <nav key="menu" id="main-menu">
-        <div className="main-content-wrapper">
+        <div>
           <ul className="group">
             <li>
               {" "}

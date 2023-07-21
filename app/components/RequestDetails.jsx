@@ -3,7 +3,7 @@ import React from "react"
 function RequestDetails(props){
     return(
         <>
-            <table>
+            <table className="edit-table group round-corner">
                 <tr>
                     <th></th>
                     <th>Álltal</th>

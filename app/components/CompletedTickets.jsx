@@ -52,7 +52,7 @@ function CompletedTickets(props) {
     { label: "Művelet", accessor: "process" },
     { label: "Engedélyezve", accessor: "permission.allowed" },
     { label: "Engedélyező", accessor: "permission.authorizedBy" },
-    { label: "Lezárt", accessor: "completed.time" }
+    { label: "Lezárt", accessor: "completed.createTime" }
   ]
 
   function generateUserRequest(request, index) {

@@ -12,6 +12,7 @@ import AllowTextarea from "./AllowTextarea.jsx"
 import Loading from "./Loading.jsx"
 import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import DistributionListFields from "./DistributionListFields.jsx"
+import RequestDetails from "./RequestDetails.jsx"
 import IsDone from "./IsDone.jsx"
 
 import { showError } from "../utils.jsx"
@@ -66,6 +67,7 @@ function CompletedTickets(props) {
             <TechnicalTextarea listOut={true} request={request} />
             <UserName listOut={true} request={request} />
             <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
+            <RequestDetails request={request}/>
           </form>
         </div>
       </div>
@@ -81,6 +83,7 @@ function CompletedTickets(props) {
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
           <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.addresses.length} />
           <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
+          <RequestDetails request={request}/>
         </div>
       </div>
     )

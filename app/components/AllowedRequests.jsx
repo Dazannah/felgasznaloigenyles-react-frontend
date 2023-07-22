@@ -14,6 +14,7 @@ import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import IsDone from "./IsDone.jsx"
 import DistributionListFields from "./DistributionListFields.jsx"
 import EditRequestTable from "./EditRequestTable.jsx"
+import Pages from "./Pages.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -27,6 +28,9 @@ function AllowedRequests(props) {
   const [allowedRequests, setAllowedRequests] = useState()
   const [isLoading, setIsloading] = useState(true)
   const [requests, setRequests] = useState(true)
+
+  const [from, setFrom] = useState(0)
+  const [displayNumber, setDisplayNumber] = useState(10)
 
   const formRef = useRef(null)
 
@@ -225,9 +229,10 @@ function AllowedRequests(props) {
   return (
     <Page title="Engedélyezett kérelmek listázása">
       <TableHead columns={columns} setRequests={setAllowedRequests} requests={allowedRequests} collection={"requests"} status={"allowedRequests"} />
-      {allowedRequests.map(function (request, index) {
+      {allowedRequests.slice(from, from + displayNumber).map(function (request, index) {
         return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
       })}
+      <Pages from={from} setFrom={setFrom} displayNumber={displayNumber} setDisplayNumber={setDisplayNumber} arrayLength={allowedRequests.length} />
     </Page>
   )
 }

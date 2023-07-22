@@ -13,6 +13,7 @@ import TableHead from "./TableHead.jsx"
 import UserName from "./UserName.jsx"
 import DistributionListFields from "./DistributionListFields.jsx"
 import EditRequestTable from "./EditRequestTable.jsx"
+import Pages from "./Pages.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -26,6 +27,9 @@ function ListRequests(props) {
   const [isLoading, setIsLoading] = useState(true)
   const [requests, setRequests] = useState()
   const [getTickets, setGetTickets] = useState(true)
+
+  const [from, setFrom] = useState(0)
+  const [displayNumber, setDisplayNumber] = useState(10)
 
   const columns = [
     { label: "Név", accessor: "personalInformations.name" },
@@ -158,9 +162,10 @@ function ListRequests(props) {
   return (
     <Page title="Kérelmek listázása">
       <TableHead columns={columns} setRequests={setRequests} requests={requests} collection={"requests"} status={"requestForPermission"} />
-      {requests.map(function (request, index) {
+      {requests.slice(from, from + displayNumber).map(function (request, index) {
         return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
       })}
+      <Pages from={from} setFrom={setFrom} displayNumber={displayNumber} setDisplayNumber={setDisplayNumber} arrayLength={requests.length} />
     </Page>
   )
 }

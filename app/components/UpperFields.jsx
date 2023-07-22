@@ -17,6 +17,13 @@ function UpperFields(props) {
     formDispatch({ type, value })
   }
 
+  useEffect(() => {
+    if (props.updateClass) {
+      formDispatch({ type: "setClassName", value: props.request.personalInformations.className })
+      formDispatch({ type: "setClassId", value: props.request.personalInformations.classId })
+    }
+  }, [])
+
   return (
     <div id="upper-fileds-wrapper">
       <div id="row" className="group">

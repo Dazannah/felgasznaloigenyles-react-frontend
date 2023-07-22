@@ -36,10 +36,6 @@ function EditRequestTable(props) {
 
     const dataToRender = []
 
-    initialState.arrays.leftColumn
-    initialState.arrays.middleColumn
-    initialState.arrays.rightColumn
-
     changeKeys.forEach(key => {
       let processToShow
 

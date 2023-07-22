@@ -3,6 +3,8 @@ import { Link, Navigate } from "react-router-dom"
 import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
 
+import Page from "./Page.jsx"
+
 function Menu() {
   const appDispatch = useContext(DispatchContext)
   const appState = useContext(StateContext)
@@ -46,56 +48,58 @@ function Menu() {
     <>
       <nav key="menu" id="main-menu">
         <div>
-          <ul className="group">
-            <li>
-              {" "}
-              <Link id="createNewBtn" onClick={e => setAcctiveBtn(e.target.id)} key="createNewBtn" to="/">
-                Új felhasználó
-              </Link>
-            </li>
-            <li>
-              {" "}
-              <Link id="distributinListBtn" onClick={e => setAcctiveBtn(e.target.id)} key="distributinListBtn" to="/create-distribution-list">
-                Új terjesztési lista
-              </Link>
-            </li>
-            <li>
-              {" "}
-              <Link id="listRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listRequestsBtn" to="/list-requests">
-                Kérelmek engedéjezése
-              </Link>
-            </li>
-            <li>
-              {" "}
-              <Link id="allowedRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="allowedRequestsBtn" to="/list-allowed-requests">
-                Engedélyezett kérelmek
-              </Link>
-            </li>
-            <li>
-              {" "}
-              <Link id="completedRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="completedRequestsBtn" to="/list-completed-requests">
-                Lezárt kérelmek
-              </Link>
-            </li>
-            <li>
-              {" "}
-              <Link id="listUsersBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listUsersBtn" to="/list-users">
-                Felhasználók
-              </Link>
-            </li>
-            <li>
-              {" "}
-              <Link id="distributionLists" onClick={e => setAcctiveBtn(e.target.id)} key="distributionLists" to="/distribution-lists">
-                Terjesztési listák
-              </Link>
-            </li>
-            <li>
-              {" "}
-              <Link id="logOutBtn" key="logOutBtn" onClick={e => logout(e)} to="/">
-                Kijelentkezés
-              </Link>
-            </li>
-          </ul>
+          <Page>
+            <ul className="group">
+              <li>
+                {" "}
+                <Link id="createNewBtn" onClick={e => setAcctiveBtn(e.target.id)} key="createNewBtn" to="/">
+                  Új felhasználó
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link id="distributinListBtn" onClick={e => setAcctiveBtn(e.target.id)} key="distributinListBtn" to="/create-distribution-list">
+                  Új terjesztési lista
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link id="listRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listRequestsBtn" to="/list-requests">
+                  Kérelmek engedéjezése
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link id="allowedRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="allowedRequestsBtn" to="/list-allowed-requests">
+                  Engedélyezett kérelmek
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link id="completedRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="completedRequestsBtn" to="/list-completed-requests">
+                  Lezárt kérelmek
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link id="listUsersBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listUsersBtn" to="/list-users">
+                  Felhasználók
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link id="distributionLists" onClick={e => setAcctiveBtn(e.target.id)} key="distributionLists" to="/distribution-lists">
+                  Terjesztési listák
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link id="logOutBtn" key="logOutBtn" onClick={e => logout(e)} to="/">
+                  Kijelentkezés
+                </Link>
+              </li>
+            </ul>
+          </Page>
         </div>
       </nav>
     </>

@@ -74,24 +74,26 @@ function TableHead(props) {
     }*/
 
     const timeout = setTimeout(async () => {
-      sendData(value, accessor, status, userId)
+      sendData(value, accessor, status, userId, order)
     }, 400)
     clearTimeout(timeoutId)
     setTimeoutId(timeout)
   }
 
-  async function sendData(value, accessor, status, userId) {
+  async function sendData(value, accessor, status, userId, order) {
     try {
       const response = await Axios.post("/table-head-search", {
         value,
         accessor,
         status,
         collection: props.collection,
-        userId
+        userId,
+        order
       })
       if (Array.isArray(response.data)) {
         props.setRequests(response.data)
       } else {
+        console.log(response)
         showError("Valami hiba tötént.", appDispatch)
       }
     } catch (err) {

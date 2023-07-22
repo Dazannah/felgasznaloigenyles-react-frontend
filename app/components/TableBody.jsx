@@ -42,10 +42,12 @@ function TableBody(props) {
           let tData
           if (isNestedProperty) {
             const nestedProperty = props.request[splitAccessor[0]]
-            if (nestedProperty) {
-              tData = nestedProperty[splitAccessor[1]] ? nestedProperty[splitAccessor[1]] : "——"
-            } else if (props.request.mainAddress && splitAccessor[1] === "name") {
+            if (props.request.mainAddress && splitAccessor[1] === "name") {
               tData = props.request.mainAddress + appState.emailDomain
+            } else if (splitAccessor[1] === "isTechnical") {
+              tData = props.request.technical.isTechnical === "Igen" ? "Igen" : "——"
+            } else if (nestedProperty) {
+              tData = nestedProperty[splitAccessor[1]] ? nestedProperty[splitAccessor[1]] : "——"
             } else {
               tData = "——"
             }

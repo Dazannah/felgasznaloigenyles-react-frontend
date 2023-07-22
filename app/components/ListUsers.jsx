@@ -91,6 +91,7 @@ function ListUsers() {
     { label: "Osztály", accessor: "personalInformations.className" },
     { label: "Számítógép felhasználónév", accessor: "userNames.adName" },
     { label: "E-mail cím", accessor: "userNames.eMail" },
+    { label: "Technikai fiók", accessor: "technical.isTechnical" },
     { label: "Érvényesség vége", accessor: "personalInformations.validTo" }
   ]
 

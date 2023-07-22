@@ -59,7 +59,7 @@ function UpperFields(props) {
               onChange={e => handleChange("setIsTechnical", e.target.value)}
               {...(props.listOut
                 ? {
-                    defaultChecked: props.request.technical.isTechnical,
+                    defaultChecked: props.request.technical.isTechnical === "Igen" ? "on" : "",
                     ...useEffect(() => {
                       handleChange("setIsTechnical", props.request.technical.isTechnical)
                     }, [])

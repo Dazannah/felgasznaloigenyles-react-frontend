@@ -104,7 +104,7 @@ function ListRequests(props) {
       <div key={request._id + "DivKey"} id={index + "Div"} className="request">
         <TableBody request={request} columns={columns} index={index} />
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
-          <UpperFields listOut={true} request={request} />
+          <UpperFields readonly={true} listOut={true} request={request} />
           <Columns listOut={true} request={request} />
           <EditRequestTable request={request} />
           <CreateNewTextarea listOut={true} request={request} />

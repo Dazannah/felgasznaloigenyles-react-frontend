@@ -38,7 +38,7 @@ function UpperFields(props) {
               className="round-corner"
               onChange={e => handleChange("setName", e.target.value)}
               type="text"
-              id={"name" + props.listOut ? props.request._id : ""}
+              id={"name"}
               name="name"
               {...(props.listOut
                 ? {
@@ -66,7 +66,7 @@ function UpperFields(props) {
                   }
                 : "")}
               disabled={props.listOut}
-              id={"isTechnical" + props.listOut ? props.request._id : ""}
+              id={"isTechnical"}
               type="checkbox"
             />
             <br />
@@ -74,8 +74,8 @@ function UpperFields(props) {
 
           <div className="mini-container">
             {props.classChoosable ? <DropdownMenu /> : "Osztály"} <br />
-            <input autoComplete="off" className="round-corner" type="text" id={"class" + props.listOut ? props.request._id : ""} name="class" defaultValue={props.request ? props.request.personalInformations.className : formState.className} readOnly />
-            <input autoComplete="off" className="hidden-lable" type="text" id={"classDbId" + props.listOut ? props.request._id : ""} name="dbId" defaultValue={props.request ? props.request.personalInformations.classId : formState.classId} readOnly />
+            <input autoComplete="off" className="round-corner" type="text" id={"class"} name="class" defaultValue={props.request ? props.request.personalInformations.className : formState.className} readOnly />
+            <input autoComplete="off" className="hidden-lable" type="text" id={"classDbId"} name="dbId" defaultValue={props.request ? props.request.personalInformations.classId : formState.classId} readOnly />
           </div>
         </div>
 
@@ -87,7 +87,7 @@ function UpperFields(props) {
               className="round-corner"
               onChange={e => handleChange("setTicketId", e.target.value)}
               type="text"
-              id={"id" + props.listOut ? props.request._id : ""}
+              id={"id"}
               name="id"
               {...(props.listOut
                 ? {
@@ -120,7 +120,7 @@ function UpperFields(props) {
               </>
             ) : (
               <form autoComplete="off" key={props.request ? props.request + "radioButtonFormField" : "radioButtonFormField"}>
-                <input autoComplete="off" type="radio" id={"newUser" + props.listOut ? props.request._id : ""} name="process" value="Új felhasználó" checked disabled />
+                <input autoComplete="off" type="radio" id={"newUser"} name="process" value="Új felhasználó" checked disabled />
                 <label htmlFor="newUser">{props.request ? props.request.process || "Felhasználó módosítása" : "Új felhasználó"}</label>
               </form>
             )}
@@ -138,7 +138,7 @@ function UpperFields(props) {
               autoComplete="off"
               onChange={e => handleChange("setClassLeader", e.target.value)}
               type="text"
-              id={"classLeader" + props.listOut ? props.request._id : ""}
+              id={"classLeader"}
               name="classLeader"
               {...(props.listOut
                 ? {
@@ -160,7 +160,7 @@ function UpperFields(props) {
               autoComplete="off"
               onChange={e => handleChange("setWorkPost", e.target.value)}
               type="text"
-              id={"workPost" + props.listOut ? props.request._id : ""}
+              id={"workPost"}
               name="workPost"
               {...(props.listOut
                 ? {
@@ -185,7 +185,7 @@ function UpperFields(props) {
               autoComplete="off"
               onChange={e => handleChange("setWorkLocation", e.target.value)}
               type="text"
-              id={"workLocation" + props.listOut ? props.request._id : ""}
+              id={"workLocation"}
               name="workLocation"
               {...(props.listOut
                 ? {
@@ -205,7 +205,7 @@ function UpperFields(props) {
                 Érvényesség kezdete
               </label>
               <br />
-              <input autoComplete="off" className="date-fields" onChange={e => handleChange("setValidFrom", e.target.value)} type="datetime-local" id={"validFrom" + props.listOut ? props.request._id : ""} name="validFrom" {...(props.listOut ? { value: `${props.request.personalInformations.validFrom}`, readOnly: true } : "")} />
+              <input autoComplete="off" className="date-fields" onChange={e => handleChange("setValidFrom", e.target.value)} type="datetime-local" id={"validFrom"} name="validFrom" {...(props.listOut ? { value: `${props.request.personalInformations.validFrom}`, readOnly: true } : "")} />
               <br />
             </div>
             <div className="date-field-to">
@@ -217,7 +217,7 @@ function UpperFields(props) {
                 autoComplete="off"
                 onChange={e => handleChange("setValidTo", e.target.value)}
                 type="datetime-local"
-                id={"validTo" + props.listOut ? props.request._id : ""}
+                id={"validTo"}
                 name="validTo"
                 {...(props.listOut
                   ? {

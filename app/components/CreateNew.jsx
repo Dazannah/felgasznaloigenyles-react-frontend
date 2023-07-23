@@ -46,7 +46,6 @@ function CreateNew() {
   }
 
   async function handleSend(dataToSend) {
-    statesLeftCollumn[0][1]({ ...statesLeftCollumn[0][0], value: false })
     try {
       const result = await Axios.post("/create-new-ticket", {
         dataToSend,
@@ -59,7 +58,7 @@ function CreateNew() {
         appDispatch({ type: "flashMessageWarning", value: "Érvénytelen bejelentkezés." })
         window.scrollTo(0, 0)
       } else if (result.data.errors) {
-        appDispatch({ type: "flashMessageWarning", value: `Hiba történt: ${result.data.errors}` })
+        appDispatch({ type: "flashMessageWarning", value: result.data.errors })
         window.scrollTo(0, 0)
       } else {
         appDispatch({ type: "flashMessageSuccess", value: "Kérelem mentése sikeres." })

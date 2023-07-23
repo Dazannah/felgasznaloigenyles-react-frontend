@@ -6,7 +6,17 @@ function ColumnBlueprint(props) {
       {props.arrays.map((element, index) => {
         return (
           <div key={index}>
-            <input id={index} autoComplete="off" {...(props.fillValue ? { defaultChecked: props.request[`${props.arrayPosition}`][index].value } : "")} {...(props.listOut ? { defaultChecked: props.request[`${props.arrayPosition}`][index].value, disabled: true } : "")} onChange={e => props.states[index][1]({ ...props.states[index][0], value: e.target.checked })} type="checkbox" name={element.name} />
+            <input
+              id={element.id}
+              autoComplete="off"
+              {...(props.fillValue ? { defaultChecked: props.request[`${props.arrayPosition}`][index].value } : "")}
+              {...(props.listOut ? { defaultChecked: props.request[`${props.arrayPosition}`][index].value, disabled: true } : "")}
+              onClick={e => {
+                props.states[index][1]({ ...props.states[index][0], value: e.target.checked })
+              }}
+              type="checkbox"
+              name={element.name}
+            />
             <label htmlFor={element.id}>{element.value}</label>
             <br />
           </div>

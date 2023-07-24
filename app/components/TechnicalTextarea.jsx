@@ -10,7 +10,7 @@ function Technical(props) {
     return (
       <>
         Technikai fiók megjegyzés:
-        <textarea {...(props.listOut ? { value: `${props.request.technical.technicalTextArea}`, readOnly: true } : "")} onChange={e => formDispatch({ type: "setTechnicalTextArea", value: e.target.value })} className="round-corner text-area" id="createTextArea" name="createTextArea"></textarea>
+        <textarea {...(props.listOut ? { value: `${props.request.technical.technicalTextArea}`, readOnly: true } : "")} onChange={e => formDispatch({ type: "setTechnicalTextArea", value: e.target.value })} className="round-corner text-area" id="technicalTextArea" name="technicalTextArea"></textarea>
         <br />
         <br />
         <br />

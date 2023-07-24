@@ -56,7 +56,7 @@ function UpperFields(props) {
             <label htmlFor="isTechnical">Technikai fiók</label>{" "}
             <input
               autoComplete="off"
-              onChange={e => handleChange("setIsTechnical", e.target.value)}
+              onClick={e => handleChange("setIsTechnical", e.target.value)}
               {...(props.listOut
                 ? {
                     defaultChecked: props.request.technical.isTechnical === "Igen" ? "on" : "",

@@ -140,7 +140,7 @@ function EditUser(props) {
 
           <UserName request={user} />
           <CreateNewTextarea listOut={false} />
-          {formState.isTechnical ? <TechnicalTextarea /> : ""}
+          {formState.isTechnical === "Igen" ? <TechnicalTextarea /> : ""}
           <input type="hidden" name="userId" value={user._id} />
           <input type="hidden" name="csrf-token" value="" />
           <input type="submit" className="form-submit-input round-corner" value="Küldés" />

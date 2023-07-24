@@ -39,13 +39,14 @@ function TableBody(props) {
         {props.columns.map(({ accessor }, index) => {
           const splitAccessor = accessor.split(".")
           const isNestedProperty = splitAccessor.length > 1
-          let tData
+          let tData = ""
           if (isNestedProperty) {
             const nestedProperty = props.request[splitAccessor[0]]
             if (props.request.mainAddress && splitAccessor[1] === "name") {
               tData = props.request.mainAddress + appState.emailDomain
             } else if (props.request.userNames && props.request.userNames.eMail && splitAccessor[1] === "eMail") {
-              tData = props.request.userNames.eMail + appState.emailDomain
+              const emailArray = props.request.userNames.eMail.split(" ")
+              emailArray.forEach(element => (tData += element + appState.emailDomain + " "))
             } else if (splitAccessor[1] === "isTechnical") {
               tData = props.request.technical.isTechnical === "Igen" ? "Igen" : "——"
             } else if (nestedProperty) {

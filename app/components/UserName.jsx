@@ -11,7 +11,7 @@ function UserName(props) {
             <div key={props.request._id + element.name + "containerDiv"}>
               <br key={props.request._id + element.name + "br1"} />
               <label key={props.request._id + element.name + "label"} className="content roundCorner" htmlFor={props.request._id + element.name}>
-                {element.value}
+                {element.name === "eMail" ? element.value + "ek (szóközzel elválasztva)" : element.value}
               </label>
               <br key={props.request._id + element.name + "br2"} />
               <input autoComplete="off" readOnly={props.listOut ? true : false} key={props.request._id + element.name + "input"} id={props.request._id + element.name} defaultValue={props.request.userNames ? props.request.userNames[element.name] : ""} className="content roundCorner shorterTextField" type="text" name={element.name} />

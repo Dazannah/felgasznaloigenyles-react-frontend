@@ -21,6 +21,8 @@ function validateRequest(formState) {
     if (formState.validTo == "") {
       errors.push("Technikai fiók esetében érvényesség vége megadása kötelező.")
     }
+
+    if (formState.technicalTextArea.trim() == "") errors.push("Technikai fiók megjegyzés megadása kötelező.")
   }
 
   if (errors.length != 0) return errors

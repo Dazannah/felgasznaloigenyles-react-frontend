@@ -14,6 +14,7 @@ import TechnicalTextarea from "./TechnicalTextarea.jsx"
 import ListUserRequests from "./ListUserRequests.jsx"
 import ToggleSwitch from "./utils/ToggleSwitch.jsx"
 import Pages from "./Pages.jsx"
+import DownloadAllUserXlsx from "./utils/DownloadAllUserXlsx.jsx"
 
 import { showError } from "../utils.jsx"
 
@@ -117,6 +118,7 @@ function ListUsers() {
   return (
     <Page title="Felhasználók listázása">
       <ToggleSwitch setToggleSwitchValue={setToggleSwitchValue} toggleSwitchTexts={{ title: "Felhasználók státusza", left: "Aktív", right: "Törölt" }} />
+      <DownloadAllUserXlsx />
       <TableHead columns={columns} setRequests={setUsers} requests={users} collection={toggleSwitchValue ? "deletedUsers" : "users"} status={toggleSwitchValue ? "deleted" : "active"} />
       {isRequestLoading ? (
         <Loading />

@@ -1,18 +1,11 @@
 import React, { useEffect } from "react"
-import Axios from "axios"
 
 function DownloadAllUserXlsx(props) {
-    async function getXls(){
-        await Axios.get("/excel-get-all-user",{
-        headers: {
-            'Content-Type': 'application/pdf',
-          }})
-    }
 
   return (
-    <div>
+    <div id="download-user-div">
         <a href="/api/excel-get-all-user">
-            <button className="form-submit-input round-corner" /*onClick={getXls}*/>Összes felhasználó excel</button>
+            <button className="button round-corner">Excel letöltése</button>
         </a>
     </div>
   )

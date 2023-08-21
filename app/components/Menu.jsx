@@ -65,7 +65,7 @@ function Menu() {
               <li>
                 {" "}
                 <Link id="listRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listRequestsBtn" to="/list-requests">
-                  Kérelmek engedéjezése
+                  Kérelmek engedélyezése
                 </Link>
               </li>
               <li>

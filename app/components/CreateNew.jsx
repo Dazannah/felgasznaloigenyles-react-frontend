@@ -41,7 +41,7 @@ function CreateNew() {
       window.scrollTo(0, 0)
     } else {
       const dataToSend = serializeDataToSend(formState, statesLeftCollumn, statesMiddleCollumn, statesRightCollumn)
-      handleSend(dataToSend)
+      await handleSend(dataToSend)
     }
   }
 
@@ -75,7 +75,7 @@ function CreateNew() {
   function resetCollumnStates(collumnStates) {
     for (const collumn in collumnStates) {
       collumnStates[collumn].forEach(state => {
-        state[1]({ name: state[0], value: false })
+        state[1]({ name: state[0].name, value: false })
       })
     }
   }

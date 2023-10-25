@@ -63,6 +63,13 @@ function AllowedRequests(props) {
     event.preventDefault()
     const formData = new FormData(event.target)
     const values = Object.fromEntries(formData.entries())
+    console.log(values)
+
+    if(values.process === "update") {
+      const { errors, dataToSend, userNames } = handleFields(values)
+
+      return await sendUpdateRequest(dataToSend, userNames)
+}
 
     if (!values.done) {
       appDispatch({ type: "flashMessageWarning", value: '"Elkészítve" bepipálása kötelező.' })
@@ -91,6 +98,23 @@ function AllowedRequests(props) {
         }
       }
     }
+  }
+
+  async function sendUpdateRequest(dataToSend, userNames){
+    try {
+      const result = await Axios.post("/update-user-request", {
+        dataToSend,
+        userNames
+      })
+      appDispatch({ type: "flashMessageSuccess", value: "Mentés sikeres." })
+      setRequests(true)
+    } catch (err) {
+      showError(err, appDispatch)
+    }
+  }
+
+  function processToUpdate(updateFieldId){
+    document.getElementById(updateFieldId).value = "update"
   }
 
   function handleFields(values) {
@@ -181,8 +205,9 @@ function AllowedRequests(props) {
             <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
             <IsDone request={request} />
             <input key={request._id + "ticketIdInput"} type="hidden" name="ticketId" value={request._id} />
-            <input key={request._id + "process"} type="hidden" name="process" value={request.process} />
-            <input key={request._id + "submit"} type="submit" className="form-submit-input round-corner" value="Küldés" />
+            <input id={request._id + "process"} key={request._id + "process"} type="hidden" name="process" value={request.process} />
+            <input key={request._id + "submit"} type="submit" className="form-submit-input round-corner" value="Küldés" />{" "}
+            <input key={request._id + "updateTicket"} type="submit" onClick={() => processToUpdate(request._id + "process")} className="form-submit-input round-corner" value="Mentés" />
           </form>
         </div>
       </div>

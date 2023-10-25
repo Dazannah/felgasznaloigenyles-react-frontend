@@ -92,12 +92,12 @@ function Menu() {
                   Terjesztési listák
                 </Link>
               </li>
-              <li>
+              {/*<li>
                 {" "}
                 <Link id="dashboard" onClick={e => setAcctiveBtn(e.target.id)} key="dashboard" to="/dashboard">
                   Dashboard
                 </Link>
-              </li>
+  </li>*/}
               <li>
                 {" "}
                 <Link id="logOutBtn" key="logOutBtn" onClick={e => logout(e)} to="/">

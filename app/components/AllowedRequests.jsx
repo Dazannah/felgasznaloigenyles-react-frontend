@@ -63,7 +63,6 @@ function AllowedRequests(props) {
     event.preventDefault()
     const formData = new FormData(event.target)
     const values = Object.fromEntries(formData.entries())
-    console.log(values)
 
     if(values.process === "update") {
       const { errors, dataToSend, userNames } = handleFields(values)

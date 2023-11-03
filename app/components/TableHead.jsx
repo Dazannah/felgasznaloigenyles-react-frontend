@@ -93,7 +93,6 @@ function TableHead(props) {
       if (Array.isArray(response.data)) {
         props.setRequests(response.data)
       } else {
-        console.log(response)
         showError("Valami hiba tötént.", appDispatch)
       }
     } catch (err) {

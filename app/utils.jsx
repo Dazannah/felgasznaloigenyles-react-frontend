@@ -77,7 +77,6 @@ function getUserPermissions(permissionsArray) {
   let resultPermissionArray = []
   permissionsArray.forEach((element, index) => {
     resultPermissionArray[index] = element[0]
-    console.log(element)
   })
   return resultPermissionArray
 }

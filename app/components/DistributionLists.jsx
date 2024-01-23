@@ -29,7 +29,6 @@ function DistributionLists(props) {
         try {
           const response = await Axios.get("/get-distribution-lists")
 
-          console.log(response.data)
           setCompletedRequests(response.data)
           setIsLoading(false)
           setGetRequests(false)

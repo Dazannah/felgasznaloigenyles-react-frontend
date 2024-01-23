@@ -56,12 +56,12 @@ function Menu() {
                   Új felhasználó
                 </Link>
               </li>
-              <li>
+              {/*<li>
                 {" "}
                 <Link id="distributinListBtn" onClick={e => setAcctiveBtn(e.target.id)} key="distributinListBtn" to="/create-distribution-list">
                   Új terjesztési lista
                 </Link>
-              </li>
+              </li>*/}
               <li>
                 {" "}
                 <Link id="listRequestsBtn" onClick={e => setAcctiveBtn(e.target.id)} key="listRequestsBtn" to="/list-requests">
@@ -97,7 +97,7 @@ function Menu() {
                 <Link id="dashboard" onClick={e => setAcctiveBtn(e.target.id)} key="dashboard" to="/dashboard">
                   Dashboard
                 </Link>
-  </li>*/}
+              </li>*/}
               <li>
                 {" "}
                 <Link id="logOutBtn" key="logOutBtn" onClick={e => logout(e)} to="/">

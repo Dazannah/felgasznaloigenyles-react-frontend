@@ -97,8 +97,6 @@ function TableHead(props) {
           value,
           accessor,
         })
-
-        console.log(response.data)
       }
 
       if (Array.isArray(response.data)) {

@@ -44,16 +44,15 @@ function DistributionLists(props) {
 
   const columns = [
     { label: "Terjesztési lista címe", accessor: "email" },
-    //{ label: "Státusz", accessor: "status" },
-    //{ label: "Létrehozva", accessor: "createTime" }
+    { label: "Címek Száma", accessor :"emailsCount" }
   ]
 
   function generateDistributionList(request, index) {
     return (
-      <div key={request.index + "DivKey"} id={index + "Div"} className="request">
+      <div key={request.email + "DivKey"} id={index+ request.email + "Div"} className="request">
         <TableBody request={request} columns={columns} index={index} />
         <div key={request.index + "contentKey"} id={index + "content"} className="collapsibleContent ">
-          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.emailRedirects.length} />
+          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.emailsCount} />
         </div>
       </div>
     )
@@ -69,7 +68,7 @@ function DistributionLists(props) {
   if (completedRequests.length == 0)
     return (
       <Page title="Terjesztési listák">
-        <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"distributionLists"} status={"active"} />
+        <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} distributionlistSearch={true} />
         <div className="no-request-div">
           <span className="no-request-span">Nincsennek terjesztési listák.</span>
         </div>
@@ -78,7 +77,7 @@ function DistributionLists(props) {
 
   return (
     <Page title="Terjesztési listák">
-      <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"distributionLists"} status={"active"} />
+      <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} distributionlistSearch={true} />
       {completedRequests.map((request, index) => {
         return generateDistributionList(request, index)
       })}

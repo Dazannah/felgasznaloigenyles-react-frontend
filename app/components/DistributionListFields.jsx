@@ -18,7 +18,7 @@ function DistributionListFields(props) {
         for (let i = 0; i < props.inputFieldNumber; i++) {
             inputFieldsTemp.push(
               <>
-                <input id={i} {...(props.request ? { value: props.request.emailRedirects[i], readOnly: true } : "")} name={`email${i}`} key={`${i}input`} type="text" />
+                <input id={props.request.email+i} {...(props.request ? { value: props.request.emailRedirects[i], readOnly: true } : "")} name={`email${i}`} key={`${i}input`} type="text" />
                 <br />
               </>
             )
@@ -37,7 +37,7 @@ function DistributionListFields(props) {
         <div>
           <label htmlFor="distribution-list">Terjesztési lista címe:</label>
           <br />
-          <input id="distribution-list-addy" {...(props.request ? { value: props.request.email, readOnly: true } : "")} name="distributionListAddy" type="text" />
+          <input id={`distribution-list-addy${props.request.email}`} {...(props.request ? { value: props.request.email, readOnly: true } : "")} name="distributionListAddy" type="text" />
           <br />
           <br />
           <label htmlFor="distribution-list-emails">E-mail cím:</label>

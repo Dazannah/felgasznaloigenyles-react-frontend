@@ -82,14 +82,25 @@ function TableHead(props) {
 
   async function sendData(value, accessor, status, userId, order) {
     try {
-      const response = await Axios.post("/table-head-search", {
-        value,
-        accessor,
-        status,
-        collection: props.collection,
-        userId,
-        order
-      })
+      let response 
+      if(!props.distributionlistSearch){
+        response = await Axios.post("/table-head-search", {
+          value,
+          accessor,
+          status,
+          collection: props.collection,
+          userId,
+          order
+        })
+      }else{
+        response = await Axios.post("/distributionlist-search", {
+          value,
+          accessor,
+        })
+
+        console.log(response.data)
+      }
+
       if (Array.isArray(response.data)) {
         props.setRequests(response.data)
       } else {
@@ -108,7 +119,7 @@ function TableHead(props) {
           <div key={label + accessor + "div"} className="sort-element-wrapper">
             <span key={accessor} onClick={() => handleSortingChange(accessor)} className={cl + " sort-arrows"}></span>
             <span className="sort-text">{label}</span>
-            <input key={"sort-" + accessor} type="text" placeholder={`Keresés`} name={"sort-" + accessor} className="sort-input" onChange={e => search(e.target.value, accessor, props.status)} />
+            <input key={"sort-" + accessor} type="text"  placeholder={`Keresés`} name={"sort-" + accessor} className="sort-input" onChange={e => search(e.target.value, accessor, props.status)} />
           </div>
         )
       })}

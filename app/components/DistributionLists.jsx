@@ -28,6 +28,8 @@ function DistributionLists(props) {
       async function getCompletedRequests() {
         try {
           const response = await Axios.get("/get-distribution-lists")
+
+          console.log(response.data)
           setCompletedRequests(response.data)
           setIsLoading(false)
           setGetRequests(false)
@@ -41,18 +43,16 @@ function DistributionLists(props) {
   }, [getRequests])
 
   const columns = [
-    { label: "Terjesztési lista címe", accessor: "mainAddress" },
-    { label: "Státusz", accessor: "status" },
-    { label: "Létrehozva", accessor: "createTime" }
+    { label: "Terjesztési lista címe", accessor: "email" },
+    { label: "Címek Száma", accessor :"emailsCount" }
   ]
 
   function generateDistributionList(request, index) {
     return (
-      <div key={request._id + "DivKey"} id={index + "Div"} className="request">
+      <div key={request.email + "DivKey"} id={index+ request.email + "Div"} className="request">
         <TableBody request={request} columns={columns} index={index} />
-        <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
-          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.addresses.length} />
-          <ListDistributionListRequests userId={request._id}/>
+        <div key={request.index + "contentKey"} id={index + "content"} className="collapsibleContent ">
+          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.emailsCount} />
         </div>
       </div>
     )
@@ -68,7 +68,7 @@ function DistributionLists(props) {
   if (completedRequests.length == 0)
     return (
       <Page title="Terjesztési listák">
-        <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"distributionLists"} status={"active"} />
+        <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} distributionlistSearch={true} />
         <div className="no-request-div">
           <span className="no-request-span">Nincsennek terjesztési listák.</span>
         </div>
@@ -77,8 +77,8 @@ function DistributionLists(props) {
 
   return (
     <Page title="Terjesztési listák">
-      <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"distributionLists"} status={"active"} />
-      {completedRequests.map(function (request, index) {
+      <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} distributionlistSearch={true} />
+      {completedRequests.map((request, index) => {
         return generateDistributionList(request, index)
       })}
     </Page>

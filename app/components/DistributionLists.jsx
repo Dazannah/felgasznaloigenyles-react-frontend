@@ -51,7 +51,7 @@ function DistributionLists(props) {
       <div key={request.email + "DivKey"} id={index+ request.email + "Div"} className="request">
         <TableBody request={request} columns={columns} index={index} />
         <div key={request.index + "contentKey"} id={index + "content"} className="collapsibleContent ">
-          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.emailsCount} />
+          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.emailsCount} setGetRequests={setGetRequests}/>
         </div>
       </div>
     )

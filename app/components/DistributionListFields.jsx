@@ -39,20 +39,24 @@ function DistributionListFields(props) {
   }, [props.generateInputFieldsNow])
 
   async function sendDelete(email){
-    try{
-      const result = await Axios.post(`/delete-distributionlist`, {toDelete: email})
+    const answer = confirm(`Biztosan törölni akarod a/az ${email} című terjesztési listát?`)
 
-      console.log(result)
-      if (result.data.acknowledged) {
-        appDispatch({ type: "flashMessageSuccess", value: "Sikeres törlés" })
-        props.setGetRequests(true)
-      } else {
-        appDispatch({ type: "flashMessageWarning", value: "Sikertelen törlés" })
+    console.log(answer)
+
+    if(answer){
+      try{
+        const result = await Axios.post(`/delete-distributionlist`, {toDelete: email})
+  
+        if (result.data.acknowledged) {
+          appDispatch({ type: "flashMessageSuccess", value: "Sikeres törlés" })
+          props.setGetRequests(true)
+        } else {
+          appDispatch({ type: "flashMessageWarning", value: "Sikertelen törlés" })
+        }
+      }catch(err){
+        showError(err, appDispatch)
       }
-    }catch(err){
-      showError(err, appDispatch)
     }
-
   }
 
   return (
@@ -71,7 +75,7 @@ function DistributionListFields(props) {
           })}
           <br />
         </div>
-        {props.request?.email ? (
+        {props.request?.email ? props.showButtons ?(
           <div id="progress-container">
               <button onClick={() => sendEdit(props.request.email)} className="user-edit-button roundCorner" type="button" id={props.request.email}>
                 Terjesztési lista módosítása
@@ -82,7 +86,7 @@ function DistributionListFields(props) {
                 Terjesztési lista törlése
               </button>
           </div>
-        ):""}
+        ):"":""}
       </div>
       <br />
     </>

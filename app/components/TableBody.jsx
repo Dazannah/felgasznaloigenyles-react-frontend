@@ -42,8 +42,8 @@ function TableBody(props) {
           let tData = ""
           if (isNestedProperty) {
             const nestedProperty = props.request[splitAccessor[0]]
-            if (props.request.mainAddress && splitAccessor[1] === "name") {
-              tData = props.request.mainAddress + appState.emailDomain
+            if (props.request.email && splitAccessor[1] === "name") {
+              tData = props.request.email + appState.emailDomain
             } else if (props.request.userNames && props.request.userNames.eMail && splitAccessor[1] === "eMail") {
               const emailArray = props.request.userNames.eMail.split(" ")
               emailArray.forEach(element => (tData += element + appState.emailDomain + " "))

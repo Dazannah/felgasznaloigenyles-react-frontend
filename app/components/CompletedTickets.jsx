@@ -84,9 +84,8 @@ function CompletedTickets(props) {
       <div key={request._id + "DivKey"} id={index + "Div"} className="request">
         <TableBody request={request} columns={columns} index={index} />
         <div key={request._id + "contentKey"} id={index + "content"} className="collapsibleContent ">
-          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.addresses.length} />
+          <DistributionListFields request={request} generateInputFieldsNow={generateInputFieldsNow} setGenerateInputFieldsNow={setGenerateInputFieldsNow} inputFieldNumber={request.emailRedirects.length} />
           <RequestDetails request={request} />
-          <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
         </div>
       </div>
     )
@@ -114,7 +113,7 @@ function CompletedTickets(props) {
     <Page title="Lezárt kérelmek">
       <TableHead columns={columns} setRequests={setCompletedRequests} requests={completedRequests} collection={"requests"} status={"closed"} />
       {completedRequests.slice(from, from + displayNumber).map((request, index) => {
-        return request.mainAddress ? generateDistributionList(request, index) : generateUserRequest(request, index)
+        return request.email ? generateDistributionList(request, index) : generateUserRequest(request, index)
       })}
       <Pages from={from} setFrom={setFrom} displayNumber={displayNumber} setDisplayNumber={setDisplayNumber} arrayLength={completedRequests.length} />
     </Page>

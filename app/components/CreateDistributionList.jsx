@@ -71,7 +71,15 @@ function CreateDistributionList(props) {
 
       return response
     } catch (err) {
-      appDispatch({ type: "flashMessageWarning", value: JSON.stringify(err) })
+      let message
+      
+      if(err.response.status === 403){
+        message = "Nincs jogosultságod terjesztési lista létrehozásához."
+      }else{
+        message = JSON.stringify(err)
+      }
+
+      appDispatch({ type: "flashMessageWarning", value:  message})
     }
   }
 
@@ -87,7 +95,7 @@ function CreateDistributionList(props) {
       if (response.data.errors) {
         appDispatch({ type: "flashMessageWarning", value: response.data.errors })
       } else {
-        appDispatch({ type: "flashMessageSuccess", value: "Terjesztési lista igénylés létrehozása sikeres." })
+        appDispatch({ type: "flashMessageSuccess", value: "Terjesztési lista létrehozása sikeres." })
         formRef.current.reset()
       }
     }

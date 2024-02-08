@@ -81,6 +81,7 @@ function DistributionListFields(props) {
       return true
     }
   }
+
   const [inputFields, setInputField] = useState([])
   useEffect(() => {
     function generateInputFields() {
@@ -146,10 +147,10 @@ function DistributionListFields(props) {
     }
   }
 
+
   function edit(email){
     navigate(`/distribution-list/${email}/edit`)
   }
-
   return (
     <>
       <div className="distribution-list-wrapper">

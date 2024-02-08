@@ -20,6 +20,8 @@ import CreateDistributionList from "./components/CreateDistributionList.jsx"
 import JumptToTop from "./components/JumptToTop.jsx"
 import DistributionLists from "./components/DistributionLists.jsx"
 import Dashboard from "./components/Dashboard.jsx"
+import EditDistributionLists from "./components/EditDistributionLists.jsx"
+
 
 //flash message
 import FlashMessagesSuccess from "./components/flashMessages/FlashMessagesSuccess.jsx"
@@ -233,6 +235,7 @@ function Main() {
                   <Route path="/user/:id/edit" element={<EditUser />} />
                   <Route path="/create-distribution-list" element={<CreateDistributionList />} />
                   <Route path="/distribution-lists" element={<DistributionLists />} />
+                  <Route path="/distribution-list/:email/edit" element={<EditDistributionLists />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/*" element={<NoFound />} />
                 </Routes>

@@ -105,6 +105,7 @@ function CreateDistributionList(props) {
     <Page title="Terjesztési lista igénylés">
       <div id="create-distribution-list-div">
         <div id="create-distribution-list-upper-buttons">
+          <span>Üres mezők hozzáadása/törlése</span> <br />
           <input defaultValue={fieldToAdd} onChange={e => setFieldToAdd(e.target.value)} type="number" />
           <br />
           <button className="form-submit-input round-corner" type="button" id="addElement" onClick={addField}>

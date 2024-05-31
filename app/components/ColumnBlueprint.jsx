@@ -6,9 +6,17 @@ function ColumnBlueprint(props) {
     <div>
       {props.arrays.map((element) => {
         if(props.request[`${props.arrayPosition}`][index].name == element.name){
+        let shouldSkip = true
+          props.request[`${props.arrayPosition}`].forEach(userLeftColumnElement =>{
+            if(userLeftColumnElement.name == element.name) {
+              shouldSkip = false
+            }
+          })
+
+          if(shouldSkip) return
+
           let tmpIndex = index
           index++
-          try{
             return (
               <div key={index}>
                 <input
@@ -26,11 +34,6 @@ function ColumnBlueprint(props) {
                 <br />
               </div>
             )
-          }catch(err){
-            console.log(err)
-            console.log(props.arrayPosition, index)
-            console.log(props.request)
-          }
         }
       })}
     </div>

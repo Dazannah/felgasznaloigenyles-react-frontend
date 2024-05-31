@@ -90,7 +90,6 @@ function CreateDistributionList(props) {
 
     if (dataToSend) {
       const response = await sendData(dataToSend)
-      console.log(response)
 
       if (response.data.errors) {
         appDispatch({ type: "flashMessageWarning", value: response.data.errors })

@@ -115,7 +115,6 @@ function DistributionListFields(props) {
                   :
                     ""
                 }
-              <br />
               </>
             )
           }

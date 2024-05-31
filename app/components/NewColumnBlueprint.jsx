@@ -4,6 +4,8 @@ function ColumnBlueprint(props) {
   return (
     <div>
       {props.arrays.map((element, index) => {
+        if(element.status == "inactive") return
+        
         return (
           <div key={index}>
             <input

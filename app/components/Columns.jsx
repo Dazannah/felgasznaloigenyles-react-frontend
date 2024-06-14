@@ -23,7 +23,7 @@ function columns(props) {
         {props.new ?
         <NewColumnBlueprint fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.leftStates} arrays={appState.arrays.leftColumn} arrayPosition={"userPermissionsLeft"} />
         :
-        <ColumnBlueprint fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.leftStates} arrays={appState.arrays.leftColumn} arrayPosition={"userPermissionsLeft"} />
+        <ColumnBlueprint isEdit={props.isEdit} fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.leftStates} arrays={appState.arrays.leftColumn} arrayPosition={"userPermissionsLeft"} />
         }
         </div>
 
@@ -34,7 +34,7 @@ function columns(props) {
         {props.new ?
         <NewColumnBlueprint fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.middleStates} arrays={appState.arrays.middleColumn} arrayPosition={"userPermissionsMiddle"} />
         :
-        <ColumnBlueprint fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.middleStates} arrays={appState.arrays.middleColumn} arrayPosition={"userPermissionsMiddle"} />
+        <ColumnBlueprint isEdit={props.isEdit} fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.middleStates} arrays={appState.arrays.middleColumn} arrayPosition={"userPermissionsMiddle"} />
         }
       </div>
 
@@ -45,7 +45,7 @@ function columns(props) {
         {props.new ?
         <NewColumnBlueprint fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.rightStates} arrays={appState.arrays.rightColumn} arrayPosition={"userPermissionsRight"} />
         :
-        <ColumnBlueprint fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.rightStates} arrays={appState.arrays.rightColumn} arrayPosition={"userPermissionsRight"} />
+        <ColumnBlueprint isEdit={props.isEdit} fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.rightStates} arrays={appState.arrays.rightColumn} arrayPosition={"userPermissionsRight"} />
         }
       </div>
     </div>

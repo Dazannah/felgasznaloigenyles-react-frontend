@@ -78,7 +78,6 @@ function generateState(array) {
 function getUserPermissions(permissionsArray) {
   let resultPermissionArray = []
   permissionsArray.forEach((element, index) => {
-    console.log(element)
     resultPermissionArray.push(element[0])
   })
   return resultPermissionArray

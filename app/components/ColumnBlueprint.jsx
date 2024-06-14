@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react"
 
 function ColumnBlueprint(props) {
   let index = 0
+  console.log(props.arrays)
+  console.log(props.request[`${props.arrayPosition}`])
   return (
     <div>
       {props.arrays.map((element) => {
-        if(props.request[`${props.arrayPosition}`][index].name == element.name){
+        if(props.isEdit || props.request[`${props.arrayPosition}`][index].name == element.name){
         let shouldSkip = true
-          props.request[`${props.arrayPosition}`].forEach(userLeftColumnElement =>{
-            if(userLeftColumnElement.name == element.name) {
+          props.request[`${props.arrayPosition}`].forEach(userColumnElement =>{
+            if(props.isEdit || userColumnElement.name == element.name) {
               shouldSkip = false
             }
           })
@@ -22,8 +24,8 @@ function ColumnBlueprint(props) {
                 <input
                   id={element.id}
                   autoComplete="off"
-                  {...(props.fillValue ? { defaultChecked: props.request[`${props.arrayPosition}`][tmpIndex].value } : "")}
-                  {...(props.listOut ? { defaultChecked: props.request[`${props.arrayPosition}`][tmpIndex].value, disabled: true } : "")}
+                  {...(props.fillValue ? { defaultChecked: props.request[`${props.arrayPosition}`][tmpIndex]?.value } : "")}
+                  {...(props.listOut ? { defaultChecked: props.request[`${props.arrayPosition}`][tmpIndex]?.value, disabled: true } : "")}
                   onClick={e => {
                     props.states[tmpIndex][1]({ ...props.states[tmpIndex][0], value: e.target.checked })
                   }}

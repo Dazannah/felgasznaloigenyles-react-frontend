@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react"
 
 function ColumnBlueprint(props) {
   let index = 0
-  console.log(props.arrays)
-  console.log(props.request[`${props.arrayPosition}`])
   return (
     <div>
       {props.arrays.map((element) => {

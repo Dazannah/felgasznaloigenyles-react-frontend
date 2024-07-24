@@ -47,7 +47,6 @@ function CreateNew() {
 
   async function handleSend(dataToSend) {
     try {
-      console.log(dataToSend)
       const result = await Axios.post("/create-new-ticket", {
         dataToSend,
         process: formState.process

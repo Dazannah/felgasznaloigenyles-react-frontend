@@ -25,7 +25,8 @@ function TableBody(props) {
       "Felhasználó módosítása": "orangeColor",
       "Felhasználó jog módosítás": "orangeColor",
       "Új terjesztési lista": "greenColor",
-      "Terjesztési lista törlése": "redColor"
+      "Terjesztési lista törlése": "redColor",
+      "Terjesztési lista módosítása": "orangeColor"
     },
     status: {
       Aktív: "greenColor",
@@ -44,10 +45,10 @@ function TableBody(props) {
           if (isNestedProperty) {
             const nestedProperty = props.request[splitAccessor[0]]
             if (props.request.email && splitAccessor[1] === "name") {
-              tData = props.request.email + appState.emailDomain
+              tData = props.request.email
             } else if (props.request.userNames && props.request.userNames.eMail && splitAccessor[1] === "eMail") {
               const emailArray = props.request.userNames.eMail.split(" ")
-              emailArray.forEach(element => (tData += element + appState.emailDomain + " "))
+              emailArray.forEach(element => (tData += element + " "))
             } else if (splitAccessor[1] === "isTechnical") {
               tData = props.request.technical.isTechnical === "Igen" ? "Igen" : "——"
             } else if (nestedProperty) {

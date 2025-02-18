@@ -71,7 +71,15 @@ function CreateDistributionList(props) {
 
       return response
     } catch (err) {
-      appDispatch({ type: "flashMessageWarning", value: JSON.stringify(err) })
+      let message
+      
+      if(err.response.status === 403){
+        message = "Nincs jogosultságod terjesztési lista létrehozásához."
+      }else{
+        message = JSON.stringify(err)
+      }
+
+      appDispatch({ type: "flashMessageWarning", value:  message})
     }
   }
 
@@ -82,12 +90,11 @@ function CreateDistributionList(props) {
 
     if (dataToSend) {
       const response = await sendData(dataToSend)
-      console.log(response)
 
       if (response.data.errors) {
         appDispatch({ type: "flashMessageWarning", value: response.data.errors })
       } else {
-        appDispatch({ type: "flashMessageSuccess", value: "Terjesztési lista igénylés létrehozása sikeres." })
+        appDispatch({ type: "flashMessageSuccess", value: "Terjesztési lista létrehozása sikeres." })
         formRef.current.reset()
       }
     }
@@ -97,6 +104,7 @@ function CreateDistributionList(props) {
     <Page title="Terjesztési lista igénylés">
       <div id="create-distribution-list-div">
         <div id="create-distribution-list-upper-buttons">
+          <span>Üres mezők hozzáadása/törlése</span> <br />
           <input defaultValue={fieldToAdd} onChange={e => setFieldToAdd(e.target.value)} type="number" />
           <br />
           <button className="form-submit-input round-corner" type="button" id="addElement" onClick={addField}>

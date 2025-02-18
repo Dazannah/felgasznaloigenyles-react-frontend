@@ -61,13 +61,15 @@ function serializeDataToSend(formState, statesLeftCollumn, statesMiddleCollumn, 
 
 function generateState(array) {
   let statesArray = []
-  let counter = 0
 
-  array.forEach(element => {
+  array.forEach((element, index) => {
+    if(element.status == "inactive") {
+      return
+    }
+
     let temp = element.id
     let temp2 = "set" + element.id
-    statesArray[counter] = [temp, temp2] = useState({ name: element.id, value: false })
-    counter++
+    statesArray[index] = [temp, temp2] = useState({ name: element.id, value: false })
   })
 
   return statesArray
@@ -76,7 +78,7 @@ function generateState(array) {
 function getUserPermissions(permissionsArray) {
   let resultPermissionArray = []
   permissionsArray.forEach((element, index) => {
-    resultPermissionArray[index] = element[0]
+    resultPermissionArray.push(element[0])
   })
   return resultPermissionArray
 }

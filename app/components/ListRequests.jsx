@@ -114,7 +114,7 @@ function ListRequests(props) {
           <CreateNewTextarea listOut={true} request={request} />
           <TechnicalTextarea listOut={true} request={request} />
           <form key={request._id + "form"} onSubmit={submitHandle}>
-            <UserName request={request} />
+            <UserName request={request} new={true}/>
             <AllowTextarea request={request} ticketContentId={`${index}contentKey`} />
             <input key={request._id + "ticketIdInput"} type="hidden" name="ticketId" value={request._id} />
             <input key={request._id + "submit"} type="submit" className="form-submit-input round-corner" value="Küldés" />

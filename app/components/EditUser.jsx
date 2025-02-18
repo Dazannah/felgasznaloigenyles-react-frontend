@@ -47,19 +47,27 @@ function EditUser(props) {
 
   useEffect(() => {
     if (user) {
-      statesLeftCollumn.forEach((element, index) => {
+      let index = 0
+      statesLeftCollumn.forEach(element => {
         if (user.userPermissionsLeft[index].name === element[0].name) {
           statesLeftCollumn[index][1]({ name: element[0].name, value: user.userPermissionsLeft[index].value })
+          index++
         }
       })
+
+      index = 0
       statesMiddleCollumn.forEach((element, index) => {
         if (user.userPermissionsMiddle[index].name === element[0].name) {
           statesMiddleCollumn[index][1]({ name: element[0].name, value: user.userPermissionsMiddle[index].value })
+          index++
         }
       })
+
+      index = 0
       statesRightCollumn.forEach((element, index) => {
         if (user.userPermissionsRight[index].name === element[0].name) {
           statesRightCollumn[index][1]({ name: element[0].name, value: user.userPermissionsRight[index].value })
+          index++
         }
       })
     }
@@ -134,7 +142,7 @@ function EditUser(props) {
       <div className="create-form">
         <form id="editForm" onSubmit={handleSubmit} ref={formRef}>
           <UpperFields request={user} classChoosable={true} listOut={true} updateClass={true} />
-          <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} request={user} fillValue={true} />
+          <Columns isEdit={true} leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} request={user} fillValue={true} />
           <CreateNewTextarea request={user} />
           <TechnicalTextarea request={user} />
 

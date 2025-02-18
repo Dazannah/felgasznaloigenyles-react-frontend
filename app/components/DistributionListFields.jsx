@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react"
-import { useNavigate } from "react-router-dom"
 import Axios from "axios"
 
 import { showError } from "../utils.jsx"
@@ -7,80 +6,7 @@ import { showError } from "../utils.jsx"
 import DispatchContext from "../DispatchContext.jsx"
 
 function DistributionListFields(props) {
-  const navigate = useNavigate()
   const appDispatch = useContext(DispatchContext)
-
-  function setInactive(number){
-    const tmp = props.request
-    tmp.emailRedirects[number][1]=true
-    props.setRequest(tmp)
-    props.setGenerateInputFieldsNow(true)
-  }
-
-  function undoInactive(number){
-    const tmp = props.request
-    tmp.emailRedirects[number][1]=false
-    props.setRequest(tmp)
-    props.setGenerateInputFieldsNow(true)
-  }
-
-  function isItDisabled(i){
-    if(props.request?.emailRedirects.length > i && props.isEdit){
-      return props.request?.emailRedirects[i][1]
-    }else{
-      return false
-    }
-  }
-
-  function getFieldValue(i){
-    try{
-      if(props.isEdit){
-        if(Array.isArray(props.request?.emailRedirects)){
-          return props.request?.emailRedirects[i][0]
-        }else{
-          return props.request?.emailRedirects[i]
-        }
-      }else{
-        if(Array.isArray(props.request?.emailRedirects[i])){
-          return props.request?.emailRedirects[i][0]
-        }else{
-          return props.request?.emailRedirects[i]
-        }
-      }
-    }catch(err){
-      return null
-    }
-  }
-
-  function modification(value){
-    if(value[1] === true){
-      return (
-        <>
-          <span style={{color: "red", fontWeight: "bold"}}> Törlés</span>
-        </>
-      )
-    }else if(value[1] === "new"){
-      return (
-        <>
-          <span style={{color: "green", fontWeight: "bold"}}> Hozzáadás</span>
-        </>
-      )
-    }else{
-      return ""
-    }
-  }
-
-  function showButtons(i){
-    return getFieldValue(i) === null
-  }
-
-  function getTheShit(i){
-    try{
-      return props.request?.emailRedirects[i][1] === false
-    }catch(err){
-      return true
-    }
-  }
 
   const [inputFields, setInputField] = useState([])
   useEffect(() => {
@@ -90,7 +16,7 @@ function DistributionListFields(props) {
         inputFieldsTemp.push(
           <>
             <textarea rows="10" cols="60" id={props.request.mailuser_id} {...(props.request ? { readOnly: true } : "")} name={`email${props.request.mailuser_id}`} key={`${props.request.mailuser_id}input`} type="text">
-              {props.isEdit ? props.request.emailRedirects[0][0] : props.request.emailRedirects[0]}
+              {props.request.emailRedirects}
             </textarea>
             <br />
           </>
@@ -99,27 +25,12 @@ function DistributionListFields(props) {
         for (let i = 0; i < props.inputFieldNumber; i++) {
             inputFieldsTemp.push(
               <>
-                {/*props.request?.emailRedirects[i][1] === false*/ getTheShit(i) && !props.isEdit ? ""
-                :
-                <input style={isItDisabled(i) && props.isEdit ? {color: "red", textDecoration: "line-through"} : {}} disabled={isItDisabled(i) ? "disabled": ""} id={props.request?.email+i} {...(props.request ? { value: getFieldValue(i) } : "")} name={`email${i}`} key={`${i}input`} type="text" />}
-                {(Array.isArray(props.request?.emailRedirects[i]) && !props.isEdit) ? modification(props.request?.emailRedirects[i]) : ""}
-                {" "}
-                {
-                  props.isEdit ?
-                    showButtons(i) ?
-                        ""
-                        :
-                        isItDisabled(i) ? <button onClick={()=>undoInactive(i)} className="form-submit-input round-corner">Mégsem</button>
-                          :
-                        <button onClick={()=>setInactive(i)} className="form-submit-input round-corner">Eltávolítás</button>
-                  :
-                    ""
-                }
+                <input id={props.request?.email+i} {...(props.request ? { value: props.request.emailRedirects[i], readOnly: true } : "")} name={`email${i}`} key={`${i}input`} type="text" />
+                <br />
               </>
             )
           }
       }
-
       setInputField(inputFieldsTemp)
     }
 
@@ -127,12 +38,14 @@ function DistributionListFields(props) {
     props.setGenerateInputFieldsNow(false)
   }, [props.generateInputFieldsNow])
 
-  async function sendDelete(email, emails){
+  async function sendDelete(email){
     const answer = confirm(`Biztosan törölni akarod a/az ${email} című terjesztési listát?`)
+
+    console.log(answer)
 
     if(answer){
       try{
-        const result = await Axios.post(`/delete-distributionlist`, {toDelete: email, emails})
+        const result = await Axios.post(`/delete-distributionlist`, {toDelete: email})
   
         if (result.data.acknowledged) {
           appDispatch({ type: "flashMessageSuccess", value: "Sikeres törlés" })
@@ -146,10 +59,6 @@ function DistributionListFields(props) {
     }
   }
 
-
-  function edit(email){
-    navigate(`/distribution-list/${email}/edit`)
-  }
   return (
     <>
       <div className="distribution-list-wrapper">
@@ -168,13 +77,13 @@ function DistributionListFields(props) {
         </div>
         {props.request?.email ? props.showButtons ?(
           <div id="progress-container">
-              <button onClick={() => edit(props.request.email)} className="user-edit-button roundCorner" type="button" id={props.request.email}>
-                Címek hozzáadása/eltávolítása
+              <button onClick={() => sendEdit(props.request.email)} className="user-edit-button roundCorner" type="button" id={props.request.email}>
+                Terjesztési lista módosítása
               </button>
               <br />
 
-              <button onClick={() => sendDelete(props.request.email, props.request.emailRedirects)} className="user-delete-button roundCorner" type="button" id={props.request.email}>
-                Fő cím törlése
+              <button onClick={() => sendDelete(props.request.email)} className="user-delete-button roundCorner" type="button" id={props.request.email}>
+                Terjesztési lista törlése
               </button>
           </div>
         ):"":""}

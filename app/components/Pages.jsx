@@ -22,17 +22,6 @@ function Pages(props) {
     props.setDisplayNumber(parseInt(showNumber))
   }
 
-  useEffect(()=>{
-    if( props.arrayLength<(props.from + props.displayNumber) ){
-      const tmp = props.arrayLength - props.displayNumber
-      if(tmp < 0){
-        props.setFrom(0)
-      }else{
-        props.setFrom(Math.round((props.arrayLength - props.displayNumber)/10)*10)
-      }
-    }
-  },[props.arrayLength])
-
   return (
     <div id="pages">
       {" "}

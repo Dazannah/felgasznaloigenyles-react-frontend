@@ -81,7 +81,7 @@ function UpperFields(props) {
 
         <div id="right-up" className="group">
           <div className="mini-container">
-            <label htmlFor="id">Nyilv. szám<br/>(orvos: pecsétszám, szakdolgozó: alapnyilvántartási szám, nem szakdolgozó: X-es kód)</label> <br />
+            <label htmlFor="id">Nyilv. szám</label> <br />
             <input
               autoComplete="off"
               className="round-corner"

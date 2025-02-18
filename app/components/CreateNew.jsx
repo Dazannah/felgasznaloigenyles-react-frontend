@@ -85,7 +85,7 @@ function CreateNew() {
       <div className="create-form">
         <form onSubmit={createNewUserRequest} ref={formRef}>
           <UpperFields classChoosable={true} />
-          <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} new={true} />
+          <Columns leftStates={statesLeftCollumn} middleStates={statesMiddleCollumn} rightStates={statesRightCollumn} />
           <CreateNewTextarea listOut={false} />
           {formState.isTechnical ? <TechnicalTextarea /> : ""}
           <input className="" type="hidden" name="csrf-token" value="" />

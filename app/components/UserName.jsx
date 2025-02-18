@@ -3,12 +3,10 @@ import StateContext from "../StateContext.jsx"
 
 function UserName(props) {
   const appState = useContext(StateContext)
-
-  const array = props.request.userPermissionsLeft
   return (
     <div key={props.request._id + "usernameDiv"}>
-      {array.map((element, index) => {
-        if (element.value) {
+      {appState.arrays.leftColumn.map((element, index) => {
+        if (props.request.userPermissionsLeft[index].value) {
           return (
             <div key={props.request._id + element.name + "containerDiv"}>
               <br key={props.request._id + element.name + "br1"} />

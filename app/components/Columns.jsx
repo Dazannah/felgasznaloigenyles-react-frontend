@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react"
-import ColumnBlueprint from "./ColumnBlueprint.jsx"
+import ColumnBlueprintNew from "./ColumnBlueprintNew.jsx"
+import ColumnBlueprintOld from "./ColumnBlueprintOld.jsx"
 import Loading from "./Loading.jsx"
 
 //
@@ -19,22 +20,37 @@ function columns(props) {
         II.a Igényelt jogosultság felsorolása:
         <br />
         <br />
-        <ColumnBlueprint fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.leftStates} arrays={appState.arrays.leftColumn} arrayPosition={"userPermissionsLeft"} />
-      </div>
+        {
+          props.new ?
+          <ColumnBlueprintNew fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.leftStates} arrays={appState.arrays.leftColumn} arrayPosition={"userPermissionsLeft"} />
+          :
+          <ColumnBlueprintOld fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.leftStates} arrays={appState.arrays.leftColumn} arrayPosition={"userPermissionsLeft"}/>
+        }
+        </div>
 
       <div id="middleCheckBox">
         II.b Jogosultsági szintek Ecostat:
         <br />
         <br />
-        <ColumnBlueprint fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.middleStates} arrays={appState.arrays.middleColumn} arrayPosition={"userPermissionsMiddle"} />
-      </div>
+        {
+        props.new ?
+        <ColumnBlueprintNew fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.middleStates} arrays={appState.arrays.middleColumn} arrayPosition={"userPermissionsMiddle"} />
+        :
+        <ColumnBlueprintOld fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.middleStates} arrays={appState.arrays.middleColumn} arrayPosition={"userPermissionsMiddle"} />
+        }
+        </div>
 
       <div id="rightCheckBox">
         II.c Jogosultsági szintek Medworks:
         <br />
         <br />
-        <ColumnBlueprint fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.rightStates} arrays={appState.arrays.rightColumn} arrayPosition={"userPermissionsRight"} />
-      </div>
+        {
+        props.new ?
+        <ColumnBlueprintNew fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.rightStates} arrays={appState.arrays.rightColumn} arrayPosition={"userPermissionsRight"} />
+        :
+        <ColumnBlueprintOld fillValue={props.fillValue} listOut={props.listOut} request={props.request} states={props.rightStates} arrays={appState.arrays.rightColumn} arrayPosition={"userPermissionsRight"} />
+        }
+        </div>
     </div>
   )
 }
